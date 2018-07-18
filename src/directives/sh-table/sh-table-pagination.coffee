@@ -75,7 +75,7 @@ shTableModule.directive("shTablePagination", ->
   controller: ['$scope', ($scope) ->
     $scope.perPage = 10
     $scope.getPerPages = () ->
-      [10, 20, 50, 100, 1000]
+      [10, 50, 200, 1000, 25000, 50000]
     return
   ]
 
