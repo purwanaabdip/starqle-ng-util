@@ -9,7 +9,7 @@ var gulp = require('gulp'),
     gulpJade = require('gulp-jade'),
     gulpPlumber = require('gulp-plumber'),
     gulpSass = require('gulp-sass'),
-    gulpUglify = require('gulp-uglify'),
+    gulpUglify = require('gulp-uglify-es').default,
     gulpUtil = require('gulp-util'),
     gulpWatch = require('gulp-watch'),
     modRewrite = require('connect-modrewrite'),
@@ -97,7 +97,13 @@ gulp.task('build-coffee', ['build-clean'], function() {
   return gulp.src(source)
     .pipe(gulpIf('*.coffee', gulpCoffee({bare: true, map: true, compile: true})))
     .pipe(gulpConcat("starqle-ng-util.min.js"))
-    .pipe(gulpUglify())
+    /* .pipe(gulpUglify({
+		keep_fnames: true,
+		mangle: {
+			keep_fnames: true,
+			keep_classnames: true
+		}
+	})) */
     .pipe(gulp.dest(dest));
 });
 

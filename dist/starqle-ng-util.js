@@ -1,12 +1,41 @@
+(function () {
+   'use strict';
+
+  // =============================================================================
+  // Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/config/on-root-scope.coffee
+  // @author Giovanni Sakti
+  // @email giosakti@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note application-wide method for monitoring event in rootScope.
+  // =============================================================================
 angular.module('on.root.scope', []).config([
-  "$provide", function($provide) {
-    return $provide.decorator("$rootScope", [
-      "$delegate", function($delegate) {
-        Object.defineProperty($delegate.constructor.prototype, "$onRootScope", {
-          value: function(name, listener) {
+  "$provide",
+  function($provide) {
+    return $provide.decorator("$rootScope",
+  [
+      "$delegate",
+      function($delegate) {
+        Object.defineProperty($delegate.constructor.prototype,
+      "$onRootScope",
+      {
+          value: function(name,
+      listener) {
             var unsubscribe;
-            unsubscribe = $delegate.$on(name, listener);
-            return this.$on("$destroy", unsubscribe);
+            unsubscribe = $delegate.$on(name,
+      listener);
+            return this.$on("$destroy",
+      unsubscribe);
           },
           enumerable: false
         });
@@ -16,7 +45,24 @@ angular.module('on.root.scope', []).config([
   }
 ]);
 
+// =============================================================================
+// Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/modules/sh-api-module.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains module variable that will be used as a root for others shApi derivatives
+// =============================================================================
 /**
  * @ngdoc module
  * @name shApiModule
@@ -28,7 +74,24 @@ var shApiModule;
 
 shApiModule = angular.module('sh.api.module', []);
 
+// =============================================================================
+// Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/modules/sh-datepicker-module.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains module variable that will be used as a root for others shDatepicker derivatives
+// =============================================================================
 /**
  * @ngdoc module
  * @name shTableModule
@@ -40,7 +103,24 @@ var shDatepickerModule;
 
 shDatepickerModule = angular.module('sh.datepicker.module', []);
 
+// =============================================================================
+// Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/modules/sh-dialog-module.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains module variable that will be used as a root for others shDialog derivatives
+// =============================================================================
 /**
  * @ngdoc module
  * @name shDialogModule
@@ -52,7 +132,24 @@ var shDialogModule;
 
 shDialogModule = angular.module('sh.dialog.module', []);
 
+// =============================================================================
+// Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/modules/sh-form-module.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains module variable that will be used as a root for others shForm derivatives
+// =============================================================================
 /**
  * @ngdoc module
  * @name shFormModule
@@ -64,7 +161,24 @@ var shFormModule;
 
 shFormModule = angular.module('sh.form.module', []);
 
+// =============================================================================
+// Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/modules/sh-helper-module.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains module variable that will be used as a root for others shHelper derivatives
+// =============================================================================
 /**
  * @ngdoc module
  * @name shHelperModule
@@ -76,7 +190,24 @@ var shHelperModule;
 
 shHelperModule = angular.module('sh.helper.module', []);
 
+// =============================================================================
+// Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/modules/sh-persistence-module.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains module variable that will be used as a root for others shPersistence derivatives
+// =============================================================================
 /**
  * @ngdoc module
  * @name shPersistenceModule
@@ -88,7 +219,24 @@ var shPersistenceModule;
 
 shPersistenceModule = angular.module('sh.persistence.module', []);
 
+// =============================================================================
+// Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/modules/sh-spinning-module.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains module variable that will be used as a root for others shSpinning derivatives
+// =============================================================================
 /**
  * @ngdoc module
  * @name shSpinningModule
@@ -100,7 +248,24 @@ var shSpinningModule;
 
 shSpinningModule = angular.module('sh.spinning.module', []);
 
+// =============================================================================
+// Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/modules/sh-table-module.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains module variable that will be used as a root for others shTable derivatives
+// =============================================================================
 /**
  * @ngdoc module
  * @name shTableModule
@@ -112,7 +277,24 @@ var shTableModule;
 
 shTableModule = angular.module('sh.table.module', []);
 
+// =============================================================================
+// Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/modules/sh-validation-module.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains module variable that will be used as a root for others shValidation derivatives
+// =============================================================================
 /**
  * @ngdoc module
  * @name shValidationModule
@@ -124,7 +306,24 @@ var shValidationModule;
 
 shValidationModule = angular.module('sh.validation.module', []);
 
+// =============================================================================
+// Copyright (c) 2013 All Right Reserved, http://starqle.com/
 
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name app/scripts/directives/sh-table/sh-table-pagination.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains sh-table-pagination directive
+// =============================================================================
 /**
  * @ngdoc directive
  * @name shTablePagination
@@ -142,74 +341,149 @@ shTableModule.directive("shTablePagination", function() {
     },
     template: '<div ng-if="shTablePagination.totalCount > 10" class="pagination form-inline pull-left">\n  <select ng-model=\'perPage\' ng-change="shTablePaginationAction({pageNumber: 1, perPage: perPage})" ng-options="perPage for perPage in getPerPages()" class="form-control text-right"></select>&nbsp;\n  &nbsp;\n  &nbsp;\n</div>\n\n<ul class="pagination pull-left">\n  <li ng-repeat="page in shTablePagination.pages" ng-switch="page.type">\n    <a ng-switch-when="FIRST" ng-disabled="page.disabled" ng-click="shTablePaginationAction({pageNumber: page.number})">«</a>\n    <a ng-switch-when="PREV" ng-disabled="page.disabled" ng-click="shTablePaginationAction({pageNumber: page.number})">&lt;</a>\n    <a ng-switch-when="PAGE" ng-disabled="page.disabled" ng-click="shTablePaginationAction({pageNumber: page.number})">\n      <span ng-bind="page.number"></span>\n    </a>\n    <a ng-switch-when="MORE" ng-disabled="page.disabled">…</a>\n    <a ng-switch-when="NEXT" ng-disabled="page.disabled" ng-click="shTablePaginationAction({pageNumber: page.number})">&gt;</a>\n    <a ng-switch-when="LAST" ng-disabled="page.disabled" ng-click="shTablePaginationAction({pageNumber: page.number})">»</a>\n  </li>\n</ul>\n\n<div class="pagination pull-left">\n  <div class="btn disabled">\n    <span class="page-count">\n      &nbsp;{{shTablePagination.currentPageCount}}&nbsp;\n    </span>\n    <span>\n      <em translate="LABEL_OF"></em>\n    </span>\n    <span class="page-total">\n      &nbsp;{{shTablePagination.totalCount}}&nbsp;\n    </span>\n  </div>\n</div>\n\n<div class="pagination pull-left">\n  <div ng-click="shTablePaginationAction()" class="btn">\n    <i class="fa fa-refresh"></i>\n  </div>\n</div>',
     controller: [
-      '$scope', function($scope) {
+      '$scope',
+      function($scope) {
         $scope.perPage = 10;
         $scope.getPerPages = function() {
-          return [10, 20, 50, 100];
+          return [10,
+      20,
+      50,
+      100,
+      1000];
         };
       }
     ]
   };
 });
 
+  // =============================================================================
+  // Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/directives/sh-bootstrap.coffee
+  // @author Giovanni Sakti
+  // @email giosakti@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains shTooltip directive
+  // =============================================================================
 angular.module('sh.bootstrap', []).directive('shBootstrapTooltip', [
   function() {
     return {
       restrict: 'A',
-      link: function(scope, element, attrs) {
-        angular.element(element).on('click', function() {
+      link: function(scope,
+  element,
+  attrs) {
+        
+        // Events
+
+        angular.element(element).on('click',
+  function() {
+          // workaround if somehow, the element is clicked. In this case, mouseleave is not enough
           angular.element(element).tooltip('hide');
-        }).on('mouseenter', function() {
+        }).on('mouseenter',
+  function() {
           angular.element(element).tooltip('show');
-        }).on('mouseleave', function() {
+        }).on('mouseleave',
+  function() {
           angular.element(element).tooltip('hide');
         });
       }
     };
   }
 ]).directive('shBootstrapPopover', [
-  '$timeout', function($timeout) {
+  '$timeout',
+  function($timeout) {
     return {
       restrict: 'A',
-      link: function(scope, element, attrs) {
-        var addTimeout, cancelTimeout, localAttrs;
+      link: function(scope,
+  element,
+  attrs) {
+        var addTimeout,
+  cancelTimeout,
+  localAttrs;
+        
         localAttrs = {
           popoverId: null,
           timeoutFn: null,
           addTimeout: function(element) {
             localAttrs.timeoutFn = $timeout(function() {
               return angular.element(element).popover('hide');
-            }, 100);
+            },
+  100);
           },
           cancelTimeout: function() {
             return $timeout.cancel(localAttrs.timeoutFn);
           }
         };
+        // Used for on/off
         cancelTimeout = function() {
           return localAttrs.cancelTimeout();
         };
         addTimeout = function() {
           return localAttrs.addTimeout(element);
         };
-        angular.element(element).on('mouseenter', function() {
+        
+        // Events
+
+        angular.element(element).on('mouseenter',
+  function() {
           localAttrs.cancelTimeout();
           if (angular.isUndefined(angular.element(element).attr('aria-describedby'))) {
+            // show popover
             angular.element(element).popover('show');
           }
-        }).on('mouseleave', function() {
+        }).on('mouseleave',
+  function() {
+          // add timeout
           return localAttrs.addTimeout(element);
-        }).on('shown.bs.popover', function() {
+        }).on('shown.bs.popover',
+  function() {
+          // delete timeout on popover
           localAttrs.popoverId = angular.element(element).attr('aria-describedby');
-          angular.element('#' + localAttrs.popoverId).on('mouseenter', cancelTimeout);
-          return angular.element('#' + localAttrs.popoverId).on('mouseleave', addTimeout);
-        }).on('hide.bs.popover', function() {
-          angular.element('#' + localAttrs.popoverId).off('mouseenter', cancelTimeout);
-          return angular.element('#' + localAttrs.popoverId).off('mouseleave', addTimeout);
+          angular.element('#' + localAttrs.popoverId).on('mouseenter',
+  cancelTimeout);
+          return angular.element('#' + localAttrs.popoverId).on('mouseleave',
+  addTimeout);
+        }).on('hide.bs.popover',
+  function() {
+          angular.element('#' + localAttrs.popoverId).off('mouseenter',
+  cancelTimeout);
+          return angular.element('#' + localAttrs.popoverId).off('mouseleave',
+  addTimeout);
         });
       }
     };
   }
 ]);
+
+// =============================================================================
+// Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name app/scripts/directives/sh-collapsible.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains sh-collapsible, sh-collapsible-control, and sh-collapsible-body directive
+// =============================================================================
+
+// sh-collapsible
 
 angular.module('sh.collapsible', []).directive("shCollapsible", function() {
   return {
@@ -220,7 +494,12 @@ angular.module('sh.collapsible', []).directive("shCollapsible", function() {
       shCollapsibleExpandFn: '&'
     },
     controller: [
-      '$scope', '$element', '$timeout', function($scope, $element, $timeout) {
+      '$scope',
+      '$element',
+      '$timeout',
+      function($scope,
+      $element,
+      $timeout) {
         var self;
         self = this;
         this.shCollapse = false;
@@ -228,23 +507,32 @@ angular.module('sh.collapsible', []).directive("shCollapsible", function() {
         this.triggerResizeTimeout = function() {
           return $timeout((function() {
             angular.element(window).triggerHandler('resize');
-          }), 10);
+          }),
+      10);
         };
         this.toggleCollapse = function() {
-          var bodyElement, i, j, len, len1, ref, ref1;
+          var bodyElement,
+      i,
+      j,
+      len,
+      len1,
+      ref,
+      ref1;
           this.shCollapse = !this.shCollapse;
           if (this.isCollapse()) {
             ref = this.bodyElements;
             for (i = 0, len = ref.length; i < len; i++) {
               bodyElement = ref[i];
-              bodyElement.slideUp('fast', self.triggerResizeTimeout);
+              bodyElement.slideUp('fast',
+      self.triggerResizeTimeout);
               $element.addClass('is-collapse');
             }
           } else {
             ref1 = this.bodyElements;
             for (j = 0, len1 = ref1.length; j < len1; j++) {
               bodyElement = ref1[j];
-              bodyElement.slideDown('fast', self.triggerResizeTimeout);
+              bodyElement.slideDown('fast',
+      self.triggerResizeTimeout);
               $element.removeClass('is-collapse');
             }
           }
@@ -300,9 +588,28 @@ angular.module('sh.collapsible', []).directive("shCollapsible", function() {
   };
 });
 
+  // =============================================================================
+  // Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/directives/sh-datepicker.coffee
+  // @author Bimo Horizon
+  // @email bimo@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains shDatepicker directive
+  // =============================================================================
 shDatepickerModule.directive("shDatepicker", [
   function() {
     return {
+      
       restrict: 'A',
       scope: {
         shDisplayFormat: '@?',
@@ -312,13 +619,38 @@ shDatepickerModule.directive("shDatepicker", [
         widgetVerticalPosition: '@?'
       },
       require: '?ngModel',
-      link: function(scope, element, attrs, ngModelCtrl) {
-        var changedFromPicker, displayFormat, dpChange, dpHide, dpShow, formatter, initial, isRangeValid, isValidDisplayFormat, isValidValueFormat, lastValid, looseParser, parser, ref, setLastValid, setupDatepicker, updateIcon, updateMaxDate, updateMinDate, valueFormat;
-        valueFormat = 'YYYY-MM-DD';
+      link: function(scope,
+  element,
+  attrs,
+  ngModelCtrl) {
+        var changedFromPicker,
+  displayFormat,
+  dpChange,
+  dpHide,
+  dpShow,
+  formatter,
+  initial,
+  isRangeValid,
+  isValidDisplayFormat,
+  isValidValueFormat,
+  lastValid,
+  looseParser,
+  parser,
+  ref,
+  setLastValid,
+  setupDatepicker,
+  updateIcon,
+  updateMaxDate,
+  updateMinDate,
+  valueFormat;
+        valueFormat = 'YYYY-MM-DD'; // millisecond from epoch
         displayFormat = (ref = scope.shDisplayFormat) != null ? ref : 'DD-MM-YYYY';
         lastValid = null;
         changedFromPicker = false;
         initial = true;
+        
+        // ngModelCtrl: Formatter
+
         formatter = function(modelValue) {
           if (isValidValueFormat(modelValue)) {
             return moment(modelValue).format(displayFormat);
@@ -327,10 +659,14 @@ shDatepickerModule.directive("shDatepicker", [
           }
         };
         ngModelCtrl.$formatters.push(formatter);
+        
+        // ngModelCtrl: Parser
+
         parser = function(viewValue) {
           if (isValidDisplayFormat(viewValue)) {
             if (isRangeValid(viewValue)) {
-              return moment(viewValue, displayFormat).format(valueFormat);
+              return moment(viewValue,
+  displayFormat).format(valueFormat);
             } else {
               return null;
             }
@@ -340,14 +676,21 @@ shDatepickerModule.directive("shDatepicker", [
         };
         looseParser = function(viewValue) {
           if (isValidDisplayFormat(viewValue)) {
-            return moment(viewValue, displayFormat).format(valueFormat);
+            return moment(viewValue,
+  displayFormat).format(valueFormat);
           } else {
             return null;
           }
         };
         ngModelCtrl.$parsers.push(parser);
+        
         isRangeValid = function(value) {
-          var maxValue, minValue, ref1, ref2, ref3, ref4;
+          var maxValue,
+  minValue,
+  ref1,
+  ref2,
+  ref3,
+  ref4;
           if ((((ref1 = element.data('DateTimePicker')) != null ? ref1.maxDate() : void 0) != null) && ((ref2 = element.data('DateTimePicker')) != null ? ref2.maxDate() : void 0)) {
             maxValue = element.data('DateTimePicker').maxDate().format(valueFormat);
             if (moment(value).isAfter(maxValue)) {
@@ -362,16 +705,23 @@ shDatepickerModule.directive("shDatepicker", [
           }
           return true;
         };
+        
+        // SETUP
+
         setupDatepicker = function(modelValue) {
-          var newValue, ref1;
+          var newValue,
+  ref1;
           newValue = modelValue;
           if (!isValidValueFormat(modelValue)) {
             newValue = lastValid;
           }
           if (!changedFromPicker) {
-            element.unbind('dp.change', dpChange);
-            element.unbind('dp.show', dpShow);
-            element.unbind('dp.hide', dpHide);
+            element.unbind('dp.change',
+  dpChange);
+            element.unbind('dp.show',
+  dpShow);
+            element.unbind('dp.hide',
+  dpHide);
             if ((ref1 = element.data('DateTimePicker')) != null) {
               ref1.destroy();
             }
@@ -393,15 +743,22 @@ shDatepickerModule.directive("shDatepicker", [
             updateIcon(scope.shIcons);
             updateMinDate(scope.shFromDate);
             updateMaxDate(scope.shThruDate);
-            element.bind('dp.change', dpChange);
-            element.bind('dp.show', dpShow);
-            element.bind('dp.hide', dpHide);
+            element.bind('dp.change',
+  dpChange);
+            element.bind('dp.show',
+  dpShow);
+            element.bind('dp.hide',
+  dpHide);
           }
           changedFromPicker = false;
           initial = false;
         };
         updateMinDate = function(value) {
-          var maxValue, ref1, ref2, ref3, ref4;
+          var maxValue,
+  ref1,
+  ref2,
+  ref3,
+  ref4;
           if (value && isValidValueFormat(value)) {
             if ((((ref1 = element.data('DateTimePicker')) != null ? ref1.maxDate() : void 0) != null) && ((ref2 = element.data('DateTimePicker')) != null ? ref2.maxDate() : void 0)) {
               maxValue = looseParser(element.data('DateTimePicker').maxDate());
@@ -419,7 +776,11 @@ shDatepickerModule.directive("shDatepicker", [
           }
         };
         updateMaxDate = function(value) {
-          var minValue, ref1, ref2, ref3, ref4;
+          var minValue,
+  ref1,
+  ref2,
+  ref3,
+  ref4;
           if (value && isValidValueFormat(value)) {
             if ((((ref1 = element.data('DateTimePicker')) != null ? ref1.minDate() : void 0) != null) && ((ref2 = element.data('DateTimePicker')) != null ? ref2.minDate() : void 0)) {
               minValue = looseParser(element.data('DateTimePicker').minDate());
@@ -441,6 +802,9 @@ shDatepickerModule.directive("shDatepicker", [
             element.data('DateTimePicker').icons(obj);
           }
         };
+        
+        // BINDING
+
         dpChange = function(data) {
           changedFromPicker = true;
           if (data.date) {
@@ -467,10 +831,14 @@ shDatepickerModule.directive("shDatepicker", [
           }
         };
         isValidValueFormat = function(modelValue) {
-          return moment(modelValue, valueFormat, true).isValid();
+          return moment(modelValue,
+  valueFormat,
+  true).isValid();
         };
         isValidDisplayFormat = function(viewValue) {
-          return moment(viewValue, displayFormat, true).isValid();
+          return moment(viewValue,
+  displayFormat,
+  true).isValid();
         };
         setLastValid = function(value) {
           if (value && isValidValueFormat(value)) {
@@ -479,22 +847,33 @@ shDatepickerModule.directive("shDatepicker", [
             return lastValid = null;
           }
         };
-        scope.$watch('shFromDate', function(newVal, oldVal) {
+        
+        // WATCHERS
+
+        scope.$watch('shFromDate',
+  function(newVal,
+  oldVal) {
           updateMinDate(newVal);
         });
-        scope.$watch('shThruDate', function(newVal, oldVal) {
+        scope.$watch('shThruDate',
+  function(newVal,
+  oldVal) {
           updateMaxDate(newVal);
         });
         scope.$watch(function() {
           return moment.defaultZone.name;
-        }, function(newVal, oldVal) {
+        },
+  function(newVal,
+  oldVal) {
           if ((newVal != null) && newVal !== oldVal) {
             setupDatepicker(ngModelCtrl.$modelValue);
           }
         });
         scope.$watch(function() {
           return ngModelCtrl.$modelValue;
-        }, function(newVal, oldVal) {
+        },
+  function(newVal,
+  oldVal) {
           if ((newVal != null) && isValidValueFormat(newVal) && isValidDisplayFormat(ngModelCtrl.$viewValue)) {
             if ((oldVal == null) || ((oldVal != null) && isValidValueFormat(oldVal))) {
               setupDatepicker(newVal);
@@ -508,8 +887,10 @@ shDatepickerModule.directive("shDatepicker", [
 ]);
 
 shDatepickerModule.directive("shDatetimepicker", [
-  'dateFilter', function(dateFilter) {
+  'dateFilter',
+  function(dateFilter) {
     return {
+      
       restrict: 'A',
       scope: {
         shDisplayFormat: '@?',
@@ -519,13 +900,40 @@ shDatepickerModule.directive("shDatetimepicker", [
         widgetVerticalPosition: '@?'
       },
       require: '?ngModel',
-      link: function(scope, element, attrs, ngModelCtrl) {
-        var changedFromPicker, displayFormat, dpChange, dpHide, dpShow, formatter, initial, isRangeValid, isValidDisplayFormat, isValidIsoFormat, isValidMillisecond, isValidValueFormat, lastValid, looseParser, parser, ref, setLastValid, setupDatepicker, updateIcon, updateMaxDate, updateMinDate, valueFormat;
-        valueFormat = 'x';
+      link: function(scope,
+  element,
+  attrs,
+  ngModelCtrl) {
+        var changedFromPicker,
+  displayFormat,
+  dpChange,
+  dpHide,
+  dpShow,
+  formatter,
+  initial,
+  isRangeValid,
+  isValidDisplayFormat,
+  isValidIsoFormat,
+  isValidMillisecond,
+  isValidValueFormat,
+  lastValid,
+  looseParser,
+  parser,
+  ref,
+  setLastValid,
+  setupDatepicker,
+  updateIcon,
+  updateMaxDate,
+  updateMinDate,
+  valueFormat;
+        valueFormat = 'x'; // millisecond from epoch
         displayFormat = (ref = scope.shDisplayFormat) != null ? ref : 'DD-MM-YYYY, HH:mm (z)';
         lastValid = null;
         changedFromPicker = false;
         initial = true;
+        
+        // ngModelCtrl: Formatter
+
         formatter = function(modelValue) {
           if (modelValue && isValidValueFormat(modelValue)) {
             if (!isNaN(modelValue)) {
@@ -537,10 +945,15 @@ shDatepickerModule.directive("shDatetimepicker", [
           }
         };
         ngModelCtrl.$formatters.push(formatter);
+        
+        // ngModelCtrl: Parser
+
         parser = function(viewValue) {
           if (isValidDisplayFormat(viewValue)) {
             if (isRangeValid(viewValue)) {
-              return moment.tz(viewValue, displayFormat, moment.defaultZone.name).format(valueFormat);
+              return moment.tz(viewValue,
+  displayFormat,
+  moment.defaultZone.name).format(valueFormat);
             } else {
               return null;
             }
@@ -550,14 +963,22 @@ shDatepickerModule.directive("shDatetimepicker", [
         };
         looseParser = function(viewValue) {
           if (isValidDisplayFormat(viewValue)) {
-            return moment.tz(viewValue, displayFormat, moment.defaultZone.name).format(valueFormat);
+            return moment.tz(viewValue,
+  displayFormat,
+  moment.defaultZone.name).format(valueFormat);
           } else {
             return null;
           }
         };
         ngModelCtrl.$parsers.push(parser);
+        
         isRangeValid = function(value) {
-          var maxValue, minValue, ref1, ref2, ref3, ref4;
+          var maxValue,
+  minValue,
+  ref1,
+  ref2,
+  ref3,
+  ref4;
           if ((((ref1 = element.data('DateTimePicker')) != null ? ref1.maxDate() : void 0) != null) && ((ref2 = element.data('DateTimePicker')) != null ? ref2.maxDate() : void 0)) {
             maxValue = element.data('DateTimePicker').maxDate().valueOf();
             if (maxValue < value) {
@@ -572,16 +993,23 @@ shDatepickerModule.directive("shDatetimepicker", [
           }
           return true;
         };
+        
+        // SETUP
+
         setupDatepicker = function(modelValue) {
-          var newValue, ref1;
+          var newValue,
+  ref1;
           newValue = modelValue;
           if (!isValidValueFormat(modelValue)) {
             newValue = lastValid;
           }
           if (!changedFromPicker) {
-            element.unbind('dp.change', dpChange);
-            element.unbind('dp.show', dpShow);
-            element.unbind('dp.hide', dpHide);
+            element.unbind('dp.change',
+  dpChange);
+            element.unbind('dp.show',
+  dpShow);
+            element.unbind('dp.hide',
+  dpHide);
             if ((ref1 = element.data('DateTimePicker')) != null) {
               ref1.destroy();
             }
@@ -611,15 +1039,22 @@ shDatepickerModule.directive("shDatetimepicker", [
             updateIcon(scope.shIcons);
             updateMinDate(scope.shFromTime);
             updateMaxDate(scope.shThruTime);
-            element.bind('dp.change', dpChange);
-            element.bind('dp.show', dpShow);
-            element.bind('dp.hide', dpHide);
+            element.bind('dp.change',
+  dpChange);
+            element.bind('dp.show',
+  dpShow);
+            element.bind('dp.hide',
+  dpHide);
           }
           changedFromPicker = false;
           initial = false;
         };
         updateMinDate = function(value) {
-          var maxValue, ref1, ref2, ref3, ref4;
+          var maxValue,
+  ref1,
+  ref2,
+  ref3,
+  ref4;
           if (value && isValidValueFormat(value)) {
             if (!isNaN(value)) {
               value *= 1;
@@ -640,7 +1075,11 @@ shDatepickerModule.directive("shDatetimepicker", [
           }
         };
         updateMaxDate = function(value) {
-          var minValue, ref1, ref2, ref3, ref4;
+          var minValue,
+  ref1,
+  ref2,
+  ref3,
+  ref4;
           if (value && isValidValueFormat(value)) {
             if (!isNaN(value)) {
               value *= 1;
@@ -665,6 +1104,9 @@ shDatepickerModule.directive("shDatetimepicker", [
             element.data('DateTimePicker').icons(obj);
           }
         };
+        
+        // BINDING
+
         dpChange = function(data) {
           changedFromPicker = true;
           if (data.date) {
@@ -697,10 +1139,16 @@ shDatepickerModule.directive("shDatetimepicker", [
           return !isNaN(modelValue);
         };
         isValidIsoFormat = function(modelValue) {
-          return isNaN(modelValue) && moment(modelValue, moment.ISO_8601).isValid();
+          return isNaN(modelValue) && moment(modelValue,
+  moment.ISO_8601).isValid();
         };
         isValidDisplayFormat = function(viewValue) {
-          return isNaN(viewValue) && viewValue.length === 23 && viewValue[22] === ')' && moment.tz(viewValue.substr(0, 19), displayFormat.substr(0, 19), true, moment.defaultZone.name).isValid();
+          return isNaN(viewValue) && viewValue.length === 23 && viewValue[22] === ')' && moment.tz(viewValue.substr(0,
+  19),
+  displayFormat.substr(0,
+  19),
+  true,
+  moment.defaultZone.name).isValid();
         };
         setLastValid = function(modelValue) {
           if (modelValue && isValidValueFormat(modelValue)) {
@@ -709,22 +1157,33 @@ shDatepickerModule.directive("shDatetimepicker", [
             return lastValid = null;
           }
         };
-        scope.$watch('shFromTime', function(newVal, oldVal) {
+        
+        // WATCHERS
+
+        scope.$watch('shFromTime',
+  function(newVal,
+  oldVal) {
           updateMinDate(newVal);
         });
-        scope.$watch('shThruTime', function(newVal, oldVal) {
+        scope.$watch('shThruTime',
+  function(newVal,
+  oldVal) {
           updateMaxDate(newVal);
         });
         scope.$watch(function() {
           return moment.defaultZone.name;
-        }, function(newVal, oldVal) {
+        },
+  function(newVal,
+  oldVal) {
           if ((newVal != null) && newVal !== oldVal) {
             setupDatepicker(ngModelCtrl.$modelValue);
           }
         });
         scope.$watch(function() {
           return ngModelCtrl.$modelValue;
-        }, function(newVal, oldVal) {
+        },
+  function(newVal,
+  oldVal) {
           if ((newVal != null) && isValidValueFormat(newVal) && isValidDisplayFormat(ngModelCtrl.$viewValue)) {
             if ((oldVal == null) || ((oldVal != null) && isValidValueFormat(oldVal))) {
               setupDatepicker(newVal);
@@ -747,17 +1206,30 @@ shDatepickerModule.directive("shDatetime", [
         shDateFormat: '@?'
       },
       template: '<span title="{{getFormattedShDatetime()}}">{{getFormattedShDatetime()}}</span>',
-      link: function(scope, element, attrs) {
+      link: function(scope,
+  element,
+  attrs) {
         scope.getFormattedShDatetime = function() {
-          var ref, ref1, shDateFormat, shDatetimeFormat, shDatetimeTmp;
+          var ref,
+  ref1,
+  shDateFormat,
+  shDatetimeFormat,
+  shDatetimeTmp;
           if (scope.shDatetime != null) {
-            if (moment(scope.shDatetime, 'YYYY-MM-DD', true).isValid()) {
+            if (moment(scope.shDatetime,
+  'YYYY-MM-DD',
+  true).isValid()) {
+              // Date
               shDateFormat = (ref = scope.shDateFormat) != null ? ref : 'DD-MM-YYYY';
               return moment(scope.shDatetime).format(shDateFormat);
             } else {
+              // TODO
+              // Time or Millisecond (Assumption only)
               shDatetimeFormat = (ref1 = scope.shDatetimeFormat) != null ? ref1 : 'DD MMM YYYY, HH:mm (z)';
               shDatetimeTmp = scope.shDatetime;
-              if (!(isNaN(shDatetimeTmp) && moment(shDatetimeTmp, moment.ISO_8601).isValid())) {
+              if (!(isNaN(shDatetimeTmp) && moment(shDatetimeTmp,
+  moment.ISO_8601).isValid())) {
+                // should be millisecond from epoch
                 shDatetimeTmp = shDatetimeTmp * 1;
               }
               return moment(shDatetimeTmp).tz(moment.defaultZone.name).format(shDatetimeFormat);
@@ -780,12 +1252,18 @@ shDatepickerModule.directive("shTimepicker", [
       },
       template: '<select name="duration-hour" ng-model="duration.hour" ng-options="n as n for n in ([] | shRange:0:24)" class="form-control">\n  <option value="0">0</option>\n</select>&colon;\n<select name="duration-minute" ng-model="duration.minute" ng-options="n as n for n in ([] | shRange:0:60:5)" class="form-control">\n  <option value="0">0</option>\n</select>',
       require: '?ngModel',
-      link: function(scope, element, attrs, ngModelCtrl) {
+      link: function(scope,
+  element,
+  attrs,
+  ngModelCtrl) {
         var formatter;
         scope.duration = {
           hour: Math.floor(scope.shTimepicker / (60 * 60)),
           minute: scope.shTimepicker % (60 * 60)
         };
+        
+        // ngModelCtrl: Formatter
+
         formatter = function(value) {
           if (value) {
             scope.duration.hour = Math.floor(value / (60 * 60));
@@ -797,7 +1275,9 @@ shDatepickerModule.directive("shTimepicker", [
           return value;
         };
         ngModelCtrl.$formatters.push(formatter);
-        scope.$watchCollection('duration', function(newVal, oldVal) {
+        scope.$watchCollection('duration',
+  function(newVal,
+  oldVal) {
           if (newVal != null) {
             ngModelCtrl.$setViewValue((scope.duration.hour * 60 * 60) + (scope.duration.minute * 60));
           }
@@ -807,8 +1287,37 @@ shDatepickerModule.directive("shTimepicker", [
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2014 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/directives/sh-dialog.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains shDialog directive
+  // =============================================================================
+
+  // Only responsible for displaying modal (not hiding modal).
+  // If you want to hide this modal, you must call it manually
+
 shDialogModule.directive("shDialog", [
-  '$compile', '$templateCache', '$timeout', '$q', function($compile, $templateCache, $timeout, $q) {
+  '$compile',
+  '$templateCache',
+  '$timeout',
+  '$q',
+  function($compile,
+  $templateCache,
+  $timeout,
+  $q) {
     return {
       restrict: 'A',
       replace: true,
@@ -831,26 +1340,57 @@ shDialogModule.directive("shDialog", [
         shDialogParent: '=?',
         title: '@?'
       },
-      link: function(scope, element, attrs) {
-        var onHandleClick, ref, ref1, ref2, shDialogLabelCancel, shDialogLabelClose, shDialogLabelOk;
+      link: function(scope,
+  element,
+  attrs) {
+        var onHandleClick,
+  ref,
+  ref1,
+  ref2,
+  shDialogLabelCancel,
+  shDialogLabelClose,
+  shDialogLabelOk;
+        // Default label
         shDialogLabelOk = (ref = scope.shDialogLabelOk) != null ? ref : 'Submit';
         shDialogLabelClose = (ref1 = scope.shDialogLabelClose) != null ? ref1 : 'Close';
         shDialogLabelCancel = (ref2 = scope.shDialogLabelCancel) != null ? ref2 : 'Cancel';
-        angular.element(element).addClass('sh-dialog').children().eq(0).on('click', function() {
+        
+        angular.element(element).addClass('sh-dialog').children().eq(0).on('click',
+  function() {
           if (angular.element(this).find('> *:first-child').attr('disabled') !== 'disabled') {
             onHandleClick();
           }
         });
+        
+        // Show the modal
+        // using scope for decorateable
+
         scope.showModal = function(elmt) {
+          // TODO
           $timeout(function() {
             elmt.modal('show');
-          }, 20);
+          },
+  20);
         };
+        
+        // Hide the modal
+        // using scope for decorateable
+
         scope.hideModal = function() {
           angular.element('.modal').modal('hide');
         };
+        
         onHandleClick = function() {
-          var buttonOkElement, compiledShDialogBody, compiledShDialogFooter, compiledShDialogHeader, modalIdSuffix, parent, ref3, ref4, ref5, shDialogModal;
+          var buttonOkElement,
+  compiledShDialogBody,
+  compiledShDialogFooter,
+  compiledShDialogHeader,
+  modalIdSuffix,
+  parent,
+  ref3,
+  ref4,
+  ref5,
+  shDialogModal;
           modalIdSuffix = scope.$id;
           shDialogModal = null;
           if (scope.shDialogForm != null) {
@@ -858,62 +1398,74 @@ shDialogModule.directive("shDialog", [
           } else {
             shDialogModal = angular.element('<div id="modal-sh-dialog-' + modalIdSuffix + '" tabindex="-1" role="dialog" aria-labelledby="modalShDialogLabel" aria-hidden="true" class="modal">' + '<div class="modal-dialog ' + ((ref4 = scope.shDialogClass) != null ? ref4 : 'modal-sm') + '">' + "    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" data-dismiss=\"modal\" aria-hidden=\"true\" class=\"close\">&times;</button>\n        <h4 class=\"modal-title\"></h4>\n      </div>\n      <div class=\"modal-body\"></div>\n      <div class=\"modal-footer\"></div>\n    </div>\n  </div>\n</div>");
           }
+          // Header setup
           if (scope.shDialogHeader != null) {
             compiledShDialogHeader = angular.element($templateCache.get(scope.shDialogHeader));
             shDialogModal.find('.modal-title').append(compiledShDialogHeader);
           } else {
             shDialogModal.find('.modal-title').html(scope.title);
           }
+          // Body setup
           if (scope.shDialogBody != null) {
             compiledShDialogBody = angular.element($templateCache.get(scope.shDialogBody));
             shDialogModal.find('.modal-body').append(compiledShDialogBody);
           }
+          // Footer setup
           if (scope.shDialogFooter != null) {
             compiledShDialogFooter = angular.element($templateCache.get(scope.shDialogFooter));
             shDialogModal.find('.modal-footer').append(compiledShDialogFooter);
           } else if (attrs.shDialogOk != null) {
-            buttonOkElement = "<button\n  class=\"btn btn-primary margin-left\"\n\n  ng-disabled=\"" + 'aliasShDialogDisabled()' + "\"\n\nng-click=\"" + 'aliasShDialogOk($event)' + "\"\n\nsh-submit=\"" + '{{aliasShDialogForm}}' + ("  \"\n\n  ng-attr-title=\"" + shDialogLabelOk + "\"\n  type=\"submit\"\n>\n" + shDialogLabelOk + "\n</button>");
+            buttonOkElement = "<button\n  class=\"btn btn-primary margin-left\"\n\n  ng-disabled=\"" + 'aliasShDialogDisabled()' + "\"\n\nng-click=\"" + 'aliasShDialogOk($event)' + "\"\n\nsh-submit=\"" + '{{aliasShDialogForm}}' + `  "\n\n  ng-attr-title="${shDialogLabelOk}"\n  type="submit"\n>\n${shDialogLabelOk}\n</button>`;
             shDialogModal.find('.modal-footer').append(buttonOkElement);
-            shDialogModal.find('.modal-footer').append("<button type=\"button\" data-dismiss=\"modal\" class=\"btn btn-default margin-left\">\n  " + shDialogLabelCancel + "\n</button>");
+            shDialogModal.find('.modal-footer').append(`<button type="button" data-dismiss="modal" class="btn btn-default margin-left">\n  ${shDialogLabelCancel}\n</button>`);
           } else {
-            shDialogModal.find('.modal-footer').append("<button type=\"button\" data-dismiss=\"modal\" class=\"btn btn-default margin-left\">\n  " + shDialogLabelClose + "\n</button>");
+            shDialogModal.find('.modal-footer').append(`<button type="button" data-dismiss="modal" class="btn btn-default margin-left">\n  ${shDialogLabelClose}\n</button>`);
           }
           parent = (ref5 = scope.shDialogParent) != null ? ref5 : scope.$parent;
           $compile(shDialogModal)(parent);
+          // Append modal to body
           angular.element('body').append(shDialogModal);
           if (scope.shDialogEntity != null) {
-            parent.shDialogEntity = angular.copy(scope.shDialogEntity, {});
+            
+            // TODO:
+
+            parent.shDialogEntity = angular.copy(scope.shDialogEntity,
+  {});
           }
-          shDialogModal.on('show.bs.modal', function() {
+          shDialogModal.on('show.bs.modal',
+  function() {
             var deferred;
             parent.shDialogLoading = true;
             deferred = $q.defer();
             $q.when((scope.shDialogBeforeShow || angular.noop)()).then(function(success) {
               if ((success != null ? success.data : void 0) != null) {
-                parent.shDialogEntity = angular.copy(success.data, {});
+                parent.shDialogEntity = angular.copy(success.data,
+  {});
               }
-
               /* */
               return deferred.resolve(success);
-            }, function(error) {
-
+            },
+  function(error) {
               /* */
+              // Close this modal
               scope.hideModal();
               return deferred.reject(error);
-            })["finally"](function() {
-
+            }).finally(function() {
               /* */
               parent.shDialogLoading = false;
             });
             return deferred.promise;
-          }).on('hidden.bs.modal', function() {
+          }).on('hidden.bs.modal',
+  function() {
             scope.shDialogOnHide && scope.shDialogOnHide();
             shDialogModal.remove();
             parent.shDialogEntity = {};
           });
           scope.showModal(shDialogModal);
           parent.aliasShDialogDisabled = function() {
-            var ref6, ref7, ref8;
+            var ref6,
+  ref7,
+  ref8;
             if (parent.shDialogLoading) {
               return true;
             }
@@ -933,23 +1485,28 @@ shDialogModule.directive("shDialog", [
               $event: $event
             })).then(function(success) {
               scope.hideModal();
+              // It doesnt need to enable the button, the form is already hidden
               return deferred.resolve();
-            }, function(error) {
+            },
+  function(error) {
               var ref6;
               if (scope.shDialogForm != null) {
+                // Only button enabler. do not set unstouched
                 if ((ref6 = parent[scope.shDialogForm]) != null) {
                   ref6.$submitted = false;
                 }
               }
               return deferred.reject();
-            })["finally"](function() {
+            }).finally(function() {
               parent.shDialogLoading = false;
             });
             return deferred.promise;
           };
           parent.aliasShDialogForm = scope.shDialogForm;
         };
-        scope.$watch('$parent.shDialogLoading', function(newVal, oldVal) {
+        scope.$watch('$parent.shDialogLoading',
+  function(newVal,
+  oldVal) {
           if (newVal != null) {
             if (scope.shDialogLoading != null) {
               scope.shDialogLoading = newVal;
@@ -970,14 +1527,36 @@ shDialogModule.directive('shDialogDismissButton', function() {
   };
 });
 
+  // =============================================================================
+  // Copyright (c) 2014 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/directives/sh-focus.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains shFocus directive (based-on http://stackoverflow.com/questions/14833326/how-to-set-focus-on-input-field)
+  // =============================================================================
 angular.module('sh.focus', []).directive("shFocus", [
-  '$timeout', function($timeout) {
+  '$timeout',
+  function($timeout) {
     return {
       scope: {
         shFocus: '='
       },
-      link: function(scope, element, attrs) {
-        scope.$watch('shFocus', function(value) {
+      link: function(scope,
+  element,
+  attrs) {
+        scope.$watch('shFocus',
+  function(value) {
           if (value === true) {
             $timeout(function() {
               return element.eq(0).select();
@@ -995,15 +1574,34 @@ angular.module('sh.focus', []).directive("shFocus", [
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/directives/sh-number-format.coffee
+  // @author Bimo Horizon
+  // @email bimo@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains shNumberFormat directive
+  // =============================================================================
 angular.module('sh.number.format', []).directive("shNumberFormat", [
-  '$filter', function($filter) {
+  '$filter',
+  function($filter) {
     return {
       restrict: 'A',
       scope: {
         shAllowZero: '@?',
-        shMin: '=?',
+        shMin: '=?', // Not for validation, only for autolimit if model value is out of range
         shMax: '=?',
-        shLowerThan: '@?',
+        shLowerThan: '@?', // for validation purpose, also applied for shGreaterThan, shLowerThanEqual, shGreaterThanEqual
         shGreaterThan: '@?',
         shLowerThanEqual: '@?',
         shGreaterThanEqual: '@?',
@@ -1013,8 +1611,15 @@ angular.module('sh.number.format', []).directive("shNumberFormat", [
         decimalPlaces: '@?'
       },
       require: '?ngModel',
-      link: function(scope, element, attributes, ngModel) {
-        var classId, returnNumberOrNull, setupRestriction, shAllowZero, updatePopover;
+      link: function(scope,
+  element,
+  attributes,
+  ngModel) {
+        var classId,
+  returnNumberOrNull,
+  setupRestriction,
+  shAllowZero,
+  updatePopover;
         classId = 'sh-number-' + Math.random().toString().slice(2);
         shAllowZero = scope.shAllowZero === 'false' ? false : true;
         returnNumberOrNull = function(val) {
@@ -1025,7 +1630,10 @@ angular.module('sh.number.format', []).directive("shNumberFormat", [
           }
         };
         setupRestriction = function() {
-          var ref, ref1, ref2, ref3;
+          var ref,
+  ref1,
+  ref2,
+  ref3;
           scope.lowerThan = returnNumberOrNull(scope.shLowerThan);
           scope.greaterThan = returnNumberOrNull(scope.shGreaterThan);
           scope.lowerThanEqual = returnNumberOrNull(scope.shLowerThanEqual);
@@ -1036,7 +1644,10 @@ angular.module('sh.number.format', []).directive("shNumberFormat", [
         };
         setupRestriction();
         updatePopover = function() {
-          var popoverContent, ref, ref1, ref2;
+          var popoverContent,
+  ref,
+  ref1,
+  ref2;
           popoverContent = element.attr('data-content');
           if (ngModel.$invalid) {
             if (ngModel.$error.out_of_range) {
@@ -1058,7 +1669,8 @@ angular.module('sh.number.format', []).directive("shNumberFormat", [
         });
         ngModel.$parsers.push(function(value) {
           var number;
-          number = String(value).replace(/\,/g, '');
+          number = String(value).replace(/\,/g,
+  '');
           number = parseFloat(number);
           if (scope.decimalPlaces != null) {
             number = parseFloat(number.toFixed(scope.decimalPlaces));
@@ -1082,9 +1694,12 @@ angular.module('sh.number.format', []).directive("shNumberFormat", [
           return ngModel.$invalid;
         });
         scope.applyValidity = function() {
-          var valid, validRequired;
+          var valid,
+  validRequired;
           valid = true;
           if (scope.lowerThanEqual != null) {
+            // shMin equals to GreaterThanOrEqual (>=)
+            // shGreaterThan equals to GreaterThan (>)
             valid = valid && +scope.ngModel <= scope.lowerThanEqual;
           }
           if (scope.greaterThanEqual != null) {
@@ -1099,53 +1714,72 @@ angular.module('sh.number.format', []).directive("shNumberFormat", [
           if (!shAllowZero) {
             valid = valid && +scope.ngModel !== 0;
           }
-          ngModel.$setValidity('out_of_range', valid);
+          ngModel.$setValidity('out_of_range',
+  valid);
           if (attributes.required != null) {
             validRequired = true;
             if (scope.ngModel == null) {
               validRequired = false;
             }
-            ngModel.$setValidity('required', validRequired);
+            ngModel.$setValidity('required',
+  validRequired);
           }
         };
-        element.on('focusout', function() {
+        element.on('focusout',
+  function() {
           ngModel.$viewValue = ngModel.$modelValue != null ? String($filter('number')(ngModel.$modelValue)) : '';
           return ngModel.$render();
         });
-        element.on('focusin', function() {
+        element.on('focusin',
+  function() {
           ngModel.$viewValue = ngModel.$modelValue;
           ngModel.$render();
           return element.select();
         });
-        element.on('keyup', function() {
+        element.on('keyup',
+  function() {
           return updatePopover();
         });
-        element.on('keydown', function(e) {
-          var ref, ref1;
+        element.on('keydown',
+  function(e) {
+          var ref,
+  ref1;
           if (((ref = e.keyCode) === 16 || ref === 17 || ref === 18 || ref === 46 || ref === 8 || ref === 9 || ref === 27 || ref === 13 || ref === 110 || ref === 173 || ref === 190 || ref === 189) || (e.keyCode >= 112 && e.keyCode <= 123) || (((ref1 = e.keyCode) === 65 || ref1 === 67 || ref1 === 86) && (e.ctrlKey === true || e.metaKey === true)) || (e.keyCode >= 35 && e.keyCode <= 40)) {
 
-            /*let it happen, don't do anything */
+          /*let it happen, don't do anything*/
           } else if ((e.shiftKey || e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
             return e.preventDefault();
           }
         });
-        scope.$watch('ngModel', function(newValue, oldValue) {
+        scope.$watch('ngModel',
+  function(newValue,
+  oldValue) {
+          // Always apply validity eventhough newVal equals oldVal
           return scope.applyValidity();
         });
         scope.$watchCollection(function() {
-          return [scope.shLowerThan, scope.shGreaterThan, scope.shLowerThanEqual, scope.shGreaterThanEqual];
-        }, function(newVal, oldVal) {
+          return [scope.shLowerThan,
+  scope.shGreaterThan,
+  scope.shLowerThanEqual,
+  scope.shGreaterThanEqual];
+        },
+  function(newVal,
+  oldVal) {
           if (newVal != null) {
             setupRestriction();
           }
         });
+        
+        // Initialize
+
         element.popover({
           trigger: 'focus',
           container: 'body',
           placement: 'auto top',
           template: '<div class="popover ' + classId + '" role="tooltip">' + '  <div class="arrow"></div>' + '  <h3 class="popover-title"></h3>' + '  <div class="popover-content"></div>' + '</div>'
         });
-        return element.on('shown.bs.popover', function() {
+        return element.on('shown.bs.popover',
+  function() {
           return updatePopover();
         });
       }
@@ -1153,8 +1787,30 @@ angular.module('sh.number.format', []).directive("shNumberFormat", [
   }
 ]);
 
+// =============================================================================
+// Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name app/scripts/directives/sh-segment.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains wideTableContainer, tableScrollHead, tableScrollFoot, shSegmentHead, shSegmentFoot directive
+// =============================================================================
+
+// sh-collapsible
+
 angular.module('sh.segment', []).directive("wideTableContainer", function() {
   var scrollSlave;
+  
   scrollSlave = function(body, head) {
     if (!head || !head[0]) {
       return;
@@ -1177,6 +1833,7 @@ angular.module('sh.segment', []).directive("wideTableContainer", function() {
   };
 }).directive("shSegmentHead", function() {
   return {
+    
     restrict: 'C',
     scope: {},
     link: function(scope, elem, attrs) {
@@ -1189,8 +1846,13 @@ angular.module('sh.segment', []).directive("wideTableContainer", function() {
       });
     }
   };
+// scope.$watch ->
+//   newVal = elem.outerHeight()
+//   elem.next().css( 'top', newVal + 'px' )
+//   return
 }).directive("shSegmentFoot", function() {
   return {
+    
     restrict: 'C',
     scope: {},
     link: function(scope, elem, attrs) {
@@ -1203,17 +1865,36 @@ angular.module('sh.segment', []).directive("wideTableContainer", function() {
       });
     }
   };
+// scope.$watch ->
+//   newVal = elem.outerHeight()
+//   elem.prev().css( 'bottom', newVal + 'px' )
+//   return
 }).directive("tableScrollBody", [
-  '$timeout', function($timeout) {
+  '$timeout',
+  function($timeout) {
     return {
+      
       restrict: 'C',
       scope: {
         tableScrollBodyReduction: '@?'
       },
-      link: function(scope, element, attrs) {
-        var assignBaseCss, assignShadowCss, refreshFreezedPane;
-        assignBaseCss = function(elmt, left) {
-          var outerHeight, paddingBottom, paddingLeft, paddingRight, paddingTop, parent, parentRow, reduction, ref;
+      link: function(scope,
+  element,
+  attrs) {
+        var assignBaseCss,
+  assignShadowCss,
+  refreshFreezedPane;
+        assignBaseCss = function(elmt,
+  left) {
+          var outerHeight,
+  paddingBottom,
+  paddingLeft,
+  paddingRight,
+  paddingTop,
+  parent,
+  parentRow,
+  reduction,
+  ref;
           parent = angular.element(elmt).parent();
           parentRow = parent.parents('tr');
           paddingTop = parent.css('padding-top');
@@ -1237,11 +1918,15 @@ angular.module('sh.segment', []).directive("wideTableContainer", function() {
             minHeight: outerHeight - reduction
           });
         };
-        assignShadowCss = function(elmt, scrollSize, shadowDirection) {
-          var paddingRight, parent;
+        assignShadowCss = function(elmt,
+  scrollSize,
+  shadowDirection) {
+          var paddingRight,
+  parent;
           parent = angular.element(elmt).parent();
           paddingRight = parent.css('padding-right');
           if (shadowDirection > 0) {
+            // Left freeze
             if (!parent.next().hasClass('td-fixed')) {
               if (scrollSize > 0) {
                 return angular.element(elmt).css({
@@ -1256,6 +1941,7 @@ angular.module('sh.segment', []).directive("wideTableContainer", function() {
               }
             }
           } else {
+            // right freeze
             if (!parent.prev().hasClass('td-fixed')) {
               if (scrollSize > 0) {
                 return angular.element(elmt).css({
@@ -1272,21 +1958,37 @@ angular.module('sh.segment', []).directive("wideTableContainer", function() {
           }
         };
         refreshFreezedPane = function() {
-          var elementParent, left, scrollLeft, scrollTop, tableWidth, width;
+          var elementParent,
+  left,
+  scrollLeft,
+  scrollTop,
+  tableWidth,
+  width;
           elementParent = element.parent();
+          // jqLite doesnt provide scrollTop & scrollLeft
           scrollTop = jQuery(element).scrollTop();
           scrollLeft = jQuery(element).scrollLeft();
           width = element[0].clientWidth;
+          // jqLite find is limited to finding element tag, not class
           tableWidth = element.find('table').width();
           left = (width - tableWidth) + scrollLeft;
+          // TH & TD for lefty freeze
           elementParent.find('.td-fixed > .td-fixed-body.td-fixed-body-left').each(function() {
-            assignBaseCss(this, scrollLeft);
-            return assignShadowCss(this, scrollLeft, 1);
+            assignBaseCss(this,
+  scrollLeft);
+            return assignShadowCss(this,
+  scrollLeft,
+  1);
           });
+          // TH & TD for righty freeze
           elementParent.find('.td-fixed > .td-fixed-body.td-fixed-body-right').each(function() {
-            assignBaseCss(this, left);
-            return assignShadowCss(this, -left, -1);
+            assignBaseCss(this,
+  left);
+            return assignShadowCss(this,
+  -left,
+  -1);
           });
+          // Reposition Loading Overlay
           return elementParent.find('.loading-container').css({
             left: scrollLeft,
             right: -scrollLeft,
@@ -1294,7 +1996,8 @@ angular.module('sh.segment', []).directive("wideTableContainer", function() {
             bottom: -scrollTop
           });
         };
-        angular.element(element).on('scroll', function() {
+        angular.element(element).on('scroll',
+  function() {
           refreshFreezedPane();
         });
         scope.$watch(function() {
@@ -1305,13 +2008,38 @@ angular.module('sh.segment', []).directive("wideTableContainer", function() {
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2014 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/directives/sh-spinning.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains shSpinning directive
+  // =============================================================================
 shSpinningModule.directive("shSpinning", [
-  'ShSpinningService', function(ShSpinningService) {
+  'ShSpinningService',
+  function(ShSpinningService) {
     return {
       restrict: 'A',
-      scope: true,
-      link: function(scope, element, attrs) {
-        var length, lines, opts, radius, width;
+      scope: true, // Child scope
+      link: function(scope,
+  element,
+  attrs) {
+        var length,
+  lines,
+  opts,
+  radius,
+  width;
         lines = 13;
         length = 30;
         width = 10;
@@ -1341,24 +2069,24 @@ shSpinningModule.directive("shSpinning", [
               length = 30;
               width = 10;
               radius = 38;
-          }
+          } // xs | sm | md | lg
         }
-        scope.shSpinningLines = +attrs.shSpinningLines || lines;
-        scope.shSpinningLength = +attrs.shSpinningLength || length;
-        scope.shSpinningWidth = +attrs.shSpinningWidth || width;
-        scope.shSpinningRadius = +attrs.shSpinningRadius || radius;
-        scope.shSpinningCorners = +attrs.shSpinningCorners || 1;
-        scope.shSpinningRotate = +attrs.shSpinningRotate || 0;
-        scope.shSpinningDirection = +attrs.shSpinningDirection || 1;
-        scope.shSpinningColor = attrs.shSpinningColor || '#000';
-        scope.shSpinningSpeed = +attrs.shSpinningSpeed || 2.2;
-        scope.shSpinningTrail = +attrs.shSpinningTrail || 100;
-        scope.shSpinningShadow = attrs.shSpinningShadow || false;
-        scope.shSpinningHwaccel = attrs.shSpinningHwaccel || false;
-        scope.shSpinningClassName = attrs.shSpinningClassName || 'spinner';
-        scope.shSpinningZIndex = +attrs.shSpinningZIndex || 2e9;
-        scope.shSpinningTop = attrs.shSpinningTop || '45%';
-        scope.shSpinningLeft = attrs.shSpinningLeft || '50%';
+        scope.shSpinningLines = +attrs.shSpinningLines || lines; // The number of lines to draw
+        scope.shSpinningLength = +attrs.shSpinningLength || length; // The length of each line
+        scope.shSpinningWidth = +attrs.shSpinningWidth || width; // The line thickness
+        scope.shSpinningRadius = +attrs.shSpinningRadius || radius; // The radius of the inner circle
+        scope.shSpinningCorners = +attrs.shSpinningCorners || 1; // Corner roundness (0..1)
+        scope.shSpinningRotate = +attrs.shSpinningRotate || 0; // The rotation offset
+        scope.shSpinningDirection = +attrs.shSpinningDirection || 1; // 1: clockwise, -1: counterclockwise
+        scope.shSpinningColor = attrs.shSpinningColor || '#000'; // #rgb or #rrggbb or array of colors
+        scope.shSpinningSpeed = +attrs.shSpinningSpeed || 2.2; // Rounds per second
+        scope.shSpinningTrail = +attrs.shSpinningTrail || 100; // Afterglow percentage
+        scope.shSpinningShadow = attrs.shSpinningShadow || false; // Whether to render a shadow
+        scope.shSpinningHwaccel = attrs.shSpinningHwaccel || false; // Whether to use hardware acceleration
+        scope.shSpinningClassName = attrs.shSpinningClassName || 'spinner'; // The CSS class to assign to the spinner
+        scope.shSpinningZIndex = +attrs.shSpinningZIndex || 2e9; // The z-index (defaults to 2000000000)
+        scope.shSpinningTop = attrs.shSpinningTop || '45%'; // Top position relative to parent
+        scope.shSpinningLeft = attrs.shSpinningLeft || '50%'; // Left position relative to parent
         opts = {
           lines: scope.shSpinningLines,
           length: scope.shSpinningLength,
@@ -1380,8 +2108,11 @@ shSpinningModule.directive("shSpinning", [
         scope.spinner = new Spinner(opts);
         scope.$watch((function() {
           return ShSpinningService.isSpinning(attrs.shSpinning);
-        }, function(newVal, oldVal) {
-          var ref, ref1;
+        },
+  function(newVal,
+  oldVal) {
+          var ref,
+  ref1;
           if (ShSpinningService.isSpinning(attrs.shSpinning)) {
             angular.element(element).addClass('sh-spinning-spin');
             if ((ref = scope.spinner) != null) {
@@ -1399,34 +2130,77 @@ shSpinningModule.directive("shSpinning", [
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED 'AS IS' WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/directives/sh-submit.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains shSubmit directive
+  // =============================================================================
 angular.module('sh.submit', []).directive('shSubmit', [
-  '$compile', '$filter', function($compile, $filter) {
+  '$compile',
+  '$filter',
+  function($compile,
+  $filter) {
     return {
       restrict: 'A',
       scope: true,
-      link: function(scope, element, attrs) {
-        var getDescendantProp, shSubmitInvalid, shSubmitOverlay, shSubmitOverlayInner;
+      link: function(scope,
+  element,
+  attrs) {
+        var getDescendantProp,
+  shSubmitInvalid,
+  shSubmitOverlay,
+  shSubmitOverlayInner;
+        
+        // Prepare element
+
+        // Overlay element
         shSubmitOverlay = angular.element('<segment\n  class="sh-submit-overlay"\n  ng-mouseover="overlayHover()"\n>\n</segment>');
         shSubmitOverlay.css({
           position: 'relative',
           float: element.css('float')
         });
+        // Overlay element inner
         shSubmitOverlayInner = angular.element('<div\n  class="sh-submit-overlay-inner"\n  ng-mouseover="overlayInnerHover()"\n>\n</div>');
         shSubmitOverlayInner.css({
           position: 'absolute'
         });
+        // Append shSubmitOverlayInner to shSubmitOverlay
         shSubmitOverlayInner.appendTo(shSubmitOverlay);
+        // Compile it
         $compile(shSubmitOverlay)(scope);
         shSubmitInvalid = attrs.shSubmitInvalid || $filter('translate')('INFO_FIELD_CORRECTION');
         if (element.next('.sh-submit-overlay').length === 0 && element.parents('.sh-submit-overlay').length === 0) {
+          // Place shSubmitOverlay after the element
           shSubmitOverlay.insertAfter(element);
+          // Then prepend the element to shSubmitOverlay
           element.prependTo(shSubmitOverlay);
+          
           shSubmitOverlayInner.tooltip({
             title: shSubmitInvalid
           });
         }
-        getDescendantProp = function(obj, desc) {
-          var arr, result;
+        
+        // Scope methods/variables
+
+        // Workaround for dotted string
+        // http://stackoverflow.com/a/8052100
+        getDescendantProp = function(obj,
+  desc) {
+          var arr,
+  result;
           arr = desc.split('.');
           result = null;
           while (arr.length) {
@@ -1435,13 +2209,14 @@ angular.module('sh.submit', []).directive('shSubmit', [
           return result;
         };
         scope.overlayInnerHover = function() {
-          var form, ref;
+          var form,
+  ref;
           if ((ref = getDescendantProp(scope, attrs.shSubmit)) != null ? ref.$invalid : void 0) {
             form = element.parents('form').eq(0);
             if (form.length > 0) {
               form.addClass('sh-highlight-required');
             } else {
-              angular.element("form[name='" + attrs.shSubmit + "']").addClass('sh-highlight-required');
+              angular.element(`form[name='${attrs.shSubmit}']`).addClass('sh-highlight-required');
             }
           }
         };
@@ -1461,7 +2236,9 @@ angular.module('sh.submit', []).directive('shSubmit', [
         scope.$watch(function() {
           var ref;
           return (ref = getDescendantProp(scope, attrs.shSubmit)) != null ? ref.$invalid : void 0;
-        }, function(newVal, oldVal) {
+        },
+  function(newVal,
+  oldVal) {
           if (newVal != null) {
             if (newVal) {
               return shSubmitOverlayInner.show();
@@ -1475,29 +2252,61 @@ angular.module('sh.submit', []).directive('shSubmit', [
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2014 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/directives/sh-valid-file.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains validation related validation directive
+  // =============================================================================
+
+  // http://stackoverflow.com/questions/16207202/required-attribute-not-working-with-file-input-in-angular-js
 shValidationModule.directive("validFile", [
-  '$timeout', function($timeout) {
+  '$timeout',
+  function($timeout) {
     return {
       scope: {
         validFileName: '='
       },
       require: 'ngModel',
-      link: function(scope, el, attrs, ngModel) {
-        scope.$watch('validFileName', function(newFile) {
+      link: function(scope,
+  el,
+  attrs,
+  ngModel) {
+        scope.$watch('validFileName',
+  function(newFile) {
           if (newFile != null) {
+            // TODO: HACKISH: ensure form pristine by surounding setViewValue with $pristine false-true
+            // ngModel.$pristine = false
+            // ngModel.$setViewValue scope.validFileName
+            // ngModel.$pristine = true
             $timeout((function() {
               ngModel.$pristine = false;
               ngModel.$setViewValue(scope.validFileName);
               ngModel.$pristine = true;
-            }), 200);
+            }),
+  200);
             return $timeout((function() {
               ngModel.$pristine = false;
               ngModel.$setViewValue(scope.validFileName);
               ngModel.$pristine = true;
-            }), 2000);
+            }),
+  2000);
           }
         });
-        el.bind('change', function() {
+        el.bind('change',
+  function() {
           scope.$apply(function() {
             ngModel.$setViewValue(el.val());
             ngModel.$render();
@@ -1508,10 +2317,16 @@ shValidationModule.directive("validFile", [
   }
 ]);
 
+
+// Should set required value to null
+// Specifically used for select with ng-options
+// Force null if an id in an object is null => {id: null}
+
 shValidationModule.directive('validIdNotNull', function() {
   return {
     require: 'ngModel',
     link: function(scope, elem, attr, ngModel) {
+      // For model -> DOM validation
       ngModel.$formatters.unshift(function(value) {
         if ((value != null ? value.id : void 0) == null) {
           return null;
@@ -1522,8 +2337,27 @@ shValidationModule.directive('validIdNotNull', function() {
   };
 });
 
+// =============================================================================
+// Copyright (c) 2015 All Right Reserved, http://starqle.com/
+
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/directives/sh-view-helper.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains colection of view helpers directive
+// =============================================================================
 angular.module('sh.view.helper', []).directive('yesNo', function() {
   return {
+    
     restrict: 'A',
     scope: {
       yesNo: '='
@@ -1543,6 +2377,7 @@ angular.module('sh.view.helper', []).directive('yesNo', function() {
   };
 }).directive('codeName', function() {
   return {
+    
     restrict: 'EA',
     scope: {
       codeNameCode: '=?',
@@ -1554,12 +2389,35 @@ angular.module('sh.view.helper', []).directive('yesNo', function() {
   };
 });
 
+  // =============================================================================
+  // Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/auth-token-handler.coffee
+  // @author Giovanni Sakti
+  // @email giosakti@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains AuthTokenHandler for wrapping API calls with
+  //   AuthToken.
+  // =============================================================================
 angular.module('auth.token.handler', []).factory("AuthTokenHandler", [
   function() {
-    var authToken, authTokenHandler, tokenWrapper, username;
+    var authToken,
+  authTokenHandler,
+  tokenWrapper,
+  username;
     authTokenHandler = {};
     username = "none";
     authToken = "none";
+    // Getter / setter
     authTokenHandler.getUsername = function() {
       return username;
     };
@@ -1572,31 +2430,53 @@ angular.module('auth.token.handler', []).factory("AuthTokenHandler", [
     authTokenHandler.setAuthToken = function(newAuthToken) {
       authToken = newAuthToken;
     };
-    authTokenHandler.wrapActions = function(resource, actions) {
-      var i, wrappedResource;
+    // Wrap every actions in a resource with tokenWrapper function
+    // Returns wrappedResource
+    authTokenHandler.wrapActions = function(resource,
+  actions) {
+      var i,
+  wrappedResource;
       wrappedResource = resource;
       i = 0;
       while (i < actions.length) {
-        tokenWrapper(wrappedResource, actions[i]);
+        tokenWrapper(wrappedResource,
+  actions[i]);
         i++;
       }
       return wrappedResource;
     };
-    tokenWrapper = function(resource, action) {
+    // Wrap an action in a resource with authn_token
+    // Treat each kind of action accordingly
+    tokenWrapper = function(resource,
+  action) {
       resource['_' + action] = resource[action];
       if (action === 'save' || action === 'update') {
-        resource[action] = function(params, data, success, error) {
-          return resource['_' + action](angular.extend({}, params || {}, {
+        resource[action] = function(params,
+  data,
+  success,
+  error) {
+          return resource['_' + action](angular.extend({},
+  params || {},
+  {
             username: authTokenHandler.getUsername(),
             authn_token: authTokenHandler.getAuthToken()
-          }), data, success, error);
+          }),
+  data,
+  success,
+  error);
         };
       } else {
-        resource[action] = function(params, success, error) {
-          return resource["_" + action](angular.extend({}, params || {}, {
+        resource[action] = function(params,
+  success,
+  error) {
+          return resource["_" + action](angular.extend({},
+  params || {},
+  {
             username: authTokenHandler.getUsername(),
             authn_token: authTokenHandler.getAuthToken()
-          }), success, error);
+          }),
+  success,
+  error);
         };
       }
     };
@@ -1604,18 +2484,35 @@ angular.module('auth.token.handler', []).factory("AuthTokenHandler", [
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShTableParams
- *
- * @description
- * ShTableParams factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShTableParams for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShTableParams
+   *
+   * @description
+   * ShTableParams factory
+   *
+   */
 shTableModule.factory('ShTableParams', [
-  '$q', function($q) {
-
+  '$q',
+  function($q) {
     /**
      * @ngdoc method
      * @name ShTableParams
@@ -1630,12 +2527,14 @@ shTableModule.factory('ShTableParams', [
      */
     var ShTableParams;
     ShTableParams = function(params) {
-      var ref, ref1, ref2;
+      var ref,
+  ref1,
+  ref2;
       this.$params = {
         pageNumber: (ref = params.pageNumber) != null ? ref : 1,
         perPage: (ref1 = params.perPage) != null ? ref1 : 10,
         sortInfo: params.sortInfo,
-        sorting: params.sorting,
+        sorting: params.sorting, // Backward compatibility
         autoload: (ref2 = params.autoload) != null ? ref2 : true
       };
       this.$totalCount = 0;
@@ -1643,7 +2542,6 @@ shTableModule.factory('ShTableParams', [
       this.$data = [];
       this.$extras = null;
       this.$pagination = [];
-
       /**
        * @ngdoc method
        * @name reload
@@ -1657,26 +2555,35 @@ shTableModule.factory('ShTableParams', [
        *
        */
       this.reload = function() {
-        var deferred, self;
+        var deferred,
+  self;
         deferred = $q.defer();
         self = this;
         self.$loading = true;
         params.getData().then(function(success) {
+          // Assign returned items to $data
           self.$data = success.items;
           self.$totalCount = success.totalCount;
           if (success.extras != null) {
             self.$extras = success.extras;
           }
-          self.$pagination = self.generatePagination(self.$params.pageNumber, self.$params.perPage, self.$totalCount);
+          // Call pages generator
+          self.$pagination = self.generatePagination(self.$params.pageNumber,
+  self.$params.perPage,
+  self.$totalCount);
+          // Disable loading
           self.$loading = false;
+          // resolve defer
           return deferred.resolve(success);
-        }, function(error) {
+        },
+  function(error) {
+          // Disable loading
           self.$loading = false;
+          // reject defer
           return deferred.reject(error);
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name isSortBy
@@ -1689,27 +2596,15 @@ shTableModule.factory('ShTableParams', [
        * ShTableParams factory
        *
        */
-      this.isSortBy = function(field, direction) {
+      this.isSortBy = function(field,
+  direction) {
         return angular.isDefined(this.$params.sorting[field]) && this.$params.sorting[field] === direction;
       };
-
-      /**
-       * @ngdoc method
-       * @name sortData
-       *
-       * @param {}
-       *
-       * @returns {promise}
-       *
-       * @description
-       * ShTableParams factory
-       *
-       */
-      this.sortData = function(field, direction) {
+      this.sortData = function(field,
+  direction) {
         this.$params.sorting = {};
         this.$params.sorting[field] = direction;
       };
-
       /**
        * @ngdoc method
        * @name generatePagination
@@ -1720,8 +2615,26 @@ shTableModule.factory('ShTableParams', [
        * ShTableParams factory
        *
        */
-      this.generatePagination = function(pageNumber, perPage, totalCount) {
-        var currentPage, currentPageCount, deltaCurrent, fromNumber, i, maxPagesDisplayed, number, pageCount, pages, ref3, ref4, thruNumber;
+      this.generatePagination = function(pageNumber,
+  perPage,
+  totalCount) {
+        var currentPage,
+  currentPageCount,
+  deltaCurrent,
+  fromNumber,
+  i,
+  maxPagesDisplayed,
+  number,
+  pageCount,
+  pages,
+  ref3,
+  ref4,
+  thruNumber;
+        // currentPage
+        // pageCount
+        // perPage
+        // totalCount
+        // currentPageCount
         pages = [];
         currentPage = pageNumber;
         perPage = perPage;
@@ -1735,43 +2648,51 @@ shTableModule.factory('ShTableParams', [
         } else if ((deltaCurrent + maxPagesDisplayed) > pageCount) {
           deltaCurrent = pageCount - maxPagesDisplayed;
         }
+        // Only generate pagination if there is more than one page exist
         if (pageCount > 1) {
+          // Assign PAGE
           fromNumber = deltaCurrent + 1;
           thruNumber = deltaCurrent + maxPagesDisplayed;
-          for (number = i = ref3 = fromNumber, ref4 = thruNumber; ref3 <= ref4 ? i <= ref4 : i >= ref4; number = ref3 <= ref4 ? ++i : --i) {
+          for (number = i = ref3 = fromNumber, ref4 = thruNumber; (ref3 <= ref4 ? i <= ref4 : i >= ref4); number = ref3 <= ref4 ? ++i : --i) {
             pages.push({
               type: 'PAGE',
               disabled: number === currentPage,
               number: number
             });
           }
+          // Assign left MORE
           if (fromNumber > 1) {
             pages.unshift({
               type: 'MORE',
               disabled: true
             });
           }
+          // Assign right MORE
           if (thruNumber < pageCount) {
             pages.push({
               type: 'MORE',
               disabled: true
             });
           }
+          // Assign PREV
           pages.unshift({
             type: 'PREV',
             disabled: currentPage === 1,
             number: currentPage - 1
           });
+          // Assign NEXT
           pages.push({
             type: 'NEXT',
             disabled: currentPage === pageCount,
             number: currentPage + 1
           });
+          // Assign FIRST
           pages.unshift({
             type: 'FIRST',
             disabled: currentPage === 1,
             number: 1
           });
+          // Assign LAST
           pages.push({
             type: 'LAST',
             disabled: currentPage === pageCount,
@@ -1779,6 +2700,7 @@ shTableModule.factory('ShTableParams', [
           });
         }
         return {
+          // Return pagination object
           pages: pages,
           currentPage: currentPage,
           perPage: perPage,
@@ -1793,20 +2715,45 @@ shTableModule.factory('ShTableParams', [
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShApiHook
- *
- * @description
- * ShApiHook factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShApiHook for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShApiHook
+   *
+   * @description
+   * ShApiHook factory
+   *
+   */
 shApiModule.factory('ShApiHook', [
-  '$q', 'ShApi', function($q, ShApi) {
+  '$q',
+  'ShApi',
+  function($q,
+  ShApi) {
     var ShApiHook;
     ShApiHook = function(params) {
-      var base, base1, base2, self, shApi;
+      var base,
+  base1,
+  base2,
+  self,
+  shApi;
+      // Variables
       self = this;
       self.shApiInstance = params.shApiInstance;
       if ((base = self.shApiInstance).resource == null) {
@@ -1827,7 +2774,6 @@ shApiModule.factory('ShApiHook', [
       shApi = new ShApi({
         resource: self.shApiInstance.resource
       });
-
       /**
        * @ngdoc method
        * @name apiCall
@@ -1840,7 +2786,22 @@ shApiModule.factory('ShApiHook', [
        * @returns {promise}
        */
       self.shApiInstance.apiCallEntity = function(opts) {
-        var apiParameters, base3, base4, base5, base6, data, deferred, hook, i, len, name, name1, name2, name3, ref, ref1;
+        var apiParameters,
+  base3,
+  base4,
+  base5,
+  base6,
+  data,
+  deferred,
+  hook,
+  i,
+  len,
+  name,
+  name1,
+  name2,
+  name3,
+  ref,
+  ref1;
         deferred = $q.defer();
         if (!((opts.method != null) && ((ref = opts.method) === 'GET' || ref === 'POST' || ref === 'PUT' || ref === 'DELETE'))) {
           console.error('STARQLE_NG_UTIL: Unknown Method');
@@ -1871,15 +2832,18 @@ shApiModule.factory('ShApiHook', [
                 console.error('STARQLE_NG_UTIL: Options entity is required');
                 deferred.reject({});
               } else {
+                // Check if the entity is a FormData (Useful for file uploaded form)
                 data = {
                   data: opts.entity
                 };
-                if (Object.prototype.toString.call(opts.entity).slice(8, -1) === 'FormData') {
+                if (Object.prototype.toString.call(opts.entity).slice(8,
+  -1) === 'FormData') {
                   data = opts.entity;
                 }
                 apiParameters.data = data;
               }
           }
+          // Preparing hooks based-on name
           if ((base3 = self.shApiInstance.beforeApiCallEntityHooks)[name = opts.name] == null) {
             base3[name] = [];
           }
@@ -1895,26 +2859,39 @@ shApiModule.factory('ShApiHook', [
           ref1 = self.shApiInstance.beforeApiCallEntityHooks[opts.name];
           for (i = 0, len = ref1.length; i < len; i++) {
             hook = ref1[i];
+            // Call shApi apiCall
             hook();
           }
           shApi.apiCall(apiParameters).then(function(success) {
-            var j, len1, ref2;
+            var j,
+  len1,
+  ref2;
             ref2 = self.shApiInstance.apiCallEntitySuccessHooks[opts.name];
             for (j = 0, len1 = ref2.length; j < len1; j++) {
               hook = ref2[j];
+              // These following 3-lines only applicable for shApiInstance
+              // self.shApiInstance.updatedIds.push success.data.id if opts.method in ['POST', 'PUT']
+              // self.shApiInstance.deletedIds.push success.data.id if opts.method in ['DELETE']
+              // self.shApiInstance.refreshGrid() if opts.method in ['DELETE', 'POST', 'PUT']
               hook(success);
             }
             return deferred.resolve(success);
-          }, function(error) {
-            var j, len1, ref2;
+          },
+  function(error) {
+            var j,
+  len1,
+  ref2;
             ref2 = self.shApiInstance.apiCallEntityErrorHooks[opts.name];
             for (j = 0, len1 = ref2.length; j < len1; j++) {
               hook = ref2[j];
               hook(error);
             }
             return deferred.reject(error);
-          })["finally"](function() {
-            var j, len1, ref2, results;
+          }).finally(function() {
+            var j,
+  len1,
+  ref2,
+  results;
             ref2 = self.shApiInstance.afterApiCallEntityHooks[opts.name];
             results = [];
             for (j = 0, len1 = ref2.length; j < len1; j++) {
@@ -1928,27 +2905,48 @@ shApiModule.factory('ShApiHook', [
       };
       return this;
     };
+    
+    // Return ShApiHook
+
     return ShApiHook;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShApi
- *
- * @description
- * ShApi factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShApi for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShApi
+   *
+   * @description
+   * ShApi factory
+   *
+   */
 shApiModule.factory('ShApi', [
-  '$q', function($q) {
+  '$q',
+  function($q) {
     var ShApi;
     ShApi = function(params) {
       var self;
+      // Variables
       self = this;
       self.resource = params.resource;
-
       /**
        * @ngdoc method
        * @name index
@@ -1963,14 +2961,15 @@ shApiModule.factory('ShApi', [
       self.index = function(params) {
         var deferred;
         deferred = $q.defer();
+        // GEt the records
         self.resource.get(params).$promise.then(function(success) {
           return deferred.resolve(success);
-        }, function(error) {
+        },
+  function(error) {
           return deferred.reject(error);
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name new
@@ -1980,17 +2979,18 @@ shApiModule.factory('ShApi', [
        *
        * @returns {promise}
        */
-      self["new"] = function(params) {
+      self.new = function(params) {
         var deferred;
         deferred = $q.defer();
-        self.resource["new"](params).$promise.then(function(success) {
+        // Fetch blank record
+        self.resource.new(params).$promise.then(function(success) {
           return deferred.resolve(success);
-        }, function(error) {
+        },
+  function(error) {
           return deferred.reject(error);
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name create
@@ -2003,17 +3003,20 @@ shApiModule.factory('ShApi', [
        *
        * @returns {promise}
        */
-      self.create = function(params, data) {
+      self.create = function(params,
+  data) {
         var deferred;
         deferred = $q.defer();
-        self.resource.save(params, data).$promise.then(function(success) {
+        // Persist an record into database
+        self.resource.save(params,
+  data).$promise.then(function(success) {
           return deferred.resolve(success);
-        }, function(error) {
+        },
+  function(error) {
           return deferred.reject(error);
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name edit
@@ -2026,19 +3029,22 @@ shApiModule.factory('ShApi', [
        *
        * @returns {promise}
        */
-      self.edit = function(id, params) {
+      self.edit = function(id,
+  params) {
         var deferred;
         deferred = $q.defer();
+        // Fetch a record for editing
         self.resource.edit(angular.extend({
           id: id
-        }, params)).$promise.then(function(success) {
+        },
+  params)).$promise.then(function(success) {
           return deferred.resolve(success);
-        }, function(error) {
+        },
+  function(error) {
           return deferred.reject(error);
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name update
@@ -2052,19 +3058,24 @@ shApiModule.factory('ShApi', [
        *
        * @returns {promise}
        */
-      self.update = function(id, params, data) {
+      self.update = function(id,
+  params,
+  data) {
         var deferred;
         deferred = $q.defer();
+        // Update a record into database
         self.resource.update(angular.extend({
           id: id
-        }, params), data).$promise.then(function(success) {
+        },
+  params),
+  data).$promise.then(function(success) {
           return deferred.resolve(success);
-        }, function(error) {
+        },
+  function(error) {
           return deferred.reject(error);
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name delete
@@ -2077,19 +3088,28 @@ shApiModule.factory('ShApi', [
        *
        * @returns {promise}
        */
-      self["delete"] = function(id, params) {
+      self.delete = function(id,
+  params) {
         var deferred;
         deferred = $q.defer();
-        self.resource["delete"](angular.extend({
+        // Delete record from database
+        self.resource.delete(angular.extend({
           id: id
-        }, params)).$promise.then(function(success) {
+        },
+  params)).$promise.then(function(success) {
           return deferred.resolve(success);
-        }, function(error) {
+        },
+  function(error) {
           return deferred.reject(error);
         });
         return deferred.promise;
       };
-
+      // @index = (params) ->
+      // @new = (params) ->
+      // @create = (params, data) ->
+      // @edit = (id, params) ->
+      // @update = (id, params, data) ->
+      // @delete = (id, params) ->
       /**
        * @ngdoc method
        * @name apiCall
@@ -2111,11 +3131,14 @@ shApiModule.factory('ShApi', [
         switch (opts.method) {
           case 'GET':
           case 'DELETE':
+            // Fetch a record for editing
             self.resource[opts.name](angular.extend({
               id: opts.id
-            }, opts.params)).$promise.then(function(success) {
+            },
+  opts.params)).$promise.then(function(success) {
               return deferred.resolve(success);
-            }, function(error) {
+            },
+  function(error) {
               return deferred.reject(error);
             });
             break;
@@ -2123,9 +3146,12 @@ shApiModule.factory('ShApi', [
           case 'PUT':
             self.resource[opts.name](angular.extend({
               id: opts.id
-            }, opts.params), opts.data).$promise.then(function(success) {
+            },
+  opts.params),
+  opts.data).$promise.then(function(success) {
               return deferred.resolve(success);
-            }, function(error) {
+            },
+  function(error) {
               return deferred.reject(error);
             });
             break;
@@ -2137,19 +3163,39 @@ shApiModule.factory('ShApi', [
       };
       return this;
     };
+    
+    // Return ShApi
+
     return ShApi;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShForm
- *
- * @description
- * ShForm factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShForm for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShForm
+   *
+   * @description
+   * ShForm factory
+   *
+   */
 shFormModule.factory('ShForm', [
   function() {
     var ShForm;
@@ -2157,7 +3203,6 @@ shFormModule.factory('ShForm', [
       var self;
       self = this;
       self.entityForm = null;
-
       /**
        * @ngdoc method
        * @name validationClass
@@ -2168,7 +3213,8 @@ shFormModule.factory('ShForm', [
        * @returns {String} String as class that mark element state
        */
       self.validationClass = function(fieldName) {
-        var ref, result;
+        var ref,
+  result;
         result = '';
         if (((ref = self.entityForm) != null ? ref[fieldName] : void 0) != null) {
           if (self.entityForm[fieldName].$invalid) {
@@ -2183,7 +3229,6 @@ shFormModule.factory('ShForm', [
         }
         return result;
       };
-
       /**
        * @ngdoc method
        * @name reset
@@ -2194,13 +3239,13 @@ shFormModule.factory('ShForm', [
        * @returns {*}
        */
       self.reset = function() {
-        var ref, ref1;
+        var ref,
+  ref1;
         if ((ref = self.entityForm) != null) {
           ref.$setPristine();
         }
         return (ref1 = self.entityForm) != null ? ref1.$setUntouched() : void 0;
       };
-
       /**
        * @ngdoc method
        * @name resetSubmitted
@@ -2215,7 +3260,6 @@ shFormModule.factory('ShForm', [
         var ref;
         return (ref = self.entityForm) != null ? ref.$submitted = false : void 0;
       };
-
       /**
        * @ngdoc method
        * @name isDisabled
@@ -2226,13 +3270,14 @@ shFormModule.factory('ShForm', [
        * @returns {Boolean} entityForm state
        */
       self.isDisabled = function() {
-        var ref, ref1, ref2;
+        var ref,
+  ref1,
+  ref2;
         if (self.entityForm == null) {
           return true;
         }
         return ((ref = self.entityForm) != null ? ref.$pristine : void 0) || ((ref1 = self.entityForm) != null ? ref1.$invalid : void 0) || ((ref2 = self.entityForm) != null ? ref2.$submitted : void 0);
       };
-
       /**
        * @ngdoc method
        * @name isCompleted
@@ -2243,10 +3288,10 @@ shFormModule.factory('ShForm', [
        * @returns {Boolean} true if `$pristine`, `$valid`, & not in `$submitted` state
        */
       self.isCompleted = function() {
-        var ref, ref1;
+        var ref,
+  ref1;
         return ((ref = self.entityForm) != null ? ref.$pristine : void 0) && ((ref1 = self.entityForm) != null ? ref1.$valid : void 0) && !self.entityForm.$submitted;
       };
-
       /**
        * @ngdoc method
        * @name isDirtyAndValid
@@ -2257,10 +3302,10 @@ shFormModule.factory('ShForm', [
        * @returns {Boolean} true if `$dirty` and `$valid`
        */
       self.isDirtyAndValid = function() {
-        var ref, ref1;
+        var ref,
+  ref1;
         return ((ref = self.entityForm) != null ? ref.$dirty : void 0) && ((ref1 = self.entityForm) != null ? ref1.$valid : void 0);
       };
-
       /**
        * @ngdoc method
        * @name isDirtyAndInvalid
@@ -2271,10 +3316,10 @@ shFormModule.factory('ShForm', [
        * @returns {Boolean} true if `$dirty` and `$invalid`
        */
       self.isDirtyAndInvalid = function() {
-        var ref, ref1;
+        var ref,
+  ref1;
         return ((ref = self.entityForm) != null ? ref.$dirty : void 0) && ((ref1 = self.entityForm) != null ? ref1.$invalid : void 0);
       };
-
       /**
        * @ngdoc method
        * @name isResetButtonDisabled
@@ -2285,29 +3330,52 @@ shFormModule.factory('ShForm', [
        * @returns {Boolean} true if `$pristine` or `$submitted`
        */
       self.isResetButtonDisabled = function() {
-        var ref, ref1;
+        var ref,
+  ref1;
         return ((ref = self.entityForm) != null ? ref.$pristine : void 0) || ((ref1 = self.entityForm) != null ? ref1.$submitted : void 0);
       };
       return this;
     };
+    
+    // Return ShForm
+
     return ShForm;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShPersistenceHookNotification
- *
- * @description
- * ShPersistenceHookNotification factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShPersistenceHookNotification for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShPersistenceHookNotification
+   *
+   * @description
+   * ShPersistenceHookNotification factory
+   *
+   */
 shPersistenceModule.factory('ShPersistenceHookNotification', [
-  'ShNotification', function(ShNotification) {
+  'ShNotification',
+  function(ShNotification) {
     var ShPersistenceHookNotification;
     ShPersistenceHookNotification = function(params) {
       var self;
+      // Variables
       self = this;
       self.shPersistence = params.shPersistence;
       self.shPersistence.newEntityErrorHooks.push(function(error) {
@@ -2324,24 +3392,60 @@ shPersistenceModule.factory('ShPersistenceHookNotification', [
       });
       return this;
     };
+    
+    // Return ShPersistenceHookNotification
+
     return ShPersistenceHookNotification;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShPersistenceHook
- *
- * @description
- * ShPersistenceHook factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShPersistenceHook for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShPersistenceHook
+   *
+   * @description
+   * ShPersistenceHook factory
+   *
+   */
 shPersistenceModule.factory('ShPersistenceHook', [
-  '$q', 'ShApi', 'ShApiHook', 'ShPersistenceHookNotification', function($q, ShApi, ShApiHook, ShPersistenceHookNotification) {
+  '$q',
+  'ShApi',
+  'ShApiHook',
+  'ShPersistenceHookNotification',
+  function($q,
+  ShApi,
+  ShApiHook,
+  ShPersistenceHookNotification) {
     var ShPersistenceHook;
     ShPersistenceHook = function(params) {
-      var base, base1, base2, base3, base4, self, shApi, shApiHook, shPersistenceHookNotification;
+      var base,
+  base1,
+  base2,
+  base3,
+  base4,
+  self,
+  shApi,
+  shApiHook,
+  shPersistenceHookNotification;
+      // Variables
       self = this;
       self.shPersistence = params.shPersistence;
       if ((base = self.shPersistence).id == null) {
@@ -2359,6 +3463,7 @@ shPersistenceModule.factory('ShPersistenceHook', [
       if ((base4 = self.shPersistence).optParams == null) {
         base4.optParams = {};
       }
+      // Hooks Variables
       self.shPersistence.beforeNewEntityHooks = [];
       self.shPersistence.newEntitySuccessHooks = [];
       self.shPersistence.newEntityErrorHooks = [];
@@ -2383,6 +3488,7 @@ shPersistenceModule.factory('ShPersistenceHook', [
       self.shPersistence.initEntitySuccessHooks = [];
       self.shPersistence.initEntityErrorHooks = [];
       self.shPersistence.afterInitEntityHooks = [];
+      // Invokes
       shApi = new ShApi({
         resource: self.shPersistence.resource
       });
@@ -2392,7 +3498,6 @@ shPersistenceModule.factory('ShPersistenceHook', [
       shPersistenceHookNotification = new ShPersistenceHookNotification({
         shPersistence: self.shPersistence
       });
-
       /**
        * @ngdoc method
        * @name newEntity
@@ -2403,15 +3508,22 @@ shPersistenceModule.factory('ShPersistenceHook', [
        * @returns {promise}
        */
       self.shPersistence.newEntity = function() {
-        var deferred, hook, i, len, ref;
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shPersistence.beforeNewEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
           hook();
         }
         deferred = $q.defer();
-        shApi["new"](self.shPersistence.optParams).then(function(success) {
-          var j, len1, ref1;
+        // Fetch blank entity
+        shApi.new(self.shPersistence.optParams).then(function(success) {
+          var j,
+  len1,
+  ref1;
           self.shPersistence.entity = success.data;
           if (success.lookup != null) {
             self.shPersistence.lookup = success.lookup;
@@ -2422,16 +3534,22 @@ shPersistenceModule.factory('ShPersistenceHook', [
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shPersistence.newEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shPersistence.afterNewEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -2442,7 +3560,6 @@ shPersistenceModule.factory('ShPersistenceHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name createEntity
@@ -2455,21 +3572,32 @@ shPersistenceModule.factory('ShPersistenceHook', [
        * @returns {promise}
        */
       self.shPersistence.createEntity = function(entity) {
-        var data, deferred, hook, i, len, ref;
+        var data,
+  deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shPersistence.beforeCreateEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
           hook();
         }
         deferred = $q.defer();
+        // Check if the entity is a FormData (Useful for file uploaded form)
         data = {
           data: entity
         };
-        if (Object.prototype.toString.call(entity).slice(8, -1) === 'FormData') {
+        if (Object.prototype.toString.call(entity).slice(8,
+  -1) === 'FormData') {
           data = entity;
         }
-        shApi.create(self.shPersistence.optParams, data).then(function(success) {
-          var j, len1, ref1;
+        // Persist an entity into database
+        shApi.create(self.shPersistence.optParams,
+  data).then(function(success) {
+          var j,
+  len1,
+  ref1;
           self.shPersistence.entity = success.data;
           if (success.lookup != null) {
             self.shPersistence.lookup = success.lookup;
@@ -2480,16 +3608,22 @@ shPersistenceModule.factory('ShPersistenceHook', [
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shPersistence.createEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shPersistence.afterCreateEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -2500,7 +3634,6 @@ shPersistenceModule.factory('ShPersistenceHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name editEntity
@@ -2513,7 +3646,11 @@ shPersistenceModule.factory('ShPersistenceHook', [
        * @returns {promise}
        */
       self.shPersistence.editEntity = function(id) {
-        var deferred, hook, i, len, ref;
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shPersistence.beforeEditEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
@@ -2521,10 +3658,15 @@ shPersistenceModule.factory('ShPersistenceHook', [
         }
         deferred = $q.defer();
         if (!id) {
+          // Allow edit without providing parameter id. (self.shPersistence.edit)
           id = self.shPersistence.id;
         }
-        shApi.edit(id, self.shPersistence.optParams).then(function(success) {
-          var j, len1, ref1;
+        // Fetch entity for editing
+        shApi.edit(id,
+  self.shPersistence.optParams).then(function(success) {
+          var j,
+  len1,
+  ref1;
           self.shPersistence.entity = success.data;
           if (success.lookup != null) {
             self.shPersistence.lookup = success.lookup;
@@ -2535,16 +3677,22 @@ shPersistenceModule.factory('ShPersistenceHook', [
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shPersistence.editEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shPersistence.afterEditEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -2555,7 +3703,6 @@ shPersistenceModule.factory('ShPersistenceHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name updateEntity
@@ -2568,26 +3715,40 @@ shPersistenceModule.factory('ShPersistenceHook', [
        *
        * @returns {promise}
        */
-      self.shPersistence.updateEntity = function(id, entity) {
-        var data, deferred, hook, i, len, ref;
+      self.shPersistence.updateEntity = function(id,
+  entity) {
+        var data,
+  deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shPersistence.beforeUpdateEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
           hook();
         }
         deferred = $q.defer();
+        // Allow edit without providing parameter id. (self.shPersistence.update)
         if (angular.isObject(id)) {
           entity = id;
           id = self.shPersistence.id;
         }
+        // Check if the entity is a FormData (Useful for file uploaded form)
         data = {
           data: entity
         };
-        if (Object.prototype.toString.call(entity).slice(8, -1) === 'FormData') {
+        if (Object.prototype.toString.call(entity).slice(8,
+  -1) === 'FormData') {
           data = entity;
         }
-        shApi.update(id, self.shPersistence.optParams, data).then(function(success) {
-          var j, len1, ref1;
+        // Update entity into database
+        shApi.update(id,
+  self.shPersistence.optParams,
+  data).then(function(success) {
+          var j,
+  len1,
+  ref1;
           self.shPersistence.entity = success.data;
           if (success.lookup != null) {
             self.shPersistence.lookup = success.lookup;
@@ -2598,16 +3759,22 @@ shPersistenceModule.factory('ShPersistenceHook', [
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shPersistence.updateEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shPersistence.afterUpdateEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -2618,7 +3785,6 @@ shPersistenceModule.factory('ShPersistenceHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name deleteEntity
@@ -2631,7 +3797,11 @@ shPersistenceModule.factory('ShPersistenceHook', [
        * @returns {promise}
        */
       self.shPersistence.deleteEntity = function(id) {
-        var deferred, hook, i, len, ref;
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shPersistence.beforeDeleteEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
@@ -2639,26 +3809,37 @@ shPersistenceModule.factory('ShPersistenceHook', [
         }
         deferred = $q.defer();
         if (!id) {
+          // Allow delete without providing parameter id. (self.shPersistence.delete)
           id = self.shPersistence.id;
         }
-        shApi["delete"](id, self.shPersistence.optParams).then(function(success) {
-          var j, len1, ref1;
+        // Delete entity from database
+        shApi.delete(id,
+  self.shPersistence.optParams).then(function(success) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shPersistence.deleteEntitySuccessHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shPersistence.deleteEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shPersistence.afterDeleteEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -2669,7 +3850,6 @@ shPersistenceModule.factory('ShPersistenceHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name initEntity
@@ -2683,7 +3863,11 @@ shPersistenceModule.factory('ShPersistenceHook', [
        * @returns {promise}
        */
       self.shPersistence.initEntity = function() {
-        var deferred, hook, i, len, ref;
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shPersistence.beforeInitEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
@@ -2691,23 +3875,31 @@ shPersistenceModule.factory('ShPersistenceHook', [
         }
         deferred = $q.defer();
         $q.when(self.shPersistence.id != null ? self.shPersistence.editEntity(self.shPersistence.id) : self.shPersistence.newEntity()).then(function(success) {
-          var j, len1, ref1;
+          var j,
+  len1,
+  ref1;
           ref1 = self.shPersistence.initEntitySuccessHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shPersistence.initEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shPersistence.afterInitEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -2718,7 +3910,6 @@ shPersistenceModule.factory('ShPersistenceHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name getLookup
@@ -2736,26 +3927,56 @@ shPersistenceModule.factory('ShPersistenceHook', [
       };
       return this;
     };
+    
+    // Return ShPersistenceHook
+
     return ShPersistenceHook;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShPersistence
- *
- * @description
- * ShPersistence factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShPersistence for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShPersistence
+   *
+   * @description
+   * ShPersistence factory
+   *
+   */
 shPersistenceModule.factory('ShPersistence', [
-  '$q', 'ShPersistenceHook', function($q, ShPersistenceHook) {
+  '$q',
+  'ShPersistenceHook',
+  function($q,
+  ShPersistenceHook) {
     var ShPersistence;
     ShPersistence = function(params) {
-      var ref, ref1, ref2, ref3, self, shPersistenceHook;
+      var ref,
+  ref1,
+  ref2,
+  ref3,
+  self,
+  shPersistenceHook;
+      // Variables
       self = this;
       self.entity = {};
+      
       self.id = (ref = params.id) != null ? ref : null;
       self.localLookup = {};
       self.optParams = (ref1 = params.optParams) != null ? ref1 : {};
@@ -2763,36 +3984,91 @@ shPersistenceModule.factory('ShPersistence', [
       self.sorting = (ref3 = params.sorting) != null ? ref3 : {
         id: "desc"
       };
+      
       shPersistenceHook = new ShPersistenceHook({
         shPersistence: self
       });
       return this;
     };
+    
+    // Return ShPersistence
+
     return ShPersistence;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShTableFilterStorage
- *
- * @description
- * ShTableFilterStorage factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShTableFilterStorage for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShTableFilterStorage
+   *
+   * @description
+   * ShTableFilterStorage factory
+   *
+   */
 shTableModule.factory('ShTableFilterStorage', [
-  '$location', 'localStorageService', function($location, localStorageService) {
+  '$location',
+  'localStorageService',
+  function($location,
+  localStorageService) {
     var ShTableFilterStorage;
     ShTableFilterStorage = function(params) {
-      var getCurrentFilterParams, getCurrentLocalStorage, self, setFilterCollection, setFilterLabel, setFilterParams, setLocalStorage, storageKey;
+      var getCurrentFilterParams,
+  getCurrentLocalStorage,
+  self,
+  setFilterCollection,
+  setFilterLabel,
+  setFilterParams,
+  setLocalStorage,
+  storageKey;
+      // Variables
       self = this;
       self.shTable = params.shTable;
-      storageKey = [self.shTable.name, $location.path()].join('');
+      storageKey = [self.shTable.name,
+  $location.path()].join('');
+      
+      // Push a method on beforeRefreshGridHooks
+
       self.shTable.beforeRefreshGridHooks.push(function() {
-        var collectionKey, currentFilterParams, currentLocalStorage, i, j, key, keysCollections, lastUnderscore, len, len1, new_key, obj, ref, ref1, resultFilterCollection, resultFilterLabel, resultFilterParams;
+        var collectionKey,
+  currentFilterParams,
+  currentLocalStorage,
+  i,
+  j,
+  key,
+  keysCollections,
+  lastUnderscore,
+  len,
+  len1,
+  new_key,
+  obj,
+  ref,
+  ref1,
+  resultFilterCollection,
+  resultFilterLabel,
+  resultFilterParams;
+        // get Current filterParams and Ger Current LocalStorage
         currentFilterParams = (ref = getCurrentFilterParams()) != null ? ref : {};
         currentLocalStorage = getCurrentLocalStorage() === 'undefined' ? self.shTable.filterParams : getCurrentLocalStorage();
+        // merge
+        // angular.merge(currentLocalStorage, currentFilterParams)
         resultFilterParams = self.shTable.filterParams.fromShFilter != null ? currentFilterParams : currentLocalStorage;
         resultFilterLabel = {};
         resultFilterCollection = {};
@@ -2801,7 +4077,8 @@ shTableModule.factory('ShTableFilterStorage', [
           for (i = 0, len = keysCollections.length; i < len; i++) {
             key = keysCollections[i];
             lastUnderscore = key.lastIndexOf("_");
-            new_key = key.substring(0, lastUnderscore);
+            new_key = key.substring(0,
+  lastUnderscore);
             collectionKey = key.substring(lastUnderscore);
             if (new_key) {
               if (collectionKey === "_in") {
@@ -2821,6 +4098,7 @@ shTableModule.factory('ShTableFilterStorage', [
               resultFilterLabel[key] = resultFilterParams[key];
             }
           }
+          // set Current filterParams and Ger Current LocalStorage
           setFilterParams(resultFilterParams);
           setLocalStorage(resultFilterParams);
           setFilterLabel(resultFilterLabel);
@@ -2837,7 +4115,8 @@ shTableModule.factory('ShTableFilterStorage', [
         self.shTable.filterParams = currentLocalStorage;
       };
       setLocalStorage = function(currentLocalStorage) {
-        return localStorageService.set(storageKey, currentLocalStorage);
+        return localStorageService.set(storageKey,
+  currentLocalStorage);
       };
       setFilterLabel = function(resultFilterLabel) {
         self.shTable.filterLabel = resultFilterLabel;
@@ -2847,32 +4126,62 @@ shTableModule.factory('ShTableFilterStorage', [
       };
       return this;
     };
+    
+    // Return ShTableFilterStorage
+
     return ShTableFilterStorage;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShTableFilter
- *
- * @description
- * ShTableFilter factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShTableFilter for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShTableFilter
+   *
+   * @description
+   * ShTableFilter factory
+   *
+   */
 shTableModule.factory('ShTableFilter', [
-  '$filter', 'HelperService', function($filter, HelperService) {
+  '$filter',
+  'HelperService',
+  function($filter,
+  HelperService) {
     var ShTableFilter;
     ShTableFilter = function(params) {
-      var base, dateParams, numberParams, self;
+      var base,
+  dateParams,
+  numberParams,
+  self;
       self = this;
       self.shTable = params.shTable;
       if ((base = self.shTable).filterParams == null) {
         base.filterParams = {};
       }
       self.shTable.filterRegion = {
-        visible: true
+        visible: true // show filter by default
       };
+      
+      // =========================================================================
+      // Date filters
+      // =========================================================================
       dateParams = {};
       self.shTable.filterLabel = {};
       self.shTable.filterCollection = {};
@@ -2883,55 +4192,73 @@ shTableModule.factory('ShTableFilter', [
         return delete self.shTable.filterParams[shFilter + "_gteqdate"];
       };
       self.shTable.executeFilterDate = function() {
-        jQuery.extend(self.shTable.filterParams, dateParams);
+        jQuery.extend(self.shTable.filterParams,
+  dateParams);
         self.shTable.tableParams.$params.pageNumber = 1;
         return self.shTable.refreshGrid();
       };
-      self.shTable.filterDateLabel = function(keyword, shFilter, n) {
+      self.shTable.filterDateLabel = function(keyword,
+  shFilter,
+  n) {
         switch (keyword) {
           case 'ANY':
             return $filter('translate')('LABEL_ALL');
           case 'TODAY':
             return $filter('translate')('LABEL_TODAY');
           case 'PAST_N_DAYS':
-            return $filter('translate')('LABEL_FROM') + ' ' + (n === 1 ? $filter('translate')('LABEL_YESTERDAY') : moment().subtract(n, 'days').fromNow());
+            return $filter('translate')('LABEL_FROM') + ' ' + (n === 1 ? $filter('translate')('LABEL_YESTERDAY') : moment().subtract(n,
+  'days').fromNow());
           case 'PAST_N_WEEKS':
-            return $filter('translate')('LABEL_FROM') + ' ' + moment().subtract(n, 'weeks').fromNow();
+            return $filter('translate')('LABEL_FROM') + ' ' + moment().subtract(n,
+  'weeks').fromNow();
           case 'PAST_N_MONTHS':
-            return $filter('translate')('LABEL_FROM') + ' ' + moment().subtract(n, 'months').fromNow();
+            return $filter('translate')('LABEL_FROM') + ' ' + moment().subtract(n,
+  'months').fromNow();
           case 'PAST_N_YEARS':
-            return $filter('translate')('LABEL_FROM') + ' ' + moment().subtract(n, 'years').fromNow();
+            return $filter('translate')('LABEL_FROM') + ' ' + moment().subtract(n,
+  'years').fromNow();
           case 'NEXT_N_DAYS':
             if (n === 1) {
               return $filter('translate')('LABEL_THRU') + ' ' + $filter('translate')('LABEL_TOMORROW');
             } else {
-              return moment().add(n, 'days').fromNow() + ' ' + $filter('translate')('LABEL_AHEAD');
+              return moment().add(n,
+  'days').fromNow() + ' ' + $filter('translate')('LABEL_AHEAD');
             }
             break;
           case 'NEXT_N_WEEKS':
-            return moment().add(n, 'weeks').fromNow() + ' ' + $filter('translate')('LABEL_AHEAD');
+            return moment().add(n,
+  'weeks').fromNow() + ' ' + $filter('translate')('LABEL_AHEAD');
           case 'NEXT_N_MONTHS':
-            return moment().add(n, 'months').fromNow() + ' ' + $filter('translate')('LABEL_AHEAD');
+            return moment().add(n,
+  'months').fromNow() + ' ' + $filter('translate')('LABEL_AHEAD');
           case 'NEXT_N_YEARS':
-            return moment().add(n, 'years').fromNow() + ' ' + $filter('translate')('LABEL_AHEAD');
+            return moment().add(n,
+  'years').fromNow() + ' ' + $filter('translate')('LABEL_AHEAD');
         }
       };
-      self.shTable.filterDate = function(keyword, shFilter, n) {
-        var fromDate, thruDate;
+      self.shTable.filterDate = function(keyword,
+  shFilter,
+  n) {
+        var fromDate,
+  thruDate;
         if (keyword === 'RANGE' || keyword === 'CERTAIN') {
           switch (keyword) {
             case 'RANGE':
               fromDate = self.shTable.filterParams[shFilter + "_gteqdate"];
               thruDate = self.shTable.filterParams[shFilter + "_lteqdate"];
               self.shTable.prepareFilterDate(shFilter);
-              self.shTable.filterDateRange(shFilter, fromDate, thruDate);
+              self.shTable.filterDateRange(shFilter,
+  fromDate,
+  thruDate);
               self.shTable.filterLabel[shFilter] = moment(fromDate).format('DD-MM-YYYY') + ' - ' + moment(thruDate).format('DD-MM-YYYY');
               break;
             case 'CERTAIN':
               fromDate = self.shTable.filterParams[shFilter + "_gteqdate"];
               thruDate = fromDate;
               self.shTable.prepareFilterDate(shFilter);
-              self.shTable.filterDateRange(shFilter, fromDate, thruDate);
+              self.shTable.filterDateRange(shFilter,
+  fromDate,
+  thruDate);
               self.shTable.filterLabel[shFilter] = moment(fromDate).format('DD-MM-YYYY');
           }
         } else {
@@ -2944,76 +4271,105 @@ shTableModule.factory('ShTableFilter', [
               self.shTable.filterDateToday(shFilter);
               break;
             case 'PAST_N_DAYS':
-              self.shTable.filterDatePastNDays(shFilter, n);
+              self.shTable.filterDatePastNDays(shFilter,
+  n);
               break;
             case 'PAST_N_WEEKS':
-              self.shTable.filterDatePastNWeeks(shFilter, n);
+              self.shTable.filterDatePastNWeeks(shFilter,
+  n);
               break;
             case 'PAST_N_MONTHS':
-              self.shTable.filterDatePastNMonths(shFilter, n);
+              self.shTable.filterDatePastNMonths(shFilter,
+  n);
               break;
             case 'PAST_N_YEARS':
-              self.shTable.filterDatePastNYears(shFilter, n);
+              self.shTable.filterDatePastNYears(shFilter,
+  n);
               break;
             case 'NEXT_N_DAYS':
-              self.shTable.filterDateNextNDays(shFilter, n);
+              self.shTable.filterDateNextNDays(shFilter,
+  n);
               break;
             case 'NEXT_N_WEEKS':
-              self.shTable.filterDateNextNWeeks(shFilter, n);
+              self.shTable.filterDateNextNWeeks(shFilter,
+  n);
               break;
             case 'NEXT_N_MONTHS':
-              self.shTable.filterDateNextNMonths(shFilter, n);
+              self.shTable.filterDateNextNMonths(shFilter,
+  n);
               break;
             case 'NEXT_N_YEARS':
-              self.shTable.filterDateNextNYears(shFilter, n);
+              self.shTable.filterDateNextNYears(shFilter,
+  n);
           }
-          self.shTable.filterLabel[shFilter] = self.shTable.filterDateLabel(keyword, shFilter, n);
+          self.shTable.filterLabel[shFilter] = self.shTable.filterDateLabel(keyword,
+  shFilter,
+  n);
         }
         return self.shTable.executeFilterDate();
       };
-      self.shTable.filterDateAny = function(shFilter) {
-
-        /* */
-      };
+      self.shTable.filterDateAny = function(shFilter) {};
+      /* */
       self.shTable.filterDateToday = function(shFilter) {
         dateParams[shFilter + "_eqdate"] = moment().format('YYYY-MM-DD');
       };
-      self.shTable.filterDatePastNDays = function(shFilter, n) {
+      self.shTable.filterDatePastNDays = function(shFilter,
+  n) {
         dateParams[shFilter + "_lteqdate"] = moment().format('YYYY-MM-DD');
-        dateParams[shFilter + "_gteqdate"] = moment().subtract(n, 'days').format('YYYY-MM-DD');
+        dateParams[shFilter + "_gteqdate"] = moment().subtract(n,
+  'days').format('YYYY-MM-DD');
       };
-      self.shTable.filterDatePastNWeeks = function(shFilter, n) {
+      self.shTable.filterDatePastNWeeks = function(shFilter,
+  n) {
         dateParams[shFilter + "_lteqdate"] = moment().format('YYYY-MM-DD');
-        dateParams[shFilter + "_gteqdate"] = moment().subtract(n, 'weeks').format('YYYY-MM-DD');
+        dateParams[shFilter + "_gteqdate"] = moment().subtract(n,
+  'weeks').format('YYYY-MM-DD');
       };
-      self.shTable.filterDatePastNMonths = function(shFilter, n) {
+      self.shTable.filterDatePastNMonths = function(shFilter,
+  n) {
         dateParams[shFilter + "_lteqdate"] = moment().format('YYYY-MM-DD');
-        dateParams[shFilter + "_gteqdate"] = moment().subtract(n, 'months').format('YYYY-MM-DD');
+        dateParams[shFilter + "_gteqdate"] = moment().subtract(n,
+  'months').format('YYYY-MM-DD');
       };
-      self.shTable.filterDatePastNYears = function(shFilter, n) {
+      self.shTable.filterDatePastNYears = function(shFilter,
+  n) {
         dateParams[shFilter + "_lteqdate"] = moment().format('YYYY-MM-DD');
-        dateParams[shFilter + "_gteqdate"] = moment().subtract(n, 'years').format('YYYY-MM-DD');
+        dateParams[shFilter + "_gteqdate"] = moment().subtract(n,
+  'years').format('YYYY-MM-DD');
       };
-      self.shTable.filterDateNextNDays = function(shFilter, n) {
-        dateParams[shFilter + "_lteqdate"] = moment().add(n, 'days').format('YYYY-MM-DD');
+      self.shTable.filterDateNextNDays = function(shFilter,
+  n) {
+        dateParams[shFilter + "_lteqdate"] = moment().add(n,
+  'days').format('YYYY-MM-DD');
         dateParams[shFilter + "_gteqdate"] = moment().format('YYYY-MM-DD');
       };
-      self.shTable.filterDateNextNWeeks = function(shFilter, n) {
-        dateParams[shFilter + "_lteqdate"] = moment().add(n, 'weeks').format('YYYY-MM-DD');
+      self.shTable.filterDateNextNWeeks = function(shFilter,
+  n) {
+        dateParams[shFilter + "_lteqdate"] = moment().add(n,
+  'weeks').format('YYYY-MM-DD');
         dateParams[shFilter + "_gteqdate"] = moment().format('YYYY-MM-DD');
       };
-      self.shTable.filterDateNextNMonths = function(shFilter, n) {
-        dateParams[shFilter + "_lteqdate"] = moment().add(n, 'months').format('YYYY-MM-DD');
+      self.shTable.filterDateNextNMonths = function(shFilter,
+  n) {
+        dateParams[shFilter + "_lteqdate"] = moment().add(n,
+  'months').format('YYYY-MM-DD');
         dateParams[shFilter + "_gteqdate"] = moment().format('YYYY-MM-DD');
       };
-      self.shTable.filterDateNextNYears = function(shFilter, n) {
-        dateParams[shFilter + "_lteqdate"] = moment().add(n, 'years').format('YYYY-MM-DD');
+      self.shTable.filterDateNextNYears = function(shFilter,
+  n) {
+        dateParams[shFilter + "_lteqdate"] = moment().add(n,
+  'years').format('YYYY-MM-DD');
         dateParams[shFilter + "_gteqdate"] = moment().format('YYYY-MM-DD');
       };
-      self.shTable.filterDateRange = function(shFilter, fromDate, thruDate) {
+      self.shTable.filterDateRange = function(shFilter,
+  fromDate,
+  thruDate) {
         dateParams[shFilter + "_gteqdate"] = fromDate;
         dateParams[shFilter + "_lteqdate"] = thruDate;
       };
+      // =========================================================================
+      // Number filters
+      // =========================================================================
       numberParams = {};
       self.shTable.prepareFilterNumber = function(shFilter) {
         numberParams = {};
@@ -3022,11 +4378,15 @@ shTableModule.factory('ShTableFilter', [
         return delete self.shTable.filterParams[shFilter + "_gteq"];
       };
       self.shTable.executeFilterNumber = function() {
-        jQuery.extend(self.shTable.filterParams, numberParams);
+        jQuery.extend(self.shTable.filterParams,
+  numberParams);
         self.shTable.tableParams.$params.pageNumber = 1;
         return self.shTable.refreshGrid();
       };
-      self.shTable.filterNumberLabel = function(keyword, shFilter, leftNumber, rightNumber) {
+      self.shTable.filterNumberLabel = function(keyword,
+  shFilter,
+  leftNumber,
+  rightNumber) {
         var eqNumber;
         if (leftNumber == null) {
           leftNumber = numberParams[shFilter + "_gteq"];
@@ -3063,7 +4423,10 @@ shTableModule.factory('ShTableFilter', [
             return $filter('number')(eqNumber);
         }
       };
-      self.shTable.filterNumber = function(keyword, shFilter, leftNumber, rightNumber) {
+      self.shTable.filterNumber = function(keyword,
+  shFilter,
+  leftNumber,
+  rightNumber) {
         var eqNumber;
         switch (keyword) {
           case 'ANY':
@@ -3072,37 +4435,50 @@ shTableModule.factory('ShTableFilter', [
             break;
           case 'BETWEEN':
             self.shTable.prepareFilterNumber(shFilter);
-            self.shTable.filterNumberRange(shFilter, leftNumber, rightNumber);
+            self.shTable.filterNumberRange(shFilter,
+  leftNumber,
+  rightNumber);
             break;
           case 'LOWER_THAN':
             rightNumber = self.shTable.filterParams[shFilter + "_lteq"];
             self.shTable.prepareFilterNumber(shFilter);
-            self.shTable.filterNumberRange(shFilter, null, rightNumber);
+            self.shTable.filterNumberRange(shFilter,
+  null,
+  rightNumber);
             break;
           case 'GREATER_THAN':
             leftNumber = self.shTable.filterParams[shFilter + "_gteq"];
             self.shTable.prepareFilterNumber(shFilter);
-            self.shTable.filterNumberRange(shFilter, leftNumber, null);
+            self.shTable.filterNumberRange(shFilter,
+  leftNumber,
+  null);
             break;
           case 'RANGE':
             leftNumber = self.shTable.filterParams[shFilter + "_gteq"];
             rightNumber = self.shTable.filterParams[shFilter + "_lteq"];
             self.shTable.prepareFilterNumber(shFilter);
-            self.shTable.filterNumberRange(shFilter, leftNumber, rightNumber);
+            self.shTable.filterNumberRange(shFilter,
+  leftNumber,
+  rightNumber);
             break;
           case 'CERTAIN':
             eqNumber = self.shTable.filterParams[shFilter + "_eq"];
             self.shTable.prepareFilterNumber(shFilter);
-            self.shTable.filterNumberSpecific(shFilter, eqNumber);
+            self.shTable.filterNumberSpecific(shFilter,
+  eqNumber);
         }
-        self.shTable.filterLabel[shFilter] = self.shTable.filterNumberLabel(keyword, shFilter);
+        self.shTable.filterLabel[shFilter] = self.shTable.filterNumberLabel(keyword,
+  shFilter);
         return self.shTable.executeFilterNumber();
       };
       self.shTable.filterNumberAny = function(shFilter) {};
-      self.shTable.filterNumberSpecific = function(shFilter, number) {
+      self.shTable.filterNumberSpecific = function(shFilter,
+  number) {
         numberParams[shFilter + "_eq"] = number;
       };
-      self.shTable.filterNumberRange = function(shFilter, leftNumber, rightNumber) {
+      self.shTable.filterNumberRange = function(shFilter,
+  leftNumber,
+  rightNumber) {
         if (leftNumber != null) {
           numberParams[shFilter + "_gteq"] = leftNumber;
         }
@@ -3114,15 +4490,21 @@ shTableModule.factory('ShTableFilter', [
           numberParams[shFilter + "_lteq"] = leftNumber;
         }
       };
+      // =========================================================================
+      // Text filters
+      // =========================================================================
       self.shTable.filterTextCont = function(shFilter) {
         self.shTable.tableParams.$params.pageNumber = 1;
         self.shTable.filterParams['fromShFilter'] = true;
         return self.shTable.refreshGrid();
       };
       self.shTable.getLabelTextCont = function(shFilter) {
+        // empty space ('') is not the same with null
         return self.shTable.filterParams[shFilter + "_cont"] || null;
       };
-      self.shTable.filterYearBetween = function(shFilter, year) {
+      // =========================================================================
+      self.shTable.filterYearBetween = function(shFilter,
+  year) {
         self.shTable.filterParams[shFilter + '_month'] = null;
         self.shTable.filterParams[shFilter + '_year'] = year;
         self.shTable.filterParams[shFilter + '_lteqdate'] = year + '-12-31';
@@ -3130,8 +4512,10 @@ shTableModule.factory('ShTableFilter', [
         self.shTable.filterParams['fromShFilter'] = true;
         return self.shTable.refreshGrid();
       };
-      self.shTable.filterMonthBetween = function(shFilter, month) {
-        var mDate, year;
+      self.shTable.filterMonthBetween = function(shFilter,
+  month) {
+        var mDate,
+  year;
         if (self.shTable.filterParams[shFilter + '_year']) {
           year = self.shTable.filterParams[shFilter + '_year'];
           month = ('00' + month).slice(-2);
@@ -3143,10 +4527,11 @@ shTableModule.factory('ShTableFilter', [
         self.shTable.filterParams['fromShFilter'] = true;
         return self.shTable.refreshGrid();
       };
-      self.shTable.filterInCollection = function(shFilter, key) {
-        if (key == null) {
-          key = null;
-        }
+      // =========================================================================
+      // Collection filters
+      // =========================================================================
+      self.shTable.filterInCollection = function(shFilter,
+  key = null) {
         if (key != null) {
           self.shTable.filterLabel[shFilter] = self.shTable.filterCollection[shFilter].map(function(o) {
             return $filter('translate')(o[key + '']);
@@ -3163,60 +4548,64 @@ shTableModule.factory('ShTableFilter', [
         self.shTable.filterParams['fromShFilter'] = true;
         return self.shTable.refreshGrid();
       };
-      self.shTable.collectionNavbarFilterSelect = function(shFilter, item, key) {
-        if (key == null) {
-          key = null;
-        }
+      self.shTable.collectionNavbarFilterSelect = function(shFilter,
+  item,
+  key = null) {
         if (self.shTable.filterCollection[shFilter] == null) {
           self.shTable.filterCollection[shFilter] = [];
         }
-        HelperService.rowSelect(item, self.shTable.filterCollection[shFilter], key);
-        return self.shTable.filterInCollection(shFilter, key);
+        HelperService.rowSelect(item,
+  self.shTable.filterCollection[shFilter],
+  key);
+        return self.shTable.filterInCollection(shFilter,
+  key);
       };
-      self.shTable.collectionNavbarFilterDeselect = function(shFilter, item, key) {
-        if (key == null) {
-          key = null;
-        }
+      self.shTable.collectionNavbarFilterDeselect = function(shFilter,
+  item,
+  key = null) {
         if (self.shTable.filterCollection[shFilter] == null) {
           self.shTable.filterCollection[shFilter] = [];
         }
-        HelperService.rowDeselect(item, self.shTable.filterCollection[shFilter], key);
-        return self.shTable.filterInCollection(shFilter, key);
+        HelperService.rowDeselect(item,
+  self.shTable.filterCollection[shFilter],
+  key);
+        return self.shTable.filterInCollection(shFilter,
+  key);
       };
-      self.shTable.collectionNavbarFilterIsSelected = function(shFilter, item, key) {
-        if (key == null) {
-          key = null;
-        }
+      self.shTable.collectionNavbarFilterIsSelected = function(shFilter,
+  item,
+  key = null) {
         if (self.shTable.filterCollection[shFilter] == null) {
           self.shTable.filterCollection[shFilter] = [];
         }
-        return HelperService.isRowSelected(item, self.shTable.filterCollection[shFilter], key);
+        return HelperService.isRowSelected(item,
+  self.shTable.filterCollection[shFilter],
+  key);
       };
-      self.shTable.collectionNavbarClearSelection = function(shFilter, key) {
-        if (key == null) {
-          key = null;
-        }
+      self.shTable.collectionNavbarClearSelection = function(shFilter,
+  key = null) {
         if (self.shTable.filterCollection[shFilter] == null) {
           self.shTable.filterCollection[shFilter] = [];
         }
         HelperService.clearRowSelection(self.shTable.filterCollection[shFilter]);
-        return self.shTable.filterInCollection(shFilter, key);
+        return self.shTable.filterInCollection(shFilter,
+  key);
       };
-      self.shTable.collectionNavbarFilterIsSelectionEmpty = function(shFilter, key) {
-        if (key == null) {
-          key = null;
-        }
+      self.shTable.collectionNavbarFilterIsSelectionEmpty = function(shFilter,
+  key = null) {
         if (self.shTable.filterCollection[shFilter] == null) {
           self.shTable.filterCollection[shFilter] = [];
         }
         return HelperService.isRowSelectionEmpty(self.shTable.filterCollection[shFilter]);
       };
+      // =========================================================================
+      // Radio filters
+      // =========================================================================
       self.shTable.filterRadio = {};
-      self.shTable.filterInRadio = function(shFilter, key) {
-        var ref, ref1;
-        if (key == null) {
-          key = null;
-        }
+      self.shTable.filterInRadio = function(shFilter,
+  key = null) {
+        var ref,
+  ref1;
         if (key != null) {
           self.shTable.filterLabel[shFilter] = (ref = self.shTable.filterRadio[shFilter]) != null ? ref[key + ''] : void 0;
           self.shTable.filterParams[shFilter + '_eq'] = (ref1 = self.shTable.filterRadio[shFilter]) != null ? ref1[key + ''] : void 0;
@@ -3228,53 +4617,55 @@ shTableModule.factory('ShTableFilter', [
         self.shTable.filterParams['fromShFilter'] = true;
         return self.shTable.refreshGrid();
       };
-      self.shTable.radioNavbarFilterSelect = function(shFilter, item, key) {
-        if (key == null) {
-          key = null;
-        }
+      self.shTable.radioNavbarFilterSelect = function(shFilter,
+  item,
+  key = null) {
         self.shTable.filterRadio[shFilter] = item;
-        return self.shTable.filterInRadio(shFilter, key);
+        return self.shTable.filterInRadio(shFilter,
+  key);
       };
-      self.shTable.radioNavbarFilterDeselect = function(shFilter, item, key) {
-        if (key == null) {
-          key = null;
-        }
+      self.shTable.radioNavbarFilterDeselect = function(shFilter,
+  item,
+  key = null) {
         self.shTable.filterRadio[shFilter] = null;
-        return self.shTable.filterInRadio(shFilter, key);
+        return self.shTable.filterInRadio(shFilter,
+  key);
       };
-      self.shTable.radioNavbarFilterIsSelected = function(shFilter, item, key) {
+      self.shTable.radioNavbarFilterIsSelected = function(shFilter,
+  item,
+  key = null) {
         var ref;
-        if (key == null) {
-          key = null;
-        }
         if (key != null) {
           return ((ref = self.shTable.filterRadio[shFilter]) != null ? ref[key + ''] : void 0) === item[key + ''];
         } else {
           return self.shTable.filterRadio[shFilter] === item;
         }
       };
-      self.shTable.radioNavbarClearSelection = function(shFilter, key) {
-        if (key == null) {
-          key = null;
-        }
+      self.shTable.radioNavbarClearSelection = function(shFilter,
+  key = null) {
         self.shTable.filterRadio[shFilter] = null;
-        return self.shTable.filterInRadio(shFilter, key);
+        return self.shTable.filterInRadio(shFilter,
+  key);
       };
-      self.shTable.radioNavbarFilterIsSelectionEmpty = function(shFilter, key) {
-        if (key == null) {
-          key = null;
-        }
+      self.shTable.radioNavbarFilterIsSelectionEmpty = function(shFilter,
+  key = null) {
         return self.shTable.filterRadio[shFilter] === null;
       };
+      // =========================================================================
+      // Helpers
+      // =========================================================================
       self.shTable.toggleFilterRegion = function() {
         self.shTable.filterRegion.visible = !self.shTable.filterRegion.visible;
       };
       self.shTable.resetFilter = function() {
-        var k, ref, v;
+        var k,
+  ref,
+  v;
         self.shTable.filterParams = {};
         self.shTable.filterLabel = {};
         self.shTable.filterRadio = {};
         ref = self.shTable.filterCollection;
+        // Clear filter-collections
         for (k in ref) {
           v = ref[k];
           HelperService.clearRowSelection(self.shTable.filterCollection[k]);
@@ -3282,32 +4673,54 @@ shTableModule.factory('ShTableFilter', [
         self.shTable.filterParams['fromShFilter'] = true;
         return self.shTable.refreshGrid();
       };
+      // Return true if there's no filter
       self.shTable.isNoFilter = function() {
         return jQuery.isEmptyObject(self.shTable.filterParams);
       };
       return this;
     };
+    
+    // Return ShTableFilter
+
     return ShTableFilter;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShTableHelper
- *
- * @description
- * ShTableHelper factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShTableHelper for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShTableHelper
+   *
+   * @description
+   * ShTableHelper factory
+   *
+   */
 shTableModule.factory('ShTableHelper', [
-  '$q', function($q) {
+  '$q',
+  function($q) {
     var ShTableHelper;
     ShTableHelper = function(params) {
       var self;
+      // Variables
       self = this;
       self.shTable = params.shTable;
-
       /**
        * @ngdoc method
        * @name sortableClass
@@ -3320,15 +4733,16 @@ shTableModule.factory('ShTableHelper', [
        * @returns {String} class for CSS usage
        */
       self.shTable.sortableClass = function(fieldName) {
-        if (self.shTable.tableParams.isSortBy(fieldName, 'asc')) {
+        if (self.shTable.tableParams.isSortBy(fieldName,
+  'asc')) {
           return 'sortable sort-asc';
-        } else if (self.shTable.tableParams.isSortBy(fieldName, 'desc')) {
+        } else if (self.shTable.tableParams.isSortBy(fieldName,
+  'desc')) {
           return 'sortable sort-desc';
         } else {
           return 'sortable';
         }
       };
-
       /**
        * @ngdoc method
        * @name sortableClick
@@ -3343,11 +4757,12 @@ shTableModule.factory('ShTableHelper', [
        */
       self.shTable.sortableClick = function(fieldName) {
         var newDirection;
-        newDirection = self.shTable.tableParams.isSortBy(fieldName, 'asc') ? 'desc' : 'asc';
-        self.shTable.tableParams.sortData(fieldName, newDirection);
+        newDirection = self.shTable.tableParams.isSortBy(fieldName,
+  'asc') ? 'desc' : 'asc';
+        self.shTable.tableParams.sortData(fieldName,
+  newDirection);
         self.shTable.refreshGrid();
       };
-
       /**
        * @ngdoc method
        * @name rowRestEventClass
@@ -3372,7 +4787,6 @@ shTableModule.factory('ShTableHelper', [
         }
         return '';
       };
-
       /**
        * @ngdoc method
        * @name isRecentlyCreated
@@ -3387,7 +4801,6 @@ shTableModule.factory('ShTableHelper', [
       self.shTable.isRecentlyCreated = function(obj) {
         return self.shTable.createdIds.indexOf((obj != null ? obj.id : void 0) || obj) >= 0;
       };
-
       /**
        * @ngdoc method
        * @name isRecentlyUpdated
@@ -3402,7 +4815,6 @@ shTableModule.factory('ShTableHelper', [
       self.shTable.isRecentlyUpdated = function(obj) {
         return self.shTable.updatedIds.indexOf((obj != null ? obj.id : void 0) || obj) >= 0;
       };
-
       /**
        * @ngdoc method
        * @name isRecentlyDeleted
@@ -3419,24 +4831,46 @@ shTableModule.factory('ShTableHelper', [
       };
       return this;
     };
+    
+    // Return ShTableHelper
+
     return ShTableHelper;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShTableHookNotification
- *
- * @description
- * ShTableHookNotification factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShTableHookNotification for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShTableHookNotification
+   *
+   * @description
+   * ShTableHookNotification factory
+   *
+   */
 shTableModule.factory('ShTableHookNotification', [
-  'ShNotification', function(ShNotification) {
+  'ShNotification',
+  function(ShNotification) {
     var ShTableHookNotification;
     ShTableHookNotification = function(params) {
       var self;
+      // Variables
       self = this;
       self.shTable = params.shTable;
       self.shTable.getEntitiesErrorHooks.push(function(error) {
@@ -3459,24 +4893,61 @@ shTableModule.factory('ShTableHookNotification', [
       });
       return this;
     };
+    
+    // Return ShTableHookNotification
+
     return ShTableHookNotification;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShTableHook
- *
- * @description
- * ShTableHook factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShTableHook for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShTableHook
+   *
+   * @description
+   * ShTableHook factory
+   *
+   */
 shTableModule.factory('ShTableHook', [
-  '$q', 'localStorageService', 'ShApi', 'ShApiHook', 'ShTableHookNotification', function($q, localStorageService, ShApi, ShApiHook, ShTableHookNotification) {
+  '$q',
+  'localStorageService',
+  'ShApi',
+  'ShApiHook',
+  'ShTableHookNotification',
+  function($q,
+  localStorageService,
+  ShApi,
+  ShApiHook,
+  ShTableHookNotification) {
     var ShTableHook;
     ShTableHook = function(params) {
-      var base, base1, base2, base3, self, shApi, shApiHook, shTableHookNotification;
+      var base,
+  base1,
+  base2,
+  base3,
+  self,
+  shApi,
+  shApiHook,
+  shTableHookNotification;
+      // Variables
       self = this;
       self.shTable = params.shTable;
       if ((base = self.shTable).resource == null) {
@@ -3494,6 +4965,7 @@ shTableModule.factory('ShTableHook', [
       self.shTable.createdIds = [];
       self.shTable.updatedIds = [];
       self.shTable.deletedIds = [];
+      // Hooks Variables
       self.shTable.beforeGetEntitiesHooks = [];
       self.shTable.getEntitiesSuccessHooks = [];
       self.shTable.getEntitiesErrorHooks = [];
@@ -3518,6 +4990,7 @@ shTableModule.factory('ShTableHook', [
       self.shTable.deleteEntitySuccessHooks = [];
       self.shTable.deleteEntityErrorHooks = [];
       self.shTable.afterDeleteEntityHooks = [];
+      // Invokes
       shApi = new ShApi({
         resource: self.shTable.resource
       });
@@ -3527,7 +5000,6 @@ shTableModule.factory('ShTableHook', [
       shTableHookNotification = new ShTableHookNotification({
         shTable: self.shTable
       });
-
       /**
        * @ngdoc method
        * @name getEntities
@@ -3538,31 +5010,44 @@ shTableModule.factory('ShTableHook', [
        * @returns {promise}
        */
       self.shTable.getEntities = function() {
-        var deferred, hook, i, len, ref;
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shTable.beforeGetEntitiesHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
           hook();
         }
         deferred = $q.defer();
+        // GEt the entities
         shApi.index(self.shTable.optParams).then(function(success) {
-          var j, len1, ref1;
+          var j,
+  len1,
+  ref1;
           ref1 = self.shTable.getEntitiesSuccessHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shTable.getEntitiesErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shTable.afterGetEntitiesHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -3573,7 +5058,6 @@ shTableModule.factory('ShTableHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name newEntity
@@ -3584,15 +5068,22 @@ shTableModule.factory('ShTableHook', [
        * @returns {promise}
        */
       self.shTable.newEntity = function() {
-        var deferred, hook, i, len, ref;
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shTable.beforeNewEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
           hook();
         }
         deferred = $q.defer();
-        shApi["new"](self.shTable.optParams).then(function(success) {
-          var j, len1, ref1;
+        // Fetch blank entity
+        shApi.new(self.shTable.optParams).then(function(success) {
+          var j,
+  len1,
+  ref1;
           self.shTable.entity = success.data;
           if (success.lookup != null) {
             self.shTable.lookup = success.lookup;
@@ -3603,16 +5094,22 @@ shTableModule.factory('ShTableHook', [
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shTable.newEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shTable.afterNewEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -3623,7 +5120,6 @@ shTableModule.factory('ShTableHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name createEntity
@@ -3636,21 +5132,32 @@ shTableModule.factory('ShTableHook', [
        * @returns {promise}
        */
       self.shTable.createEntity = function(entity) {
-        var data, deferred, hook, i, len, ref;
+        var data,
+  deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shTable.beforeCreateEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
           hook();
         }
         deferred = $q.defer();
+        // Check if the entity is a FormData (Useful for file uploaded form)
         data = {
           data: entity
         };
-        if (Object.prototype.toString.call(entity).slice(8, -1) === 'FormData') {
+        if (Object.prototype.toString.call(entity).slice(8,
+  -1) === 'FormData') {
           data = entity;
         }
-        shApi.create(self.shTable.optParams, data).then(function(success) {
-          var j, len1, ref1;
+        // Persist an entity into database
+        shApi.create(self.shTable.optParams,
+  data).then(function(success) {
+          var j,
+  len1,
+  ref1;
           self.shTable.createdIds.push(success.data.id);
           self.shTable.entity = success.data;
           if (success.lookup != null) {
@@ -3663,16 +5170,22 @@ shTableModule.factory('ShTableHook', [
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shTable.createEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shTable.afterCreateEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -3683,7 +5196,6 @@ shTableModule.factory('ShTableHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name editEntity
@@ -3696,15 +5208,23 @@ shTableModule.factory('ShTableHook', [
        * @returns {promise}
        */
       self.shTable.editEntity = function(id) {
-        var deferred, hook, i, len, ref;
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shTable.beforeEditEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
           hook();
         }
         deferred = $q.defer();
-        shApi.edit(id, self.shTable.optParams).then(function(success) {
-          var j, len1, ref1;
+        // Fetch entity for editing
+        shApi.edit(id,
+  self.shTable.optParams).then(function(success) {
+          var j,
+  len1,
+  ref1;
           self.shTable.entity = success.data;
           if (success.lookup != null) {
             self.shTable.lookup = success.lookup;
@@ -3715,16 +5235,22 @@ shTableModule.factory('ShTableHook', [
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shTable.editEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shTable.afterEditEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -3735,7 +5261,6 @@ shTableModule.factory('ShTableHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name updateEntity
@@ -3748,22 +5273,35 @@ shTableModule.factory('ShTableHook', [
        *
        * @returns {promise}
        */
-      self.shTable.updateEntity = function(id, entity) {
-        var data, deferred, hook, i, len, ref;
+      self.shTable.updateEntity = function(id,
+  entity) {
+        var data,
+  deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shTable.beforeUpdateEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
           hook();
         }
         deferred = $q.defer();
+        // Check if the entity is a FormData (Useful for file uploaded form)
         data = {
           data: entity
         };
-        if (Object.prototype.toString.call(entity).slice(8, -1) === 'FormData') {
+        if (Object.prototype.toString.call(entity).slice(8,
+  -1) === 'FormData') {
           data = entity;
         }
-        shApi.update(id, self.shTable.optParams, data).then(function(success) {
-          var j, len1, ref1;
+        // Update entity into database
+        shApi.update(id,
+  self.shTable.optParams,
+  data).then(function(success) {
+          var j,
+  len1,
+  ref1;
           self.shTable.updatedIds.push(success.data.id);
           self.shTable.entity = success.data;
           if (success.lookup != null) {
@@ -3776,16 +5314,22 @@ shTableModule.factory('ShTableHook', [
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shTable.updateEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shTable.afterUpdateEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -3796,7 +5340,6 @@ shTableModule.factory('ShTableHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name deleteEntity
@@ -3809,15 +5352,23 @@ shTableModule.factory('ShTableHook', [
        * @returns {promise}
        */
       self.shTable.deleteEntity = function(id) {
-        var deferred, hook, i, len, ref;
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shTable.beforeDeleteEntityHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
           hook();
         }
         deferred = $q.defer();
-        shApi["delete"](id, self.shTable.optParams).then(function(success) {
-          var j, len1, ref1;
+        // Delete entity from database
+        shApi.delete(id,
+  self.shTable.optParams).then(function(success) {
+          var j,
+  len1,
+  ref1;
           self.shTable.deletedIds.push(id);
           self.shTable.refreshGrid();
           ref1 = self.shTable.deleteEntitySuccessHooks;
@@ -3826,16 +5377,22 @@ shTableModule.factory('ShTableHook', [
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shTable.deleteEntityErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shTable.afterDeleteEntityHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -3846,7 +5403,6 @@ shTableModule.factory('ShTableHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name getLookup
@@ -3864,31 +5420,52 @@ shTableModule.factory('ShTableHook', [
       };
       return this;
     };
+    
+    // Return ShTableHook
+
     return ShTableHook;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShTableParamsHook
- *
- * @description
- * ShTableParamsHook factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShTableParamsHook for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShTableParamsHook
+   *
+   * @description
+   * ShTableParamsHook factory
+   *
+   */
 shTableModule.factory('ShTableParamsHook', [
-  '$q', function($q) {
+  '$q',
+  function($q) {
     var ShTableParamsHook;
     ShTableParamsHook = function(params) {
       var self;
+      // Variables
       self = this;
       self.shTable = params.shTable;
       self.shTable.beforeRefreshGridHooks = [];
       self.shTable.refreshGridSuccessHooks = [];
       self.shTable.refreshGridErrorHooks = [];
       self.shTable.afterRefreshGridHooks = [];
-
       /**
        * @ngdoc method
        * @name goToPage
@@ -3898,14 +5475,15 @@ shTableModule.factory('ShTableParamsHook', [
        *
        * @returns {*}
        */
-      self.shTable.goToPage = function(pageNumber, perPage) {
+      self.shTable.goToPage = function(pageNumber,
+  perPage) {
         if (pageNumber != null) {
           self.shTable.tableParams.$params.perPage = perPage || self.shTable.tableParams.$params.perPage;
           self.shTable.tableParams.$params.pageNumber = pageNumber;
         }
+        // Manually refresh with current page
         self.shTable.refreshGrid();
       };
-
       /**
        * @ngdoc method
        * @name refreshGrid
@@ -3916,31 +5494,44 @@ shTableModule.factory('ShTableParamsHook', [
        * @returns {*}
        */
       self.shTable.refreshGrid = function() {
-        var deferred, hook, i, len, ref;
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
         ref = self.shTable.beforeRefreshGridHooks;
         for (i = 0, len = ref.length; i < len; i++) {
           hook = ref[i];
           hook();
         }
         deferred = $q.defer();
+        // GEt the entities
         self.shTable.tableParams.reload().then(function(success) {
-          var j, len1, ref1;
+          var j,
+  len1,
+  ref1;
           ref1 = self.shTable.refreshGridSuccessHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(success);
           }
           return deferred.resolve(success);
-        }, function(error) {
-          var j, len1, ref1;
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
           ref1 = self.shTable.refreshGridErrorHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
             hook(error);
           }
           return deferred.reject(error);
-        })["finally"](function() {
-          var j, len1, ref1, results;
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
           ref1 = self.shTable.afterRefreshGridHooks;
           results = [];
           for (j = 0, len1 = ref1.length; j < len1; j++) {
@@ -3951,7 +5542,6 @@ shTableModule.factory('ShTableParamsHook', [
         });
         return deferred.promise;
       };
-
       /**
        * @ngdoc method
        * @name getPagedDataAsync
@@ -3974,26 +5564,46 @@ shTableModule.factory('ShTableParamsHook', [
       };
       return this;
     };
+    
+    // Return ShTableParamsHook
+
     return ShTableParamsHook;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShTableProcessor
- *
- * @description
- * ShTableProcessor factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShTableProcessor for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShTableProcessor
+   *
+   * @description
+   * ShTableProcessor factory
+   *
+   */
 shTableModule.factory('ShTableProcessor', [
   function() {
     var ShTableProcessor;
     ShTableProcessor = function() {
       var self;
+      // Variables
       self = this;
-
       /**
        * @ngdoc method
        * @name generateGridParams
@@ -4005,7 +5615,11 @@ shTableModule.factory('ShTableProcessor', [
        * @returns {Object} Grid params object
        */
       self.generateGridParams = function(opts) {
-        var directions, fields, gridParams, params, property;
+        var directions,
+  fields,
+  gridParams,
+  params,
+  property;
         params = opts.params;
         fields = [];
         directions = [];
@@ -4024,11 +5638,11 @@ shTableModule.factory('ShTableProcessor', [
           column_defs: JSON.stringify(self.getProcessedColumnDefs(opts.columnDefs))
         };
         if (opts.filterParams) {
-          angular.extend(gridParams.filter_params, opts.filterParams);
+          angular.extend(gridParams.filter_params,
+  opts.filterParams);
         }
         return gridParams;
       };
-
       /**
        * @ngdoc method
        * @name getProcessedColumnDefs
@@ -4041,7 +5655,10 @@ shTableModule.factory('ShTableProcessor', [
        * @returns Array class for CSS usage
        */
       self.getProcessedColumnDefs = function(columnDefs) {
-        var columnDef, i, len, processedColumnDefs;
+        var columnDef,
+  i,
+  len,
+  processedColumnDefs;
         processedColumnDefs = [];
         for (i = 0, len = columnDefs.length; i < len; i++) {
           columnDef = columnDefs[i];
@@ -4055,22 +5672,56 @@ shTableModule.factory('ShTableProcessor', [
       };
       return this;
     };
+    
+    // Return ShTableProcessor
+
     return ShTableProcessor;
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
 
-/**
- * @ngdoc object
- * @name ShTableParams
- *
- * @description
- * ShTableParams factory
- *
- */
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShTableParams for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShTableParams
+   *
+   * @description
+   * ShTableParams factory
+   *
+   */
 shTableModule.factory('ShTable', [
-  '$q', 'ShTableFilter', 'ShTableHelper', 'ShTableHook', 'ShTableParamsHook', 'ShTableProcessor', 'ShTableFilterStorage', 'ShTableParams', function($q, ShTableFilter, ShTableHelper, ShTableHook, ShTableParamsHook, ShTableProcessor, ShTableFilterStorage, ShTableParams) {
-
+  '$q',
+  'ShTableFilter',
+  'ShTableHelper',
+  'ShTableHook',
+  'ShTableParamsHook',
+  'ShTableProcessor',
+  'ShTableFilterStorage',
+  'ShTableParams',
+  function($q,
+  ShTableFilter,
+  ShTableHelper,
+  ShTableHook,
+  ShTableParamsHook,
+  ShTableProcessor,
+  ShTableFilterStorage,
+  ShTableParams) {
     /**
      * @ngdoc method
      * @name ShTableParams
@@ -4085,9 +5736,23 @@ shTableModule.factory('ShTable', [
      */
     var ShTable;
     ShTable = function(params) {
-      var ref, ref1, ref2, ref3, ref4, ref5, ref6, self, shTableFilter, shTableFilterStorage, shTableHelper, shTableHook, shTableParamsHook, shTableProcessor;
+      var ref,
+  ref1,
+  ref2,
+  ref3,
+  ref4,
+  ref5,
+  ref6,
+  self,
+  shTableFilter,
+  shTableFilterStorage,
+  shTableHelper,
+  shTableHook,
+  shTableParamsHook,
+  shTableProcessor;
       self = this;
       self.entity = {};
+      
       self.columnDefs = (ref = params.columnDefs) != null ? ref : [];
       self.filterParams = (ref1 = params.filterParams) != null ? ref1 : {};
       self.localLookup = {};
@@ -4096,6 +5761,7 @@ shTableModule.factory('ShTable', [
       self.perPage = (ref4 = params.perPage) != null ? ref4 : 10;
       self.resource = (ref5 = params.resource) != null ? ref5 : null;
       self.sorting = (ref6 = params.sorting) != null ? ref6 : {};
+      
       shTableFilter = new ShTableFilter({
         shTable: self
       });
@@ -4112,6 +5778,7 @@ shTableModule.factory('ShTable', [
       shTableFilterStorage = new ShTableFilterStorage({
         shTable: self
       });
+      
       self.tableParams = new ShTableParams({
         pageNumber: 1,
         perPage: self.perPage,
@@ -4124,16 +5791,39 @@ shTableModule.factory('ShTable', [
             columnDefs: self.columnDefs,
             filterParams: self.filterParams
           });
-          angular.extend(self.optParams, gridParams);
+          // Merge gridParams to self.optParams
+          angular.extend(self.optParams,
+  gridParams);
           return self.getPagedDataAsync();
         }
       });
       return this;
     };
+    
+    // Return ShTable
+
     return ShTable;
   }
 ]);
 
+// =============================================================================
+// Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/filters/sh-filter-collection.coffee
+// @author Bimo Horizon
+// @email bimo@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains shFilterCollection filter.
+// =============================================================================
 angular.module('sh.filter.collection', []).filter("shFilterCollection", function() {
   return function(collection, callback, entity) {
     if (collection && entity) {
@@ -4143,13 +5833,19 @@ angular.module('sh.filter.collection', []).filter("shFilterCollection", function
     }
   };
 }).filter('searchAnyIn', [
-  '$filter', function($filter) {
-    return function(collection, fields, query) {
+  '$filter',
+  function($filter) {
+    return function(collection,
+  fields,
+  query) {
       if (!query) {
         return collection;
       } else {
         return collection.filter(function(item) {
-          var field, i, len, result;
+          var field,
+  i,
+  len,
+  result;
           result = false;
           for (i = 0, len = fields.length; i < len; i++) {
             field = fields[i];
@@ -4164,15 +5860,50 @@ angular.module('sh.filter.collection', []).filter("shFilterCollection", function
   }
 ]);
 
+// =============================================================================
+// Copyright (c) 2014 All Right Reserved, http://starqle.com/
+
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/filters/floating-precision.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains Floating Precision filter
+// =============================================================================
+
+// Avoid floating-point error like 0.30000000000001
 angular.module('sh.floating.precision', []).filter("shFloatingPrecision", function() {
-  return function(value, accuracy) {
-    if (accuracy == null) {
-      accuracy = 12;
-    }
+  return function(value, accuracy = 12) {
     return parseFloat(value.toPrecision(accuracy));
   };
 });
 
+// =============================================================================
+// Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name app/scripts/filters/sh-range.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains range filter.
+// =============================================================================
 angular.module('sh.range', []).filter("shRange", function() {
   return function(input, min, max, interval) {
     var i;
@@ -4181,7 +5912,7 @@ angular.module('sh.range', []).filter("shRange", function() {
     } else {
       interval = 1;
     }
-    min = parseInt(min);
+    min = parseInt(min); //Make string input int
     max = parseInt(max);
     i = min;
     while (i < max) {
@@ -4192,20 +5923,51 @@ angular.module('sh.range', []).filter("shRange", function() {
   };
 });
 
+  // =============================================================================
+  // Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/filters/sh-remove-duplicates.coffee
+  // @author Bimo Horizon
+  // @email bimo@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains shRemoveDuplicates filter.
+  // =============================================================================
 angular.module('sh.remove.duplicates', []).filter("shRemoveDuplicates", [
   function() {
-    return function(collection, fieldName, callback) {
-      var aggregateItems, i, item, key, len, newArray, newCollection, newItem, value;
+    return function(collection,
+  fieldName,
+  callback) {
+      var aggregateItems,
+  i,
+  item,
+  key,
+  len,
+  newArray,
+  newCollection,
+  newItem,
+  value;
       if (collection) {
         newArray = [];
         newCollection = {};
         aggregateItems = {};
         for (i = 0, len = collection.length; i < len; i++) {
           item = collection[i];
-          newCollection[item[fieldName]] = angular.extend({}, item);
+          newCollection[item[fieldName]] = angular.extend({},
+  item);
           newItem = newCollection[item[fieldName]];
           if (typeof callback === 'function') {
-            callback(newItem, newItem[fieldName], aggregateItems);
+            callback(newItem,
+  newItem[fieldName],
+  aggregateItems);
           }
         }
         for (key in newCollection) {
@@ -4219,6 +5981,24 @@ angular.module('sh.remove.duplicates', []).filter("shRemoveDuplicates", [
   }
 ]);
 
+// =============================================================================
+// Copyright (c) 2014 All Right Reserved, http://starqle.com/
+
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/filters/sh-strip-html.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains shStripHtml filter
+// =============================================================================
 angular.module('sh.strip.html', []).filter("shStripHtml", function() {
   return function(value) {
     if (!value) {
@@ -4229,6 +6009,24 @@ angular.module('sh.strip.html', []).filter("shStripHtml", function() {
   };
 });
 
+// =============================================================================
+// Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/filters/sh-strip-to-newline.coffee
+// @author Giovanni Sakti
+// @email giosakti@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains shStripToNewline filter
+// =============================================================================
 angular.module('sh.strip.to.newline', []).filter("shStripToNewline", function() {
   return function(value) {
     if (!value) {
@@ -4239,25 +6037,49 @@ angular.module('sh.strip.to.newline', []).filter("shStripToNewline", function() 
   };
 });
 
+  // =============================================================================
+  // Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/filters/sh-truncate.coffee
+  // @author Giovanni Sakti
+  // @email giosakti@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains shTruncate filter.
+  // =============================================================================
 angular.module('sh.truncate', []).filter("shTruncate", [
   function() {
-    return function(text, wordwise, max, tail) {
+    return function(text,
+  wordwise,
+  max,
+  tail) {
       var lastspace;
       if (!text) {
         return '';
       }
-      max = parseInt(max, 10);
+      max = parseInt(max,
+  10);
       if (!max) {
         return text;
       }
       if (text.length <= max) {
         return text;
       }
-      text = text.substr(0, max);
+      text = text.substr(0,
+  max);
       if (wordwise) {
         lastspace = text.lastIndexOf(' ');
         if (lastspace !== -1) {
-          text = text.substr(0, lastspace);
+          text = text.substr(0,
+  lastspace);
         }
       }
       return text + (tail || ' ...');
@@ -4265,25 +6087,63 @@ angular.module('sh.truncate', []).filter("shTruncate", [
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/services/sh-notification.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains shNotification service.
+  // =============================================================================
 angular.module('sh.notification', []).service("ShNotification", [
-  '$timeout', '$interval', function($timeout, $interval) {
-    var defaultDuration, defaultLifetime, defaultLifetimeForError;
+  '$timeout',
+  '$interval',
+  function($timeout,
+  $interval) {
+    var defaultDuration,
+  defaultLifetime,
+  defaultLifetimeForError;
     defaultLifetime = 3000;
     defaultLifetimeForError = 8000;
     defaultDuration = 500;
     this.toasts = [];
     this.notifications = [];
-    this.addToast = function(options, lifetimeOpt, durationOpt) {
-      var opts, ref;
+    
+    // Adding toast
+
+    // @param options [Object] {type: ..., message: ...}
+    // @param lifetimeOpt(optional) [Integer]
+    // @param durationOpt(optional) [Integer]
+    this.addToast = function(options,
+  lifetimeOpt,
+  durationOpt) {
+      var opts,
+  ref;
+      // Default options
       opts = {
         index: 0,
         lifetime: defaultLifetime,
         duration: defaultDuration,
+        // beforeAdd event callback
         beforeAdd: function() {},
+        // afterAdd event callback
         afterAdd: function() {},
+        // beforeRemove event callback
         beforeRemove: function() {},
+        // afterRemove event callback
         afterRemove: function() {}
       };
+      // Init options
       if ((options.type != null) && (options.message != null)) {
         opts.toast = options;
         if (lifetimeOpt != null) {
@@ -4298,26 +6158,43 @@ angular.module('sh.notification', []).service("ShNotification", [
         }
         opts.toast.alive = true;
       } else {
-        angular.extend(opts, options);
+        angular.extend(opts,
+  options);
       }
       if (opts.toast) {
         opts.beforeAdd.call(this);
         this.toasts.unshift(opts.toast);
         opts.afterAdd.call(this);
       } else {
-        console.warn('STARQLE_NG_UTIL::ShNotification', 'Trying to add null/undefined toast');
+        console.warn('STARQLE_NG_UTIL::ShNotification',
+  'Trying to add null/undefined toast');
       }
     };
+    
+    // Removing oldest toast
+
     this.removeOldestToast = function() {
       this.removeToast(this.toasts.length - 1);
     };
-    this.removeToast = function(options, lifetimeOpt, durationOpt) {
-      var opts, toasts;
+    
+    // Removing toast
+
+    // @param options [Object] {type: ..., message: ...}
+    // @param lifetimeOpt(optional) [Integer]
+    // @param durationOpt(optional) [Integer]
+    this.removeToast = function(options,
+  lifetimeOpt,
+  durationOpt) {
+      var opts,
+  toasts;
+      // Default options
       opts = {
         index: 0,
         lifetime: defaultLifetime,
         duration: defaultDuration,
+        // beforeRemove event callback
         beforeRemove: function() {},
+        // afterRemove event callback
         afterRemove: function() {}
       };
       if (typeof (options * 1) === "number" && isFinite(options * 1)) {
@@ -4329,60 +6206,103 @@ angular.module('sh.notification', []).service("ShNotification", [
           opts.duration = durationOpt;
         }
       } else {
-        angular.extend(opts, options);
+        angular.extend(opts,
+  options);
       }
+      // Setup local variable for toast
       toasts = this.toasts;
+      // $timeout ->
       opts.beforeRemove.call(this);
-      angular.element("#toast-group-item-" + opts.index).animate({
+      angular.element(`#toast-group-item-${opts.index}`).animate({
         height: 0,
         opacity: 0
-      }, opts.duration);
+      },
+  opts.duration);
       $timeout(function() {
-        toasts.splice(opts.index, 1);
+        toasts.splice(opts.index,
+  1);
         return opts.afterRemove.call(this);
-      }, opts.duration + 1);
+      },
+  opts.duration + 1);
     };
+    
+    // Periodic checking
+
+    // , opts.lifetime
     this.runInterval = function(self) {
       $interval(function() {
-        var i, j, len, ref, results, toast;
+        var i,
+  j,
+  len,
+  ref,
+  results,
+  toast;
         ref = self.toasts;
         results = [];
         for (i = j = 0, len = ref.length; j < len; i = ++j) {
           toast = ref[i];
           if ((toast != null ? toast.alive : void 0) && (toast != null ? toast.deathtime : void 0) < Date.now()) {
             toast.alive = false;
-            results.push(self.removeToast(i, 1));
+            results.push(self.removeToast(i,
+  1));
           } else {
             results.push(void 0);
           }
         }
         return results;
-      }, 500, 0, false);
+      },
+  500,
+  0,
+  false);
     };
+    
+    // Adding notification
+
+    // @param options [Object] {type: ..., message: ...}
+    // @param lifetimeOpt(optional) [Integer]
+    // @param durationOpt(optional) [Integer]
     this.addNotification = function(options) {
       var opts;
+      // Default options
       opts = {
         index: 0,
+        // beforeAdd event callback
         beforeAdd: function() {},
+        // afterAdd event callback
         afterAdd: function() {},
+        // beforeRemove event callback
         beforeRemove: function() {},
+        // afterRemove event callback
         afterRemove: function() {}
       };
+      // Init options
       if ((options.type != null) && (options.message != null)) {
         opts.notification = options;
       } else {
-        angular.extend(opts, options);
+        angular.extend(opts,
+  options);
       }
       opts.beforeAdd.call(this);
       this.notifications.unshift(opts.notification);
       opts.afterAdd.call(this);
     };
-    this.removeNotification = function(options, durationOpt) {
-      var notifications, opts;
+    
+    // Removing notification
+
+    // @param options [Object] {type: ..., message: ...}
+    // @param lifetimeOpt(optional) [Integer]
+    // @param durationOpt(optional) [Integer]
+    this.removeNotification = function(options,
+  durationOpt) {
+      var notifications,
+  opts;
+      // Default options
       opts = {
         index: 0,
         duration: defaultDuration,
+        // beforeRemove event callback
         beforeRemove: function() {},
+        // afterRemove event callback
         afterRemove: function() {}
       };
       if (typeof (options * 1) === "number" && isFinite(options * 1)) {
@@ -4391,52 +6311,59 @@ angular.module('sh.notification', []).service("ShNotification", [
           opts.duration = durationOpt;
         }
       } else {
-        angular.extend(opts, options);
+        angular.extend(opts,
+  options);
       }
+      // Setup local variable for notification
       notifications = this.notifications;
       opts.beforeRemove.call(this);
-      angular.element("#notification-group-item-" + opts.index).animate({
+      angular.element(`#notification-group-item-${opts.index}`).animate({
         height: 0,
         opacity: 0
-      }, opts.duration);
+      },
+  opts.duration);
       $timeout(function() {
-        notifications.splice(opts.index, 1);
+        notifications.splice(opts.index,
+  1);
         return opts.afterRemove.call(this);
-      }, opts.duration);
+      },
+  opts.duration);
     };
-    this.toastByResponse = function(response, defaultToast) {
-      var fn, fn1, j, k, len, len1, n, ref, ref1;
+    
+    this.toastByResponse = function(response,
+  defaultToast) {
+      var j,
+  k,
+  len,
+  len1,
+  n,
+  ref,
+  ref1;
       if (response.notification) {
         ref = response.notification.notifications;
-        fn = (function(_this) {
-          return function(n) {
-            return _this.addToast({
+        for (j = 0, len = ref.length; j < len; j++) {
+          n = ref[j];
+          ((n) => {
+            return this.addToast({
               type: n.type,
               data: response,
               message: n.message,
               field: n.field
             });
-          };
-        })(this);
-        for (j = 0, len = ref.length; j < len; j++) {
-          n = ref[j];
-          fn(n);
+          })(n);
         }
       } else if (response.data && response.data.error) {
         ref1 = response.data.error.errors;
-        fn1 = (function(_this) {
-          return function(n) {
-            return _this.addToast({
+        for (k = 0, len1 = ref1.length; k < len1; k++) {
+          n = ref1[k];
+          ((n) => {
+            return this.addToast({
               type: 'danger',
               data: response,
               message: n.message,
               field: n.field
             });
-          };
-        })(this);
-        for (k = 0, len1 = ref1.length; k < len1; k++) {
-          n = ref1[k];
-          fn1(n);
+          })(n);
         }
       } else if (defaultToast) {
         this.addToast({
@@ -4453,15 +6380,44 @@ angular.module('sh.notification', []).service("ShNotification", [
         });
       }
     };
+    
     this.runInterval(this);
   }
 ]);
 
+  // =============================================================================
+  // Copyright (c) 2014 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name app/scripts/services/page-service.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains Page Service service.
+  // =============================================================================
 angular.module("sh.page.service", []).service("ShPageService", [
-  '$window', function($window) {
-    var _appName, _pageTitle;
+  '$window',
+  function($window) {
+    var _appName,
+  _pageTitle;
     _pageTitle = '';
     _appName = '';
+    // ===========================================================================
+    // METHODS
+    // ===========================================================================
+
+    // Public Methods
+    // ===========================================================================
+
+    // Page Title
     this.setPageTitle = function(pageTitle) {
       _pageTitle = pageTitle;
       $window.document.title = this.getAppName() + ' - ' + this.getPageTitle();
@@ -4470,6 +6426,7 @@ angular.module("sh.page.service", []).service("ShPageService", [
     this.getPageTitle = function() {
       return _pageTitle;
     };
+    // App Name
     this.setAppName = function(appName) {
       _appName = appName;
       $window.document.title = this.getAppName() + ' - ' + this.getPageTitle();
@@ -4481,10 +6438,30 @@ angular.module("sh.page.service", []).service("ShPageService", [
   }
 ]);
 
+// Private Methods
+// ===========================================================================
+
+// =============================================================================
+// Copyright (c) 2014 All Right Reserved, http://starqle.com/
+
+// This source is subject to the Starqle Permissive License.
+// Please see the License.txt file for more information.
+// All other rights reserved.
+
+// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+// KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+
+// @file_name src/services/sh-spinning-service.coffee
+// @author Raymond Ralibi
+// @email ralibi@starqle.com
+// @company PT. Starqle Indonesia
+// @note This file contains ShSpinningService service.
+// =============================================================================
 shSpinningModule.service("ShSpinningService", function() {
   var spinningStates;
   spinningStates = {};
-
   /**
    * @ngdoc method
    * @name spin
@@ -4507,7 +6484,6 @@ shSpinningModule.service("ShSpinningService", function() {
       this.stop(key);
     }
   };
-
   /**
    * @ngdoc method
    * @name stop
@@ -4523,7 +6499,6 @@ shSpinningModule.service("ShSpinningService", function() {
   this.stop = function(key) {
     delete spinningStates[key];
   };
-
   /**
    * @ngdoc method
    * @name isSpinning
@@ -4540,9 +6515,30 @@ shSpinningModule.service("ShSpinningService", function() {
   };
 });
 
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/services/sh-helper/sh-helper-service.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains Lookup Service service.
+  // =============================================================================
 shHelperModule.service("HelperService", [
   function() {
-    this.rowSelect = function(obj, collections, key) {
+    // Select Deselect
+    this.rowSelect = function(obj,
+  collections,
+  key) {
       var idx;
       if (key != null) {
         idx = collections.map(function(o) {
@@ -4555,7 +6551,9 @@ shHelperModule.service("HelperService", [
         collections.push(obj);
       }
     };
-    this.rowDeselect = function(obj, collections, key) {
+    this.rowDeselect = function(obj,
+  collections,
+  key) {
       var idx;
       if (key != null) {
         idx = collections.map(function(o) {
@@ -4565,20 +6563,33 @@ shHelperModule.service("HelperService", [
         idx = collections.indexOf(obj);
       }
       if (idx >= 0) {
-        collections.splice(idx, 1);
+        collections.splice(idx,
+  1);
       }
     };
     this.clearRowSelection = function(collections) {
       collections.splice(0);
     };
-    this.rowToggle = function(obj, collections, key) {
-      if (this.isRowSelected(obj, collections, key)) {
-        this.rowDeselect(obj, collections, key);
+    
+    this.rowToggle = function(obj,
+  collections,
+  key) {
+      if (this.isRowSelected(obj,
+  collections,
+  key)) {
+        this.rowDeselect(obj,
+  collections,
+  key);
       } else {
-        this.rowSelect(obj, collections, key);
+        this.rowSelect(obj,
+  collections,
+  key);
       }
     };
-    this.isRowSelected = function(obj, collections, key) {
+    
+    this.isRowSelected = function(obj,
+  collections,
+  key) {
       if (key != null) {
         return collections.map(function(o) {
           return o[key + ''];
@@ -4587,7 +6598,8 @@ shHelperModule.service("HelperService", [
         return collections.indexOf(obj) >= 0;
       }
     };
-    this.getRowSelection = function(collections, key) {
+    this.getRowSelection = function(collections,
+  key) {
       if (key != null) {
         return collections.map(function(o) {
           return o[key + ''];
@@ -4596,16 +6608,25 @@ shHelperModule.service("HelperService", [
         return collections;
       }
     };
+    
     this.totalRowSelection = function(collections) {
       return collections.length;
     };
     this.isRowSelectionEmpty = function(collections) {
       return this.totalRowSelection(collections) === 0;
     };
+    
+    // Return object with only necessary attributes
+
     this.selectAttributes = function(object) {
-      var args, i, key, len, result;
+      var args,
+  i,
+  key,
+  len,
+  result;
       if (object != null) {
-        args = Array.prototype.slice.call(arguments, 1);
+        args = Array.prototype.slice.call(arguments,
+  1);
         result = {};
         for (i = 0, len = args.length; i < len; i++) {
           key = args[i];
@@ -4616,23 +6637,36 @@ shHelperModule.service("HelperService", [
         return object;
       }
     };
-    this.findById = function(source, id) {
+    
+    // From sh element finder
+
+    // find within array of hash (object)
+    // by id
+    this.findById = function(source,
+  id) {
       return source.filter(function(obj) {
         return +obj.id === +id;
       });
     };
-    this.findFirstById = function(source, id) {
+    this.findFirstById = function(source,
+  id) {
       var ref;
       return (ref = source.filter(function(obj) {
         return +obj.id === +id;
       })[0]) != null ? ref : {};
     };
-    this.findByField = function(source, value) {
+    // find within array of hash (object)
+    // by field
+    this.findByField = function(source,
+  value) {
       return source.filter(function(obj) {
         return obj.field === value;
       });
     };
-    this.findByElmt = function(source, elmt) {
+    // find within array of element
+    // by element
+    this.findByElmt = function(source,
+  elmt) {
       return source.filter(function(obj) {
         return +obj === +elmt;
       });
@@ -4640,4 +6674,58 @@ shHelperModule.service("HelperService", [
   }
 ]);
 
-angular.module('starqle.ng.util', ['on.root.scope', 'sh.bootstrap', 'sh.collapsible', 'sh.focus', 'sh.number.format', 'sh.segment', 'sh.submit', 'sh.view.helper', 'auth.token.handler', 'sh.filter.collection', 'sh.floating.precision', 'sh.range', 'sh.remove.duplicates', 'sh.strip.html', 'sh.strip.to.newline', 'sh.truncate', 'sh.api.module', 'sh.datepicker.module', 'sh.dialog.module', 'sh.form.module', 'sh.helper.module', 'sh.persistence.module', 'sh.spinning.module', 'sh.table.module', 'sh.validation.module', 'sh.notification', 'sh.page.service']);
+  // =============================================================================
+  // Copyright (c) 2013 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/main.coffee
+  // @author Giovanni Sakti
+  // @email giosakti@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains entry point for Starqle Angular utilities
+  // =============================================================================
+angular.module('starqle.ng.util', [
+  // config
+  'on.root.scope',
+  // directives
+  'sh.bootstrap',
+  'sh.collapsible',
+  'sh.focus',
+  'sh.number.format',
+  'sh.segment',
+  'sh.submit',
+  'sh.view.helper',
+  // factories
+  'auth.token.handler',
+  // filters
+  'sh.filter.collection',
+  'sh.floating.precision',
+  'sh.range',
+  'sh.remove.duplicates',
+  'sh.strip.html',
+  'sh.strip.to.newline',
+  'sh.truncate',
+  // modules
+  'sh.api.module',
+  'sh.datepicker.module',
+  'sh.dialog.module',
+  'sh.form.module',
+  'sh.helper.module',
+  'sh.persistence.module',
+  'sh.spinning.module',
+  'sh.table.module',
+  'sh.validation.module',
+  // services
+  'sh.notification',
+  'sh.page.service'
+]);
+
+}());
