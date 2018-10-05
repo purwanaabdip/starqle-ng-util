@@ -101,8 +101,8 @@ shDialogModule.directive "shDialog", ['$compile', '$templateCache', '$timeout', 
 
       if scope.shDialogForm?
         shDialogModal = angular.element(
-          '<div id="modal-sh-dialog-' + modalIdSuffix + '" tabindex="-1" data-backdrop="'+ (scope.shDataBackdrop ? 'true') +'" data-keyboard="'+ (scope.shDataKeyboard ? 'true') +'" role="dialog" aria-labelledby="modalShDialogLabel" aria-hidden="true" class="modal">' +
-          '<div class="modal-dialog ' + (scope.shDialogClass ? 'modal-sm') + '">' +
+          '<div id="modal-sh-dialog-' + modalIdSuffix + '" tabindex="-1" data-backdrop="' + (scope.shDataBackdrop or 'true') + '" data-keyboard="' + (scope.shDataKeyboard or 'true') + '" role="dialog" aria-labelledby="modalShDialogLabel" aria-hidden="true" class="modal">' +
+          '<div class="modal-dialog ' + (scope.shDialogClass or 'modal-sm') + '">' +
 
           '<form class="modal-content" novalidate="" name="' + scope.shDialogForm + '">' +
           """
