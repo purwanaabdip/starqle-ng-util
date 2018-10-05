@@ -1331,6 +1331,8 @@ shDialogModule.directive("shDialog", [
         shDialogFooter: '@?',
         shDialogForm: '@?',
         shDialogClass: '@?',
+        shDataBackdrop: '@?',
+        shDataKeyboard: '@?',
         shDialogEntity: '=?',
         shDialogLoading: '=?',
         shDialogDisabled: '&?',
@@ -1390,13 +1392,15 @@ shDialogModule.directive("shDialog", [
   ref3,
   ref4,
   ref5,
+  ref6,
+  ref7,
   shDialogModal;
           modalIdSuffix = scope.$id;
           shDialogModal = null;
           if (scope.shDialogForm != null) {
-            shDialogModal = angular.element('<div id="modal-sh-dialog-' + modalIdSuffix + '" tabindex="-1" role="dialog" aria-labelledby="modalShDialogLabel" aria-hidden="true" class="modal">' + '<div class="modal-dialog ' + ((ref3 = scope.shDialogClass) != null ? ref3 : 'modal-sm') + '">' + '<form class="modal-content" novalidate="" name="' + scope.shDialogForm + '">' + "      <div class=\"modal-header\">\n        <button type=\"button\" data-dismiss=\"modal\" aria-hidden=\"true\" class=\"close\">&times;</button>\n        <h4 class=\"modal-title\"></h4>\n      </div>\n      <div class=\"modal-body\"></div>\n      <div class=\"modal-footer\"></div>\n    </form>\n  </div>\n</div>");
+            shDialogModal = angular.element('<div id="modal-sh-dialog-' + modalIdSuffix + '" tabindex="-1" data-backdrop="' + ((ref5 = scope.shDataBackdrop) != null ? ref5 : 'true')(+'" data-keyboard="' + ((ref4 = scope.shDataKeyboard) != null ? ref4 : 'true')(+'" role="dialog" aria-labelledby="modalShDialogLabel" aria-hidden="true" class="modal">' + '<div class="modal-dialog ' + ((ref3 = scope.shDialogClass) != null ? ref3 : 'modal-sm') + '">' + '<form class="modal-content" novalidate="" name="' + scope.shDialogForm + '">' + "      <div class=\"modal-header\">\n        <button type=\"button\" data-dismiss=\"modal\" aria-hidden=\"true\" class=\"close\">&times;</button>\n        <h4 class=\"modal-title\"></h4>\n      </div>\n      <div class=\"modal-body\"></div>\n      <div class=\"modal-footer\"></div>\n    </form>\n  </div>\n</div>")));
           } else {
-            shDialogModal = angular.element('<div id="modal-sh-dialog-' + modalIdSuffix + '" tabindex="-1" role="dialog" aria-labelledby="modalShDialogLabel" aria-hidden="true" class="modal">' + '<div class="modal-dialog ' + ((ref4 = scope.shDialogClass) != null ? ref4 : 'modal-sm') + '">' + "    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" data-dismiss=\"modal\" aria-hidden=\"true\" class=\"close\">&times;</button>\n        <h4 class=\"modal-title\"></h4>\n      </div>\n      <div class=\"modal-body\"></div>\n      <div class=\"modal-footer\"></div>\n    </div>\n  </div>\n</div>");
+            shDialogModal = angular.element('<div id="modal-sh-dialog-' + modalIdSuffix + '" tabindex="-1" role="dialog" aria-labelledby="modalShDialogLabel" aria-hidden="true" class="modal">' + '<div class="modal-dialog ' + ((ref6 = scope.shDialogClass) != null ? ref6 : 'modal-sm') + '">' + "    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" data-dismiss=\"modal\" aria-hidden=\"true\" class=\"close\">&times;</button>\n        <h4 class=\"modal-title\"></h4>\n      </div>\n      <div class=\"modal-body\"></div>\n      <div class=\"modal-footer\"></div>\n    </div>\n  </div>\n</div>");
           }
           // Header setup
           if (scope.shDialogHeader != null) {
@@ -1421,7 +1425,7 @@ shDialogModule.directive("shDialog", [
           } else {
             shDialogModal.find('.modal-footer').append(`<button type="button" data-dismiss="modal" class="btn btn-default margin-left">\n  ${shDialogLabelClose}\n</button>`);
           }
-          parent = (ref5 = scope.shDialogParent) != null ? ref5 : scope.$parent;
+          parent = (ref7 = scope.shDialogParent) != null ? ref7 : scope.$parent;
           $compile(shDialogModal)(parent);
           // Append modal to body
           angular.element('body').append(shDialogModal);
@@ -1463,9 +1467,9 @@ shDialogModule.directive("shDialog", [
           });
           scope.showModal(shDialogModal);
           parent.aliasShDialogDisabled = function() {
-            var ref6,
-  ref7,
-  ref8;
+            var ref10,
+  ref8,
+  ref9;
             if (parent.shDialogLoading) {
               return true;
             }
@@ -1475,7 +1479,7 @@ shDialogModule.directive("shDialog", [
             if (scope.shDialogForm == null) {
               return false;
             }
-            return ((ref6 = parent[scope.shDialogForm]) != null ? ref6.$pristine : void 0) || ((ref7 = parent[scope.shDialogForm]) != null ? ref7.$invalid : void 0) || ((ref8 = parent[scope.shDialogForm]) != null ? ref8.$submitted : void 0);
+            return ((ref8 = parent[scope.shDialogForm]) != null ? ref8.$pristine : void 0) || ((ref9 = parent[scope.shDialogForm]) != null ? ref9.$invalid : void 0) || ((ref10 = parent[scope.shDialogForm]) != null ? ref10.$submitted : void 0);
           };
           parent.aliasShDialogOk = function($event) {
             var deferred;
@@ -1489,11 +1493,11 @@ shDialogModule.directive("shDialog", [
               return deferred.resolve();
             },
   function(error) {
-              var ref6;
+              var ref8;
               if (scope.shDialogForm != null) {
                 // Only button enabler. do not set unstouched
-                if ((ref6 = parent[scope.shDialogForm]) != null) {
-                  ref6.$submitted = false;
+                if ((ref8 = parent[scope.shDialogForm]) != null) {
+                  ref8.$submitted = false;
                 }
               }
               return deferred.reject();
