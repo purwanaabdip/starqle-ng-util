@@ -290,7 +290,8 @@ shTableModule.factory(
               self.shTable.updatedIds.push success.data.id
               self.shTable.entity = success.data
               self.shTable.lookup = success.lookup if success.lookup?
-              self.shTable.refreshGrid()
+              if self.shTable.refreshAfterUpdate
+                self.shTable.refreshGrid()
 
               hook(success) for hook in self.shTable.updateEntitySuccessHooks
               deferred.resolve(success)
