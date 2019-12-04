@@ -76,6 +76,7 @@ shTableModule.factory(
         self.perPage = params.perPage ? 10
         self.resource = params.resource ? null
         self.sorting = params.sorting ? {}
+        self.refreshAfterUpdate = params.refreshAfterUpdate ? true
 
         #
         #

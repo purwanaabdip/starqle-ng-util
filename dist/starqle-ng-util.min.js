@@ -5310,7 +5310,9 @@ shTableModule.factory('ShTableHook', [
           if (success.lookup != null) {
             self.shTable.lookup = success.lookup;
           }
-          self.shTable.refreshGrid();
+          if (self.shTable.refreshAfterUpdate) {
+            self.shTable.refreshGrid();
+          }
           ref1 = self.shTable.updateEntitySuccessHooks;
           for (j = 0, len1 = ref1.length; j < len1; j++) {
             hook = ref1[j];
@@ -5746,6 +5748,7 @@ shTableModule.factory('ShTable', [
   ref4,
   ref5,
   ref6,
+  ref7,
   self,
   shTableFilter,
   shTableFilterStorage,
@@ -5764,6 +5767,7 @@ shTableModule.factory('ShTable', [
       self.perPage = (ref4 = params.perPage) != null ? ref4 : 10;
       self.resource = (ref5 = params.resource) != null ? ref5 : null;
       self.sorting = (ref6 = params.sorting) != null ? ref6 : {};
+      self.refreshAfterUpdate = (ref7 = params.refreshAfterUpdate) != null ? ref7 : true;
       
       shTableFilter = new ShTableFilter({
         shTable: self
