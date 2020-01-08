@@ -711,7 +711,8 @@ shDatepickerModule.directive("shDatepicker", [
 
         setupDatepicker = function(modelValue) {
           var newValue,
-  ref1;
+  ref1,
+  ref2;
           newValue = modelValue;
           if (!isValidValueFormat(modelValue)) {
             newValue = lastValid;
@@ -727,7 +728,7 @@ shDatepickerModule.directive("shDatepicker", [
               ref1.destroy();
             }
             element.datetimepicker({
-              format: scope.shDisplayFormatValidation || displayFormat,
+              format: (ref2 = scope.shDisplayFormatValidation) != null ? ref2 : displayFormat,
               showClear: true,
               showClose: true,
               showTodayButton: false,
@@ -1000,7 +1001,8 @@ shDatepickerModule.directive("shDatetimepicker", [
 
         setupDatepicker = function(modelValue) {
           var newValue,
-  ref1;
+  ref1,
+  ref2;
           newValue = modelValue;
           if (!isValidValueFormat(modelValue)) {
             newValue = lastValid;
@@ -1016,7 +1018,7 @@ shDatepickerModule.directive("shDatetimepicker", [
               ref1.destroy();
             }
             element.datetimepicker({
-              format: scope.shDisplayFormatValidation || displayFormat,
+              format: (ref2 = scope.shDisplayFormatValidation) != null ? ref2 : displayFormat,
               showClear: true,
               showClose: true,
               showTodayButton: false,
@@ -2734,6 +2736,461 @@ shTableModule.factory('ShTableParams', [
   // @author Raymond Ralibi
   // @email ralibi@starqle.com
   // @company PT. Starqle Indonesia
+  // @note This file contains ShApiHook for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShApiHook
+   *
+   * @description
+   * ShApiHook factory
+   *
+   */
+shApiModule.factory('ShApiHook', [
+  '$q',
+  'ShApi',
+  function($q,
+  ShApi) {
+    var ShApiHook;
+    ShApiHook = function(params) {
+      var base,
+  base1,
+  base2,
+  self,
+  shApi;
+      // Variables
+      self = this;
+      self.shApiInstance = params.shApiInstance;
+      if ((base = self.shApiInstance).resource == null) {
+        base.resource = null;
+      }
+      if ((base1 = self.shApiInstance).entity == null) {
+        base1.entity = {};
+      }
+      if ((base2 = self.shApiInstance).optParams == null) {
+        base2.optParams = {};
+      }
+      self.shApiInstance.updatedIds = [];
+      self.shApiInstance.deletedIds = [];
+      self.shApiInstance.beforeApiCallEntityHooks = {};
+      self.shApiInstance.apiCallEntitySuccessHooks = {};
+      self.shApiInstance.apiCallEntityErrorHooks = {};
+      self.shApiInstance.afterApiCallEntityHooks = {};
+      shApi = new ShApi({
+        resource: self.shApiInstance.resource
+      });
+      /**
+       * @ngdoc method
+       * @name apiCall
+       *
+       * @description
+       * Call api by name
+       *
+       * @param {Object} opts Parameter objects method, name, id, entity
+       *
+       * @returns {promise}
+       */
+      self.shApiInstance.apiCallEntity = function(opts) {
+        var apiParameters,
+  base3,
+  base4,
+  base5,
+  base6,
+  data,
+  deferred,
+  hook,
+  i,
+  len,
+  name,
+  name1,
+  name2,
+  name3,
+  ref,
+  ref1;
+        deferred = $q.defer();
+        if (!((opts.method != null) && ((ref = opts.method) === 'GET' || ref === 'POST' || ref === 'PUT' || ref === 'DELETE'))) {
+          console.error('STARQLE_NG_UTIL: Unknown Method');
+          deferred.reject({});
+        } else if (opts.name == null) {
+          console.error('STARQLE_NG_UTIL: Options name is required');
+          deferred.reject({});
+        } else {
+          apiParameters = {
+            name: opts.name,
+            method: opts.method,
+            params: self.shApiInstance.optParams
+          };
+          if (opts.id) {
+            apiParameters.id = opts.id;
+          }
+          switch (opts.method) {
+            case 'GET':
+            case 'DELETE':
+              if (opts.entity != null) {
+                console.error('STARQLE_NG_UTIL: Options entity should not be provided');
+                deferred.reject({});
+              }
+              break;
+            case 'POST':
+            case 'PUT':
+              if (opts.entity == null) {
+                console.error('STARQLE_NG_UTIL: Options entity is required');
+                deferred.reject({});
+              } else {
+                // Check if the entity is a FormData (Useful for file uploaded form)
+                data = {
+                  data: opts.entity
+                };
+                if (Object.prototype.toString.call(opts.entity).slice(8,
+  -1) === 'FormData') {
+                  data = opts.entity;
+                }
+                apiParameters.data = data;
+              }
+          }
+          // Preparing hooks based-on name
+          if ((base3 = self.shApiInstance.beforeApiCallEntityHooks)[name = opts.name] == null) {
+            base3[name] = [];
+          }
+          if ((base4 = self.shApiInstance.apiCallEntitySuccessHooks)[name1 = opts.name] == null) {
+            base4[name1] = [];
+          }
+          if ((base5 = self.shApiInstance.apiCallEntityErrorHooks)[name2 = opts.name] == null) {
+            base5[name2] = [];
+          }
+          if ((base6 = self.shApiInstance.afterApiCallEntityHooks)[name3 = opts.name] == null) {
+            base6[name3] = [];
+          }
+          ref1 = self.shApiInstance.beforeApiCallEntityHooks[opts.name];
+          for (i = 0, len = ref1.length; i < len; i++) {
+            hook = ref1[i];
+            // Call shApi apiCall
+            hook();
+          }
+          shApi.apiCall(apiParameters).then(function(success) {
+            var j,
+  len1,
+  ref2;
+            ref2 = self.shApiInstance.apiCallEntitySuccessHooks[opts.name];
+            for (j = 0, len1 = ref2.length; j < len1; j++) {
+              hook = ref2[j];
+              // These following 3-lines only applicable for shApiInstance
+              // self.shApiInstance.updatedIds.push success.data.id if opts.method in ['POST', 'PUT']
+              // self.shApiInstance.deletedIds.push success.data.id if opts.method in ['DELETE']
+              // self.shApiInstance.refreshGrid() if opts.method in ['DELETE', 'POST', 'PUT']
+              hook(success);
+            }
+            return deferred.resolve(success);
+          },
+  function(error) {
+            var j,
+  len1,
+  ref2;
+            ref2 = self.shApiInstance.apiCallEntityErrorHooks[opts.name];
+            for (j = 0, len1 = ref2.length; j < len1; j++) {
+              hook = ref2[j];
+              hook(error);
+            }
+            return deferred.reject(error);
+          }).finally(function() {
+            var j,
+  len1,
+  ref2,
+  results;
+            ref2 = self.shApiInstance.afterApiCallEntityHooks[opts.name];
+            results = [];
+            for (j = 0, len1 = ref2.length; j < len1; j++) {
+              hook = ref2[j];
+              results.push(hook());
+            }
+            return results;
+          });
+        }
+        return deferred.promise;
+      };
+      return this;
+    };
+    
+    // Return ShApiHook
+
+    return ShApiHook;
+  }
+]);
+
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShApi for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShApi
+   *
+   * @description
+   * ShApi factory
+   *
+   */
+shApiModule.factory('ShApi', [
+  '$q',
+  function($q) {
+    var ShApi;
+    ShApi = function(params) {
+      var self;
+      // Variables
+      self = this;
+      self.resource = params.resource;
+      /**
+       * @ngdoc method
+       * @name index
+       *
+       * @description
+       * Get list of records based on params. `GET`
+       *
+       * @param {Object} params Parameter objects
+       *
+       * @returns {promise}
+       */
+      self.index = function(params) {
+        var deferred;
+        deferred = $q.defer();
+        // GEt the records
+        self.resource.get(params).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name new
+       *
+       * @description
+       * Get a new Record. `GET`
+       *
+       * @returns {promise}
+       */
+      self.new = function(params) {
+        var deferred;
+        deferred = $q.defer();
+        // Fetch blank record
+        self.resource.new(params).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name create
+       *
+       * @description
+       * Create/persist an record to database. `POST`
+       *
+       * @param {Object} params Parameter objects
+       * @param {Object} data Data object. Usualy it's formed `{data: entity}`
+       *
+       * @returns {promise}
+       */
+      self.create = function(params,
+  data) {
+        var deferred;
+        deferred = $q.defer();
+        // Persist an record into database
+        self.resource.save(params,
+  data).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name edit
+       *
+       * @description
+       * Get a record, equals with show. `GET`
+       *
+       * @param {String} id Record id in string or UUID
+       * @param {Object} params Parameter objects
+       *
+       * @returns {promise}
+       */
+      self.edit = function(id,
+  params) {
+        var deferred;
+        deferred = $q.defer();
+        // Fetch a record for editing
+        self.resource.edit(angular.extend({
+          id: id
+        },
+  params)).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name update
+       *
+       * @description
+       * Update a record
+       *
+       * @param {String} id Record id in string or UUID. `PUT`
+       * @param {Object} params Parameter objects
+       * @param {Object} data Data object. Usualy it's formed `{data: entity}`
+       *
+       * @returns {promise}
+       */
+      self.update = function(id,
+  params,
+  data) {
+        var deferred;
+        deferred = $q.defer();
+        // Update a record into database
+        self.resource.update(angular.extend({
+          id: id
+        },
+  params),
+  data).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name delete
+       *
+       * @description
+       * Delete a record. `DELETE`
+       *
+       * @param {String} id Record id in string or UUID
+       * @param {Object} params Parameter objects
+       *
+       * @returns {promise}
+       */
+      self.delete = function(id,
+  params) {
+        var deferred;
+        deferred = $q.defer();
+        // Delete record from database
+        self.resource.delete(angular.extend({
+          id: id
+        },
+  params)).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      // @index = (params) ->
+      // @new = (params) ->
+      // @create = (params, data) ->
+      // @edit = (id, params) ->
+      // @update = (id, params, data) ->
+      // @delete = (id, params) ->
+      /**
+       * @ngdoc method
+       * @name apiCall
+       *
+       * @description
+       * apiCall `GET`
+       * apiCall `POST`
+       * apiCall `PUT`
+       * apiCall `DELETE`
+       *
+       * @param {String} id Record id in string or UUID
+       * @param {Object} params Parameter objects
+       *
+       * @returns {promise}
+       */
+      self.apiCall = function(opts) {
+        var deferred;
+        deferred = $q.defer();
+        switch (opts.method) {
+          case 'GET':
+          case 'DELETE':
+            // Fetch a record for editing
+            self.resource[opts.name](angular.extend({
+              id: opts.id
+            },
+  opts.params)).$promise.then(function(success) {
+              return deferred.resolve(success);
+            },
+  function(error) {
+              return deferred.reject(error);
+            });
+            break;
+          case 'POST':
+          case 'PUT':
+            self.resource[opts.name](angular.extend({
+              id: opts.id
+            },
+  opts.params),
+  opts.data).$promise.then(function(success) {
+              return deferred.resolve(success);
+            },
+  function(error) {
+              return deferred.reject(error);
+            });
+            break;
+          default:
+            console.error('STARQLE_NG_UTIL: Unknown Method');
+            deferred.reject({});
+        }
+        return deferred.promise;
+      };
+      return this;
+    };
+    
+    // Return ShApi
+
+    return ShApi;
+  }
+]);
+
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
   // @note This file contains ShForm for holding tableParams data inspired by ng-table
   // =============================================================================
   /**
@@ -2888,6 +3345,660 @@ shFormModule.factory('ShForm', [
     // Return ShForm
 
     return ShForm;
+  }
+]);
+
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShPersistenceHookNotification for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShPersistenceHookNotification
+   *
+   * @description
+   * ShPersistenceHookNotification factory
+   *
+   */
+shPersistenceModule.factory('ShPersistenceHookNotification', [
+  'ShNotification',
+  function(ShNotification) {
+    var ShPersistenceHookNotification;
+    ShPersistenceHookNotification = function(params) {
+      var self;
+      // Variables
+      self = this;
+      self.shPersistence = params.shPersistence;
+      self.shPersistence.newEntityErrorHooks.push(function(error) {
+        ShNotification.toastByResponse(error);
+      });
+      self.shPersistence.createEntityErrorHooks.push(function(error) {
+        ShNotification.toastByResponse(error);
+      });
+      self.shPersistence.editEntityErrorHooks.push(function(error) {
+        ShNotification.toastByResponse(error);
+      });
+      self.shPersistence.updateEntityErrorHooks.push(function(error) {
+        ShNotification.toastByResponse(error);
+      });
+      return this;
+    };
+    
+    // Return ShPersistenceHookNotification
+
+    return ShPersistenceHookNotification;
+  }
+]);
+
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShPersistenceHook for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShPersistenceHook
+   *
+   * @description
+   * ShPersistenceHook factory
+   *
+   */
+shPersistenceModule.factory('ShPersistenceHook', [
+  '$q',
+  'ShApi',
+  'ShApiHook',
+  'ShPersistenceHookNotification',
+  function($q,
+  ShApi,
+  ShApiHook,
+  ShPersistenceHookNotification) {
+    var ShPersistenceHook;
+    ShPersistenceHook = function(params) {
+      var base,
+  base1,
+  base2,
+  base3,
+  base4,
+  self,
+  shApi,
+  shApiHook,
+  shPersistenceHookNotification;
+      // Variables
+      self = this;
+      self.shPersistence = params.shPersistence;
+      if ((base = self.shPersistence).id == null) {
+        base.id = null;
+      }
+      if ((base1 = self.shPersistence).resource == null) {
+        base1.resource = null;
+      }
+      if ((base2 = self.shPersistence).entity == null) {
+        base2.entity = {};
+      }
+      if ((base3 = self.shPersistence).lookup == null) {
+        base3.lookup = {};
+      }
+      if ((base4 = self.shPersistence).optParams == null) {
+        base4.optParams = {};
+      }
+      // Hooks Variables
+      self.shPersistence.beforeNewEntityHooks = [];
+      self.shPersistence.newEntitySuccessHooks = [];
+      self.shPersistence.newEntityErrorHooks = [];
+      self.shPersistence.afterNewEntityHooks = [];
+      self.shPersistence.beforeCreateEntityHooks = [];
+      self.shPersistence.createEntitySuccessHooks = [];
+      self.shPersistence.createEntityErrorHooks = [];
+      self.shPersistence.afterCreateEntityHooks = [];
+      self.shPersistence.beforeEditEntityHooks = [];
+      self.shPersistence.editEntitySuccessHooks = [];
+      self.shPersistence.editEntityErrorHooks = [];
+      self.shPersistence.afterEditEntityHooks = [];
+      self.shPersistence.beforeUpdateEntityHooks = [];
+      self.shPersistence.updateEntitySuccessHooks = [];
+      self.shPersistence.updateEntityErrorHooks = [];
+      self.shPersistence.afterUpdateEntityHooks = [];
+      self.shPersistence.beforeDeleteEntityHooks = [];
+      self.shPersistence.deleteEntitySuccessHooks = [];
+      self.shPersistence.deleteEntityErrorHooks = [];
+      self.shPersistence.afterDeleteEntityHooks = [];
+      self.shPersistence.beforeInitEntityHooks = [];
+      self.shPersistence.initEntitySuccessHooks = [];
+      self.shPersistence.initEntityErrorHooks = [];
+      self.shPersistence.afterInitEntityHooks = [];
+      // Invokes
+      shApi = new ShApi({
+        resource: self.shPersistence.resource
+      });
+      shApiHook = new ShApiHook({
+        shApiInstance: self.shPersistence
+      });
+      shPersistenceHookNotification = new ShPersistenceHookNotification({
+        shPersistence: self.shPersistence
+      });
+      /**
+       * @ngdoc method
+       * @name newEntity
+       *
+       * @description
+       * New an entity
+       *
+       * @returns {promise}
+       */
+      self.shPersistence.newEntity = function() {
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
+        ref = self.shPersistence.beforeNewEntityHooks;
+        for (i = 0, len = ref.length; i < len; i++) {
+          hook = ref[i];
+          hook();
+        }
+        deferred = $q.defer();
+        // Fetch blank entity
+        shApi.new(self.shPersistence.optParams).then(function(success) {
+          var j,
+  len1,
+  ref1;
+          self.shPersistence.entity = success.data;
+          if (success.lookup != null) {
+            self.shPersistence.lookup = success.lookup;
+          }
+          ref1 = self.shPersistence.newEntitySuccessHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(success);
+          }
+          return deferred.resolve(success);
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
+          ref1 = self.shPersistence.newEntityErrorHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(error);
+          }
+          return deferred.reject(error);
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
+          ref1 = self.shPersistence.afterNewEntityHooks;
+          results = [];
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            results.push(hook());
+          }
+          return results;
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name createEntity
+       *
+       * @description
+       * Create/persist an entity to database
+       *
+       * @param {Object} entity Entity object which should not contain an id
+       *
+       * @returns {promise}
+       */
+      self.shPersistence.createEntity = function(entity) {
+        var data,
+  deferred,
+  hook,
+  i,
+  len,
+  ref;
+        ref = self.shPersistence.beforeCreateEntityHooks;
+        for (i = 0, len = ref.length; i < len; i++) {
+          hook = ref[i];
+          hook();
+        }
+        deferred = $q.defer();
+        // Check if the entity is a FormData (Useful for file uploaded form)
+        data = {
+          data: entity
+        };
+        if (Object.prototype.toString.call(entity).slice(8,
+  -1) === 'FormData') {
+          data = entity;
+        }
+        // Persist an entity into database
+        shApi.create(self.shPersistence.optParams,
+  data).then(function(success) {
+          var j,
+  len1,
+  ref1;
+          self.shPersistence.entity = success.data;
+          if (success.lookup != null) {
+            self.shPersistence.lookup = success.lookup;
+          }
+          ref1 = self.shPersistence.createEntitySuccessHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(success);
+          }
+          return deferred.resolve(success);
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
+          ref1 = self.shPersistence.createEntityErrorHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(error);
+          }
+          return deferred.reject(error);
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
+          ref1 = self.shPersistence.afterCreateEntityHooks;
+          results = [];
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            results.push(hook());
+          }
+          return results;
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name editEntity
+       *
+       * @description
+       * Edit an entity
+       *
+       * @param {String} id Entity id in string or UUID
+       *
+       * @returns {promise}
+       */
+      self.shPersistence.editEntity = function(id) {
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
+        ref = self.shPersistence.beforeEditEntityHooks;
+        for (i = 0, len = ref.length; i < len; i++) {
+          hook = ref[i];
+          hook();
+        }
+        deferred = $q.defer();
+        if (!id) {
+          // Allow edit without providing parameter id. (self.shPersistence.edit)
+          id = self.shPersistence.id;
+        }
+        // Fetch entity for editing
+        shApi.edit(id,
+  self.shPersistence.optParams).then(function(success) {
+          var j,
+  len1,
+  ref1;
+          self.shPersistence.entity = success.data;
+          if (success.lookup != null) {
+            self.shPersistence.lookup = success.lookup;
+          }
+          ref1 = self.shPersistence.editEntitySuccessHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(success);
+          }
+          return deferred.resolve(success);
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
+          ref1 = self.shPersistence.editEntityErrorHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(error);
+          }
+          return deferred.reject(error);
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
+          ref1 = self.shPersistence.afterEditEntityHooks;
+          results = [];
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            results.push(hook());
+          }
+          return results;
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name updateEntity
+       *
+       * @description
+       * Update an entity
+       *
+       * @param {String} id Entity id in string or UUID
+       * @param {Object} entity Entity object which should contain an id
+       *
+       * @returns {promise}
+       */
+      self.shPersistence.updateEntity = function(id,
+  entity) {
+        var data,
+  deferred,
+  hook,
+  i,
+  len,
+  ref;
+        ref = self.shPersistence.beforeUpdateEntityHooks;
+        for (i = 0, len = ref.length; i < len; i++) {
+          hook = ref[i];
+          hook();
+        }
+        deferred = $q.defer();
+        // Allow edit without providing parameter id. (self.shPersistence.update)
+        if (angular.isObject(id)) {
+          entity = id;
+          id = self.shPersistence.id;
+        }
+        // Check if the entity is a FormData (Useful for file uploaded form)
+        data = {
+          data: entity
+        };
+        if (Object.prototype.toString.call(entity).slice(8,
+  -1) === 'FormData') {
+          data = entity;
+        }
+        // Update entity into database
+        shApi.update(id,
+  self.shPersistence.optParams,
+  data).then(function(success) {
+          var j,
+  len1,
+  ref1;
+          self.shPersistence.entity = success.data;
+          if (success.lookup != null) {
+            self.shPersistence.lookup = success.lookup;
+          }
+          ref1 = self.shPersistence.updateEntitySuccessHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(success);
+          }
+          return deferred.resolve(success);
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
+          ref1 = self.shPersistence.updateEntityErrorHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(error);
+          }
+          return deferred.reject(error);
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
+          ref1 = self.shPersistence.afterUpdateEntityHooks;
+          results = [];
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            results.push(hook());
+          }
+          return results;
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name deleteEntity
+       *
+       * @description
+       * Delete an entity
+       *
+       * @param {String} id Entity id in string or UUID
+       *
+       * @returns {promise}
+       */
+      self.shPersistence.deleteEntity = function(id) {
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
+        ref = self.shPersistence.beforeDeleteEntityHooks;
+        for (i = 0, len = ref.length; i < len; i++) {
+          hook = ref[i];
+          hook();
+        }
+        deferred = $q.defer();
+        if (!id) {
+          // Allow delete without providing parameter id. (self.shPersistence.delete)
+          id = self.shPersistence.id;
+        }
+        // Delete entity from database
+        shApi.delete(id,
+  self.shPersistence.optParams).then(function(success) {
+          var j,
+  len1,
+  ref1;
+          ref1 = self.shPersistence.deleteEntitySuccessHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(success);
+          }
+          return deferred.resolve(success);
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
+          ref1 = self.shPersistence.deleteEntityErrorHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(error);
+          }
+          return deferred.reject(error);
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
+          ref1 = self.shPersistence.afterDeleteEntityHooks;
+          results = [];
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            results.push(hook());
+          }
+          return results;
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name initEntity
+       *
+       * @description
+       * Update an entity
+       *
+       * @param {String} id Entity id in string or UUID
+       * @param {Object} entity Entity object which should contain an id
+       *
+       * @returns {promise}
+       */
+      self.shPersistence.initEntity = function() {
+        var deferred,
+  hook,
+  i,
+  len,
+  ref;
+        ref = self.shPersistence.beforeInitEntityHooks;
+        for (i = 0, len = ref.length; i < len; i++) {
+          hook = ref[i];
+          hook();
+        }
+        deferred = $q.defer();
+        $q.when(self.shPersistence.id != null ? self.shPersistence.editEntity(self.shPersistence.id) : self.shPersistence.newEntity()).then(function(success) {
+          var j,
+  len1,
+  ref1;
+          ref1 = self.shPersistence.initEntitySuccessHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(success);
+          }
+          return deferred.resolve(success);
+        },
+  function(error) {
+          var j,
+  len1,
+  ref1;
+          ref1 = self.shPersistence.initEntityErrorHooks;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            hook(error);
+          }
+          return deferred.reject(error);
+        }).finally(function() {
+          var j,
+  len1,
+  ref1,
+  results;
+          ref1 = self.shPersistence.afterInitEntityHooks;
+          results = [];
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            hook = ref1[j];
+            results.push(hook());
+          }
+          return results;
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name getLookup
+       *
+       * @description
+       * Return an array of objects
+       *
+       * @param {String} key The expected local lookups key
+       *
+       * @returns {Object|Array} Reference to `obj`.
+       */
+      self.shPersistence.getLookup = function(key) {
+        var ref;
+        return (ref = self.shPersistence.lookup) != null ? ref[key] : void 0;
+      };
+      return this;
+    };
+    
+    // Return ShPersistenceHook
+
+    return ShPersistenceHook;
+  }
+]);
+
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShPersistence for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShPersistence
+   *
+   * @description
+   * ShPersistence factory
+   *
+   */
+shPersistenceModule.factory('ShPersistence', [
+  '$q',
+  'ShPersistenceHook',
+  function($q,
+  ShPersistenceHook) {
+    var ShPersistence;
+    ShPersistence = function(params) {
+      var ref,
+  ref1,
+  ref2,
+  ref3,
+  self,
+  shPersistenceHook;
+      // Variables
+      self = this;
+      self.entity = {};
+      
+      self.id = (ref = params.id) != null ? ref : null;
+      self.localLookup = {};
+      self.optParams = (ref1 = params.optParams) != null ? ref1 : {};
+      self.resource = (ref2 = params.resource) != null ? ref2 : null;
+      self.sorting = (ref3 = params.sorting) != null ? ref3 : {
+        id: "desc"
+      };
+      
+      shPersistenceHook = new ShPersistenceHook({
+        shPersistence: self
+      });
+      return this;
+    };
+    
+    // Return ShPersistence
+
+    return ShPersistence;
   }
 ]);
 
@@ -4697,1115 +5808,6 @@ shTableModule.factory('ShTable', [
     // Return ShTable
 
     return ShTable;
-  }
-]);
-
-  // =============================================================================
-  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
-
-  // This source is subject to the Starqle Permissive License.
-  // Please see the License.txt file for more information.
-  // All other rights reserved.
-
-  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
-  // PARTICULAR PURPOSE.
-
-  // @file_name src/factories/sh-table-params.coffee
-  // @author Raymond Ralibi
-  // @email ralibi@starqle.com
-  // @company PT. Starqle Indonesia
-  // @note This file contains ShApiHook for holding tableParams data inspired by ng-table
-  // =============================================================================
-  /**
-   * @ngdoc object
-   * @name ShApiHook
-   *
-   * @description
-   * ShApiHook factory
-   *
-   */
-shApiModule.factory('ShApiHook', [
-  '$q',
-  'ShApi',
-  function($q,
-  ShApi) {
-    var ShApiHook;
-    ShApiHook = function(params) {
-      var base,
-  base1,
-  base2,
-  self,
-  shApi;
-      // Variables
-      self = this;
-      self.shApiInstance = params.shApiInstance;
-      if ((base = self.shApiInstance).resource == null) {
-        base.resource = null;
-      }
-      if ((base1 = self.shApiInstance).entity == null) {
-        base1.entity = {};
-      }
-      if ((base2 = self.shApiInstance).optParams == null) {
-        base2.optParams = {};
-      }
-      self.shApiInstance.updatedIds = [];
-      self.shApiInstance.deletedIds = [];
-      self.shApiInstance.beforeApiCallEntityHooks = {};
-      self.shApiInstance.apiCallEntitySuccessHooks = {};
-      self.shApiInstance.apiCallEntityErrorHooks = {};
-      self.shApiInstance.afterApiCallEntityHooks = {};
-      shApi = new ShApi({
-        resource: self.shApiInstance.resource
-      });
-      /**
-       * @ngdoc method
-       * @name apiCall
-       *
-       * @description
-       * Call api by name
-       *
-       * @param {Object} opts Parameter objects method, name, id, entity
-       *
-       * @returns {promise}
-       */
-      self.shApiInstance.apiCallEntity = function(opts) {
-        var apiParameters,
-  base3,
-  base4,
-  base5,
-  base6,
-  data,
-  deferred,
-  hook,
-  i,
-  len,
-  name,
-  name1,
-  name2,
-  name3,
-  ref,
-  ref1;
-        deferred = $q.defer();
-        if (!((opts.method != null) && ((ref = opts.method) === 'GET' || ref === 'POST' || ref === 'PUT' || ref === 'DELETE'))) {
-          console.error('STARQLE_NG_UTIL: Unknown Method');
-          deferred.reject({});
-        } else if (opts.name == null) {
-          console.error('STARQLE_NG_UTIL: Options name is required');
-          deferred.reject({});
-        } else {
-          apiParameters = {
-            name: opts.name,
-            method: opts.method,
-            params: self.shApiInstance.optParams
-          };
-          if (opts.id) {
-            apiParameters.id = opts.id;
-          }
-          switch (opts.method) {
-            case 'GET':
-            case 'DELETE':
-              if (opts.entity != null) {
-                console.error('STARQLE_NG_UTIL: Options entity should not be provided');
-                deferred.reject({});
-              }
-              break;
-            case 'POST':
-            case 'PUT':
-              if (opts.entity == null) {
-                console.error('STARQLE_NG_UTIL: Options entity is required');
-                deferred.reject({});
-              } else {
-                // Check if the entity is a FormData (Useful for file uploaded form)
-                data = {
-                  data: opts.entity
-                };
-                if (Object.prototype.toString.call(opts.entity).slice(8,
-  -1) === 'FormData') {
-                  data = opts.entity;
-                }
-                apiParameters.data = data;
-              }
-          }
-          // Preparing hooks based-on name
-          if ((base3 = self.shApiInstance.beforeApiCallEntityHooks)[name = opts.name] == null) {
-            base3[name] = [];
-          }
-          if ((base4 = self.shApiInstance.apiCallEntitySuccessHooks)[name1 = opts.name] == null) {
-            base4[name1] = [];
-          }
-          if ((base5 = self.shApiInstance.apiCallEntityErrorHooks)[name2 = opts.name] == null) {
-            base5[name2] = [];
-          }
-          if ((base6 = self.shApiInstance.afterApiCallEntityHooks)[name3 = opts.name] == null) {
-            base6[name3] = [];
-          }
-          ref1 = self.shApiInstance.beforeApiCallEntityHooks[opts.name];
-          for (i = 0, len = ref1.length; i < len; i++) {
-            hook = ref1[i];
-            // Call shApi apiCall
-            hook();
-          }
-          shApi.apiCall(apiParameters).then(function(success) {
-            var j,
-  len1,
-  ref2;
-            ref2 = self.shApiInstance.apiCallEntitySuccessHooks[opts.name];
-            for (j = 0, len1 = ref2.length; j < len1; j++) {
-              hook = ref2[j];
-              // These following 3-lines only applicable for shApiInstance
-              // self.shApiInstance.updatedIds.push success.data.id if opts.method in ['POST', 'PUT']
-              // self.shApiInstance.deletedIds.push success.data.id if opts.method in ['DELETE']
-              // self.shApiInstance.refreshGrid() if opts.method in ['DELETE', 'POST', 'PUT']
-              hook(success);
-            }
-            return deferred.resolve(success);
-          },
-  function(error) {
-            var j,
-  len1,
-  ref2;
-            ref2 = self.shApiInstance.apiCallEntityErrorHooks[opts.name];
-            for (j = 0, len1 = ref2.length; j < len1; j++) {
-              hook = ref2[j];
-              hook(error);
-            }
-            return deferred.reject(error);
-          }).finally(function() {
-            var j,
-  len1,
-  ref2,
-  results;
-            ref2 = self.shApiInstance.afterApiCallEntityHooks[opts.name];
-            results = [];
-            for (j = 0, len1 = ref2.length; j < len1; j++) {
-              hook = ref2[j];
-              results.push(hook());
-            }
-            return results;
-          });
-        }
-        return deferred.promise;
-      };
-      return this;
-    };
-    
-    // Return ShApiHook
-
-    return ShApiHook;
-  }
-]);
-
-  // =============================================================================
-  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
-
-  // This source is subject to the Starqle Permissive License.
-  // Please see the License.txt file for more information.
-  // All other rights reserved.
-
-  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
-  // PARTICULAR PURPOSE.
-
-  // @file_name src/factories/sh-table-params.coffee
-  // @author Raymond Ralibi
-  // @email ralibi@starqle.com
-  // @company PT. Starqle Indonesia
-  // @note This file contains ShApi for holding tableParams data inspired by ng-table
-  // =============================================================================
-  /**
-   * @ngdoc object
-   * @name ShApi
-   *
-   * @description
-   * ShApi factory
-   *
-   */
-shApiModule.factory('ShApi', [
-  '$q',
-  function($q) {
-    var ShApi;
-    ShApi = function(params) {
-      var self;
-      // Variables
-      self = this;
-      self.resource = params.resource;
-      /**
-       * @ngdoc method
-       * @name index
-       *
-       * @description
-       * Get list of records based on params. `GET`
-       *
-       * @param {Object} params Parameter objects
-       *
-       * @returns {promise}
-       */
-      self.index = function(params) {
-        var deferred;
-        deferred = $q.defer();
-        // GEt the records
-        self.resource.get(params).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name new
-       *
-       * @description
-       * Get a new Record. `GET`
-       *
-       * @returns {promise}
-       */
-      self.new = function(params) {
-        var deferred;
-        deferred = $q.defer();
-        // Fetch blank record
-        self.resource.new(params).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name create
-       *
-       * @description
-       * Create/persist an record to database. `POST`
-       *
-       * @param {Object} params Parameter objects
-       * @param {Object} data Data object. Usualy it's formed `{data: entity}`
-       *
-       * @returns {promise}
-       */
-      self.create = function(params,
-  data) {
-        var deferred;
-        deferred = $q.defer();
-        // Persist an record into database
-        self.resource.save(params,
-  data).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name edit
-       *
-       * @description
-       * Get a record, equals with show. `GET`
-       *
-       * @param {String} id Record id in string or UUID
-       * @param {Object} params Parameter objects
-       *
-       * @returns {promise}
-       */
-      self.edit = function(id,
-  params) {
-        var deferred;
-        deferred = $q.defer();
-        // Fetch a record for editing
-        self.resource.edit(angular.extend({
-          id: id
-        },
-  params)).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name update
-       *
-       * @description
-       * Update a record
-       *
-       * @param {String} id Record id in string or UUID. `PUT`
-       * @param {Object} params Parameter objects
-       * @param {Object} data Data object. Usualy it's formed `{data: entity}`
-       *
-       * @returns {promise}
-       */
-      self.update = function(id,
-  params,
-  data) {
-        var deferred;
-        deferred = $q.defer();
-        // Update a record into database
-        self.resource.update(angular.extend({
-          id: id
-        },
-  params),
-  data).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name delete
-       *
-       * @description
-       * Delete a record. `DELETE`
-       *
-       * @param {String} id Record id in string or UUID
-       * @param {Object} params Parameter objects
-       *
-       * @returns {promise}
-       */
-      self.delete = function(id,
-  params) {
-        var deferred;
-        deferred = $q.defer();
-        // Delete record from database
-        self.resource.delete(angular.extend({
-          id: id
-        },
-  params)).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      // @index = (params) ->
-      // @new = (params) ->
-      // @create = (params, data) ->
-      // @edit = (id, params) ->
-      // @update = (id, params, data) ->
-      // @delete = (id, params) ->
-      /**
-       * @ngdoc method
-       * @name apiCall
-       *
-       * @description
-       * apiCall `GET`
-       * apiCall `POST`
-       * apiCall `PUT`
-       * apiCall `DELETE`
-       *
-       * @param {String} id Record id in string or UUID
-       * @param {Object} params Parameter objects
-       *
-       * @returns {promise}
-       */
-      self.apiCall = function(opts) {
-        var deferred;
-        deferred = $q.defer();
-        switch (opts.method) {
-          case 'GET':
-          case 'DELETE':
-            // Fetch a record for editing
-            self.resource[opts.name](angular.extend({
-              id: opts.id
-            },
-  opts.params)).$promise.then(function(success) {
-              return deferred.resolve(success);
-            },
-  function(error) {
-              return deferred.reject(error);
-            });
-            break;
-          case 'POST':
-          case 'PUT':
-            self.resource[opts.name](angular.extend({
-              id: opts.id
-            },
-  opts.params),
-  opts.data).$promise.then(function(success) {
-              return deferred.resolve(success);
-            },
-  function(error) {
-              return deferred.reject(error);
-            });
-            break;
-          default:
-            console.error('STARQLE_NG_UTIL: Unknown Method');
-            deferred.reject({});
-        }
-        return deferred.promise;
-      };
-      return this;
-    };
-    
-    // Return ShApi
-
-    return ShApi;
-  }
-]);
-
-  // =============================================================================
-  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
-
-  // This source is subject to the Starqle Permissive License.
-  // Please see the License.txt file for more information.
-  // All other rights reserved.
-
-  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
-  // PARTICULAR PURPOSE.
-
-  // @file_name src/factories/sh-table-params.coffee
-  // @author Raymond Ralibi
-  // @email ralibi@starqle.com
-  // @company PT. Starqle Indonesia
-  // @note This file contains ShPersistenceHookNotification for holding tableParams data inspired by ng-table
-  // =============================================================================
-  /**
-   * @ngdoc object
-   * @name ShPersistenceHookNotification
-   *
-   * @description
-   * ShPersistenceHookNotification factory
-   *
-   */
-shPersistenceModule.factory('ShPersistenceHookNotification', [
-  'ShNotification',
-  function(ShNotification) {
-    var ShPersistenceHookNotification;
-    ShPersistenceHookNotification = function(params) {
-      var self;
-      // Variables
-      self = this;
-      self.shPersistence = params.shPersistence;
-      self.shPersistence.newEntityErrorHooks.push(function(error) {
-        ShNotification.toastByResponse(error);
-      });
-      self.shPersistence.createEntityErrorHooks.push(function(error) {
-        ShNotification.toastByResponse(error);
-      });
-      self.shPersistence.editEntityErrorHooks.push(function(error) {
-        ShNotification.toastByResponse(error);
-      });
-      self.shPersistence.updateEntityErrorHooks.push(function(error) {
-        ShNotification.toastByResponse(error);
-      });
-      return this;
-    };
-    
-    // Return ShPersistenceHookNotification
-
-    return ShPersistenceHookNotification;
-  }
-]);
-
-  // =============================================================================
-  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
-
-  // This source is subject to the Starqle Permissive License.
-  // Please see the License.txt file for more information.
-  // All other rights reserved.
-
-  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
-  // PARTICULAR PURPOSE.
-
-  // @file_name src/factories/sh-table-params.coffee
-  // @author Raymond Ralibi
-  // @email ralibi@starqle.com
-  // @company PT. Starqle Indonesia
-  // @note This file contains ShPersistenceHook for holding tableParams data inspired by ng-table
-  // =============================================================================
-  /**
-   * @ngdoc object
-   * @name ShPersistenceHook
-   *
-   * @description
-   * ShPersistenceHook factory
-   *
-   */
-shPersistenceModule.factory('ShPersistenceHook', [
-  '$q',
-  'ShApi',
-  'ShApiHook',
-  'ShPersistenceHookNotification',
-  function($q,
-  ShApi,
-  ShApiHook,
-  ShPersistenceHookNotification) {
-    var ShPersistenceHook;
-    ShPersistenceHook = function(params) {
-      var base,
-  base1,
-  base2,
-  base3,
-  base4,
-  self,
-  shApi,
-  shApiHook,
-  shPersistenceHookNotification;
-      // Variables
-      self = this;
-      self.shPersistence = params.shPersistence;
-      if ((base = self.shPersistence).id == null) {
-        base.id = null;
-      }
-      if ((base1 = self.shPersistence).resource == null) {
-        base1.resource = null;
-      }
-      if ((base2 = self.shPersistence).entity == null) {
-        base2.entity = {};
-      }
-      if ((base3 = self.shPersistence).lookup == null) {
-        base3.lookup = {};
-      }
-      if ((base4 = self.shPersistence).optParams == null) {
-        base4.optParams = {};
-      }
-      // Hooks Variables
-      self.shPersistence.beforeNewEntityHooks = [];
-      self.shPersistence.newEntitySuccessHooks = [];
-      self.shPersistence.newEntityErrorHooks = [];
-      self.shPersistence.afterNewEntityHooks = [];
-      self.shPersistence.beforeCreateEntityHooks = [];
-      self.shPersistence.createEntitySuccessHooks = [];
-      self.shPersistence.createEntityErrorHooks = [];
-      self.shPersistence.afterCreateEntityHooks = [];
-      self.shPersistence.beforeEditEntityHooks = [];
-      self.shPersistence.editEntitySuccessHooks = [];
-      self.shPersistence.editEntityErrorHooks = [];
-      self.shPersistence.afterEditEntityHooks = [];
-      self.shPersistence.beforeUpdateEntityHooks = [];
-      self.shPersistence.updateEntitySuccessHooks = [];
-      self.shPersistence.updateEntityErrorHooks = [];
-      self.shPersistence.afterUpdateEntityHooks = [];
-      self.shPersistence.beforeDeleteEntityHooks = [];
-      self.shPersistence.deleteEntitySuccessHooks = [];
-      self.shPersistence.deleteEntityErrorHooks = [];
-      self.shPersistence.afterDeleteEntityHooks = [];
-      self.shPersistence.beforeInitEntityHooks = [];
-      self.shPersistence.initEntitySuccessHooks = [];
-      self.shPersistence.initEntityErrorHooks = [];
-      self.shPersistence.afterInitEntityHooks = [];
-      // Invokes
-      shApi = new ShApi({
-        resource: self.shPersistence.resource
-      });
-      shApiHook = new ShApiHook({
-        shApiInstance: self.shPersistence
-      });
-      shPersistenceHookNotification = new ShPersistenceHookNotification({
-        shPersistence: self.shPersistence
-      });
-      /**
-       * @ngdoc method
-       * @name newEntity
-       *
-       * @description
-       * New an entity
-       *
-       * @returns {promise}
-       */
-      self.shPersistence.newEntity = function() {
-        var deferred,
-  hook,
-  i,
-  len,
-  ref;
-        ref = self.shPersistence.beforeNewEntityHooks;
-        for (i = 0, len = ref.length; i < len; i++) {
-          hook = ref[i];
-          hook();
-        }
-        deferred = $q.defer();
-        // Fetch blank entity
-        shApi.new(self.shPersistence.optParams).then(function(success) {
-          var j,
-  len1,
-  ref1;
-          self.shPersistence.entity = success.data;
-          if (success.lookup != null) {
-            self.shPersistence.lookup = success.lookup;
-          }
-          ref1 = self.shPersistence.newEntitySuccessHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(success);
-          }
-          return deferred.resolve(success);
-        },
-  function(error) {
-          var j,
-  len1,
-  ref1;
-          ref1 = self.shPersistence.newEntityErrorHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(error);
-          }
-          return deferred.reject(error);
-        }).finally(function() {
-          var j,
-  len1,
-  ref1,
-  results;
-          ref1 = self.shPersistence.afterNewEntityHooks;
-          results = [];
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            results.push(hook());
-          }
-          return results;
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name createEntity
-       *
-       * @description
-       * Create/persist an entity to database
-       *
-       * @param {Object} entity Entity object which should not contain an id
-       *
-       * @returns {promise}
-       */
-      self.shPersistence.createEntity = function(entity) {
-        var data,
-  deferred,
-  hook,
-  i,
-  len,
-  ref;
-        ref = self.shPersistence.beforeCreateEntityHooks;
-        for (i = 0, len = ref.length; i < len; i++) {
-          hook = ref[i];
-          hook();
-        }
-        deferred = $q.defer();
-        // Check if the entity is a FormData (Useful for file uploaded form)
-        data = {
-          data: entity
-        };
-        if (Object.prototype.toString.call(entity).slice(8,
-  -1) === 'FormData') {
-          data = entity;
-        }
-        // Persist an entity into database
-        shApi.create(self.shPersistence.optParams,
-  data).then(function(success) {
-          var j,
-  len1,
-  ref1;
-          self.shPersistence.entity = success.data;
-          if (success.lookup != null) {
-            self.shPersistence.lookup = success.lookup;
-          }
-          ref1 = self.shPersistence.createEntitySuccessHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(success);
-          }
-          return deferred.resolve(success);
-        },
-  function(error) {
-          var j,
-  len1,
-  ref1;
-          ref1 = self.shPersistence.createEntityErrorHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(error);
-          }
-          return deferred.reject(error);
-        }).finally(function() {
-          var j,
-  len1,
-  ref1,
-  results;
-          ref1 = self.shPersistence.afterCreateEntityHooks;
-          results = [];
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            results.push(hook());
-          }
-          return results;
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name editEntity
-       *
-       * @description
-       * Edit an entity
-       *
-       * @param {String} id Entity id in string or UUID
-       *
-       * @returns {promise}
-       */
-      self.shPersistence.editEntity = function(id) {
-        var deferred,
-  hook,
-  i,
-  len,
-  ref;
-        ref = self.shPersistence.beforeEditEntityHooks;
-        for (i = 0, len = ref.length; i < len; i++) {
-          hook = ref[i];
-          hook();
-        }
-        deferred = $q.defer();
-        if (!id) {
-          // Allow edit without providing parameter id. (self.shPersistence.edit)
-          id = self.shPersistence.id;
-        }
-        // Fetch entity for editing
-        shApi.edit(id,
-  self.shPersistence.optParams).then(function(success) {
-          var j,
-  len1,
-  ref1;
-          self.shPersistence.entity = success.data;
-          if (success.lookup != null) {
-            self.shPersistence.lookup = success.lookup;
-          }
-          ref1 = self.shPersistence.editEntitySuccessHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(success);
-          }
-          return deferred.resolve(success);
-        },
-  function(error) {
-          var j,
-  len1,
-  ref1;
-          ref1 = self.shPersistence.editEntityErrorHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(error);
-          }
-          return deferred.reject(error);
-        }).finally(function() {
-          var j,
-  len1,
-  ref1,
-  results;
-          ref1 = self.shPersistence.afterEditEntityHooks;
-          results = [];
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            results.push(hook());
-          }
-          return results;
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name updateEntity
-       *
-       * @description
-       * Update an entity
-       *
-       * @param {String} id Entity id in string or UUID
-       * @param {Object} entity Entity object which should contain an id
-       *
-       * @returns {promise}
-       */
-      self.shPersistence.updateEntity = function(id,
-  entity) {
-        var data,
-  deferred,
-  hook,
-  i,
-  len,
-  ref;
-        ref = self.shPersistence.beforeUpdateEntityHooks;
-        for (i = 0, len = ref.length; i < len; i++) {
-          hook = ref[i];
-          hook();
-        }
-        deferred = $q.defer();
-        // Allow edit without providing parameter id. (self.shPersistence.update)
-        if (angular.isObject(id)) {
-          entity = id;
-          id = self.shPersistence.id;
-        }
-        // Check if the entity is a FormData (Useful for file uploaded form)
-        data = {
-          data: entity
-        };
-        if (Object.prototype.toString.call(entity).slice(8,
-  -1) === 'FormData') {
-          data = entity;
-        }
-        // Update entity into database
-        shApi.update(id,
-  self.shPersistence.optParams,
-  data).then(function(success) {
-          var j,
-  len1,
-  ref1;
-          self.shPersistence.entity = success.data;
-          if (success.lookup != null) {
-            self.shPersistence.lookup = success.lookup;
-          }
-          ref1 = self.shPersistence.updateEntitySuccessHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(success);
-          }
-          return deferred.resolve(success);
-        },
-  function(error) {
-          var j,
-  len1,
-  ref1;
-          ref1 = self.shPersistence.updateEntityErrorHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(error);
-          }
-          return deferred.reject(error);
-        }).finally(function() {
-          var j,
-  len1,
-  ref1,
-  results;
-          ref1 = self.shPersistence.afterUpdateEntityHooks;
-          results = [];
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            results.push(hook());
-          }
-          return results;
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name deleteEntity
-       *
-       * @description
-       * Delete an entity
-       *
-       * @param {String} id Entity id in string or UUID
-       *
-       * @returns {promise}
-       */
-      self.shPersistence.deleteEntity = function(id) {
-        var deferred,
-  hook,
-  i,
-  len,
-  ref;
-        ref = self.shPersistence.beforeDeleteEntityHooks;
-        for (i = 0, len = ref.length; i < len; i++) {
-          hook = ref[i];
-          hook();
-        }
-        deferred = $q.defer();
-        if (!id) {
-          // Allow delete without providing parameter id. (self.shPersistence.delete)
-          id = self.shPersistence.id;
-        }
-        // Delete entity from database
-        shApi.delete(id,
-  self.shPersistence.optParams).then(function(success) {
-          var j,
-  len1,
-  ref1;
-          ref1 = self.shPersistence.deleteEntitySuccessHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(success);
-          }
-          return deferred.resolve(success);
-        },
-  function(error) {
-          var j,
-  len1,
-  ref1;
-          ref1 = self.shPersistence.deleteEntityErrorHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(error);
-          }
-          return deferred.reject(error);
-        }).finally(function() {
-          var j,
-  len1,
-  ref1,
-  results;
-          ref1 = self.shPersistence.afterDeleteEntityHooks;
-          results = [];
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            results.push(hook());
-          }
-          return results;
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name initEntity
-       *
-       * @description
-       * Update an entity
-       *
-       * @param {String} id Entity id in string or UUID
-       * @param {Object} entity Entity object which should contain an id
-       *
-       * @returns {promise}
-       */
-      self.shPersistence.initEntity = function() {
-        var deferred,
-  hook,
-  i,
-  len,
-  ref;
-        ref = self.shPersistence.beforeInitEntityHooks;
-        for (i = 0, len = ref.length; i < len; i++) {
-          hook = ref[i];
-          hook();
-        }
-        deferred = $q.defer();
-        $q.when(self.shPersistence.id != null ? self.shPersistence.editEntity(self.shPersistence.id) : self.shPersistence.newEntity()).then(function(success) {
-          var j,
-  len1,
-  ref1;
-          ref1 = self.shPersistence.initEntitySuccessHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(success);
-          }
-          return deferred.resolve(success);
-        },
-  function(error) {
-          var j,
-  len1,
-  ref1;
-          ref1 = self.shPersistence.initEntityErrorHooks;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            hook(error);
-          }
-          return deferred.reject(error);
-        }).finally(function() {
-          var j,
-  len1,
-  ref1,
-  results;
-          ref1 = self.shPersistence.afterInitEntityHooks;
-          results = [];
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            hook = ref1[j];
-            results.push(hook());
-          }
-          return results;
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name getLookup
-       *
-       * @description
-       * Return an array of objects
-       *
-       * @param {String} key The expected local lookups key
-       *
-       * @returns {Object|Array} Reference to `obj`.
-       */
-      self.shPersistence.getLookup = function(key) {
-        var ref;
-        return (ref = self.shPersistence.lookup) != null ? ref[key] : void 0;
-      };
-      return this;
-    };
-    
-    // Return ShPersistenceHook
-
-    return ShPersistenceHook;
-  }
-]);
-
-  // =============================================================================
-  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
-
-  // This source is subject to the Starqle Permissive License.
-  // Please see the License.txt file for more information.
-  // All other rights reserved.
-
-  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
-  // PARTICULAR PURPOSE.
-
-  // @file_name src/factories/sh-table-params.coffee
-  // @author Raymond Ralibi
-  // @email ralibi@starqle.com
-  // @company PT. Starqle Indonesia
-  // @note This file contains ShPersistence for holding tableParams data inspired by ng-table
-  // =============================================================================
-  /**
-   * @ngdoc object
-   * @name ShPersistence
-   *
-   * @description
-   * ShPersistence factory
-   *
-   */
-shPersistenceModule.factory('ShPersistence', [
-  '$q',
-  'ShPersistenceHook',
-  function($q,
-  ShPersistenceHook) {
-    var ShPersistence;
-    ShPersistence = function(params) {
-      var ref,
-  ref1,
-  ref2,
-  ref3,
-  self,
-  shPersistenceHook;
-      // Variables
-      self = this;
-      self.entity = {};
-      
-      self.id = (ref = params.id) != null ? ref : null;
-      self.localLookup = {};
-      self.optParams = (ref1 = params.optParams) != null ? ref1 : {};
-      self.resource = (ref2 = params.resource) != null ? ref2 : null;
-      self.sorting = (ref3 = params.sorting) != null ? ref3 : {
-        id: "desc"
-      };
-      
-      shPersistenceHook = new ShPersistenceHook({
-        shPersistence: self
-      });
-      return this;
-    };
-    
-    // Return ShPersistence
-
-    return ShPersistence;
   }
 ]);
 

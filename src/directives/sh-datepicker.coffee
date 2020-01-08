@@ -101,7 +101,7 @@ shDatepickerModule.directive("shDatepicker", [ ->
         element.data('DateTimePicker')?.destroy()
 
         element.datetimepicker
-          format: scope.shDisplayFormatValidation || displayFormat
+          format: scope.shDisplayFormatValidation ? displayFormat
           showClear: true
           showClose: true
           showTodayButton: false
@@ -330,7 +330,7 @@ shDatepickerModule.directive("shDatetimepicker", ['dateFilter', (dateFilter) ->
         element.data('DateTimePicker')?.destroy()
 
         element.datetimepicker
-          format: scope.shDisplayFormatValidation || displayFormat
+          format: scope.shDisplayFormatValidation ? displayFormat
           showClear: true
           showClose: true
           showTodayButton: false
