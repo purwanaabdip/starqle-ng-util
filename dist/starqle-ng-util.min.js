@@ -733,7 +733,7 @@ shDatepickerModule.directive("shDatepicker", [
               showTodayButton: false,
               useCurrent: false,
               useStrict: true,
-              language: ApiConfig.dataBackdropDialog() || 'en',
+              locale: ApiConfig.dataBackdropDialog() || 'en',
               widgetPositioning: {
                 vertical: scope.widgetVerticalPosition || 'auto'
               }
@@ -1025,7 +1025,7 @@ shDatepickerModule.directive("shDatetimepicker", [
               timeZone: moment.defaultZone.name,
               useCurrent: false,
               useStrict: true,
-              language: ApiConfig.dataBackdropDialog() || 'en',
+              locale: ApiConfig.dataBackdropDialog() || 'en',
               widgetPositioning: {
                 vertical: scope.widgetVerticalPosition || 'auto'
               }

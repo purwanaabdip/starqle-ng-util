@@ -106,7 +106,7 @@ shDatepickerModule.directive("shDatepicker", [ 'ApiConfig', (ApiConfig) ->
           showTodayButton: false
           useCurrent: false
           useStrict: true
-          language: ApiConfig.dataBackdropDialog() or 'en'
+          locale: ApiConfig.dataBackdropDialog() or 'en'
           widgetPositioning:
             vertical: scope.widgetVerticalPosition or 'auto'
 
@@ -336,7 +336,7 @@ shDatepickerModule.directive("shDatetimepicker", ['dateFilter', 'ApiConfig', (da
           timeZone: moment.defaultZone.name
           useCurrent: false
           useStrict: true
-          language: ApiConfig.dataBackdropDialog() or 'en'
+          locale: ApiConfig.dataBackdropDialog() or 'en'
           widgetPositioning:
             vertical: scope.widgetVerticalPosition or 'auto'
 
