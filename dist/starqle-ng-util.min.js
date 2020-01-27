@@ -607,7 +607,8 @@ angular.module('sh.collapsible', []).directive("shCollapsible", function() {
   // @note This file contains shDatepicker directive
   // =============================================================================
 shDatepickerModule.directive("shDatepicker", [
-  function() {
+  'ApiConfig',
+  function(ApiConfig) {
     return {
       
       restrict: 'A',
@@ -2736,160 +2737,442 @@ shTableModule.factory('ShTableParams', [
   // @author Raymond Ralibi
   // @email ralibi@starqle.com
   // @company PT. Starqle Indonesia
-  // @note This file contains ShForm for holding tableParams data inspired by ng-table
+  // @note This file contains ShApiHook for holding tableParams data inspired by ng-table
   // =============================================================================
   /**
    * @ngdoc object
-   * @name ShForm
+   * @name ShApiHook
    *
    * @description
-   * ShForm factory
+   * ShApiHook factory
    *
    */
-shFormModule.factory('ShForm', [
-  function() {
-    var ShForm;
-    ShForm = function() {
-      var self;
+shApiModule.factory('ShApiHook', [
+  '$q',
+  'ShApi',
+  function($q,
+  ShApi) {
+    var ShApiHook;
+    ShApiHook = function(params) {
+      var base,
+  base1,
+  base2,
+  self,
+  shApi;
+      // Variables
       self = this;
-      self.entityForm = null;
+      self.shApiInstance = params.shApiInstance;
+      if ((base = self.shApiInstance).resource == null) {
+        base.resource = null;
+      }
+      if ((base1 = self.shApiInstance).entity == null) {
+        base1.entity = {};
+      }
+      if ((base2 = self.shApiInstance).optParams == null) {
+        base2.optParams = {};
+      }
+      self.shApiInstance.updatedIds = [];
+      self.shApiInstance.deletedIds = [];
+      self.shApiInstance.beforeApiCallEntityHooks = {};
+      self.shApiInstance.apiCallEntitySuccessHooks = {};
+      self.shApiInstance.apiCallEntityErrorHooks = {};
+      self.shApiInstance.afterApiCallEntityHooks = {};
+      shApi = new ShApi({
+        resource: self.shApiInstance.resource
+      });
       /**
        * @ngdoc method
-       * @name validationClass
+       * @name apiCall
        *
        * @description
-       * Gives elements a class that mark its fieldname state
+       * Call api by name
        *
-       * @returns {String} String as class that mark element state
+       * @param {Object} opts Parameter objects method, name, id, entity
+       *
+       * @returns {promise}
        */
-      self.validationClass = function(fieldName) {
-        var ref,
-  result;
-        result = '';
-        if (((ref = self.entityForm) != null ? ref[fieldName] : void 0) != null) {
-          if (self.entityForm[fieldName].$invalid) {
-            if (self.entityForm[fieldName].$dirty) {
-              result += 'has-error ';
-            } else {
-              result += 'has-pristine-error ';
-            }
-          } else if (self.entityForm[fieldName].$dirty && self.entityForm[fieldName].$valid) {
-            result += 'has-success ';
+      self.shApiInstance.apiCallEntity = function(opts) {
+        var apiParameters,
+  base3,
+  base4,
+  base5,
+  base6,
+  data,
+  deferred,
+  hook,
+  i,
+  len,
+  name,
+  name1,
+  name2,
+  name3,
+  ref,
+  ref1;
+        deferred = $q.defer();
+        if (!((opts.method != null) && ((ref = opts.method) === 'GET' || ref === 'POST' || ref === 'PUT' || ref === 'DELETE'))) {
+          console.error('STARQLE_NG_UTIL: Unknown Method');
+          deferred.reject({});
+        } else if (opts.name == null) {
+          console.error('STARQLE_NG_UTIL: Options name is required');
+          deferred.reject({});
+        } else {
+          apiParameters = {
+            name: opts.name,
+            method: opts.method,
+            params: self.shApiInstance.optParams
+          };
+          if (opts.id) {
+            apiParameters.id = opts.id;
           }
-        }
-        return result;
-      };
-      /**
-       * @ngdoc method
-       * @name reset
-       *
-       * @description
-       * Resset all the form state. `$dirty: false`, `$pristine: true`, `$submitted: false`, `$invalid: true`
-       *
-       * @returns {*}
-       */
-      self.reset = function() {
-        var ref,
-  ref1;
-        if ((ref = self.entityForm) != null) {
-          ref.$setPristine();
-        }
-        return (ref1 = self.entityForm) != null ? ref1.$setUntouched() : void 0;
-      };
-      /**
-       * @ngdoc method
-       * @name resetSubmitted
-       *
-       * @description
-       * Set `$submitted` to `false`, but not change the `$dirty` state.
-       * Should be used for failing submission.
-       *
-       * @returns {*}
-       */
-      self.resetSubmitted = function() {
-        var ref;
-        return (ref = self.entityForm) != null ? ref.$submitted = false : void 0;
-      };
-      /**
-       * @ngdoc method
-       * @name isDisabled
-       *
-       * @description
-       * Return this entity form state
-       *
-       * @returns {Boolean} entityForm state
-       */
-      self.isDisabled = function() {
-        var ref,
-  ref1,
+          switch (opts.method) {
+            case 'GET':
+            case 'DELETE':
+              if (opts.entity != null) {
+                console.error('STARQLE_NG_UTIL: Options entity should not be provided');
+                deferred.reject({});
+              }
+              break;
+            case 'POST':
+            case 'PUT':
+              if (opts.entity == null) {
+                console.error('STARQLE_NG_UTIL: Options entity is required');
+                deferred.reject({});
+              } else {
+                // Check if the entity is a FormData (Useful for file uploaded form)
+                data = {
+                  data: opts.entity
+                };
+                if (Object.prototype.toString.call(opts.entity).slice(8,
+  -1) === 'FormData') {
+                  data = opts.entity;
+                }
+                apiParameters.data = data;
+              }
+          }
+          // Preparing hooks based-on name
+          if ((base3 = self.shApiInstance.beforeApiCallEntityHooks)[name = opts.name] == null) {
+            base3[name] = [];
+          }
+          if ((base4 = self.shApiInstance.apiCallEntitySuccessHooks)[name1 = opts.name] == null) {
+            base4[name1] = [];
+          }
+          if ((base5 = self.shApiInstance.apiCallEntityErrorHooks)[name2 = opts.name] == null) {
+            base5[name2] = [];
+          }
+          if ((base6 = self.shApiInstance.afterApiCallEntityHooks)[name3 = opts.name] == null) {
+            base6[name3] = [];
+          }
+          ref1 = self.shApiInstance.beforeApiCallEntityHooks[opts.name];
+          for (i = 0, len = ref1.length; i < len; i++) {
+            hook = ref1[i];
+            // Call shApi apiCall
+            hook();
+          }
+          shApi.apiCall(apiParameters).then(function(success) {
+            var j,
+  len1,
   ref2;
-        if (self.entityForm == null) {
-          return true;
+            ref2 = self.shApiInstance.apiCallEntitySuccessHooks[opts.name];
+            for (j = 0, len1 = ref2.length; j < len1; j++) {
+              hook = ref2[j];
+              // These following 3-lines only applicable for shApiInstance
+              // self.shApiInstance.updatedIds.push success.data.id if opts.method in ['POST', 'PUT']
+              // self.shApiInstance.deletedIds.push success.data.id if opts.method in ['DELETE']
+              // self.shApiInstance.refreshGrid() if opts.method in ['DELETE', 'POST', 'PUT']
+              hook(success);
+            }
+            return deferred.resolve(success);
+          },
+  function(error) {
+            var j,
+  len1,
+  ref2;
+            ref2 = self.shApiInstance.apiCallEntityErrorHooks[opts.name];
+            for (j = 0, len1 = ref2.length; j < len1; j++) {
+              hook = ref2[j];
+              hook(error);
+            }
+            return deferred.reject(error);
+          }).finally(function() {
+            var j,
+  len1,
+  ref2,
+  results;
+            ref2 = self.shApiInstance.afterApiCallEntityHooks[opts.name];
+            results = [];
+            for (j = 0, len1 = ref2.length; j < len1; j++) {
+              hook = ref2[j];
+              results.push(hook());
+            }
+            return results;
+          });
         }
-        return ((ref = self.entityForm) != null ? ref.$pristine : void 0) || ((ref1 = self.entityForm) != null ? ref1.$invalid : void 0) || ((ref2 = self.entityForm) != null ? ref2.$submitted : void 0);
-      };
-      /**
-       * @ngdoc method
-       * @name isCompleted
-       *
-       * @description
-       * Predicate to check whether the form in completed
-       *
-       * @returns {Boolean} true if `$pristine`, `$valid`, & not in `$submitted` state
-       */
-      self.isCompleted = function() {
-        var ref,
-  ref1;
-        return ((ref = self.entityForm) != null ? ref.$pristine : void 0) && ((ref1 = self.entityForm) != null ? ref1.$valid : void 0) && !self.entityForm.$submitted;
-      };
-      /**
-       * @ngdoc method
-       * @name isDirtyAndValid
-       *
-       * @description
-       * Predicate to check whether the form in `$dirty` and `$valid` state
-       *
-       * @returns {Boolean} true if `$dirty` and `$valid`
-       */
-      self.isDirtyAndValid = function() {
-        var ref,
-  ref1;
-        return ((ref = self.entityForm) != null ? ref.$dirty : void 0) && ((ref1 = self.entityForm) != null ? ref1.$valid : void 0);
-      };
-      /**
-       * @ngdoc method
-       * @name isDirtyAndInvalid
-       *
-       * @description
-       * Predicate to check whether the form in `$dirty` and `$invalid` state
-       *
-       * @returns {Boolean} true if `$dirty` and `$invalid`
-       */
-      self.isDirtyAndInvalid = function() {
-        var ref,
-  ref1;
-        return ((ref = self.entityForm) != null ? ref.$dirty : void 0) && ((ref1 = self.entityForm) != null ? ref1.$invalid : void 0);
-      };
-      /**
-       * @ngdoc method
-       * @name isResetButtonDisabled
-       *
-       * @description
-       * Predicate to check whether the reset button should disabled or not
-       *
-       * @returns {Boolean} true if `$pristine` or `$submitted`
-       */
-      self.isResetButtonDisabled = function() {
-        var ref,
-  ref1;
-        return ((ref = self.entityForm) != null ? ref.$pristine : void 0) || ((ref1 = self.entityForm) != null ? ref1.$submitted : void 0);
+        return deferred.promise;
       };
       return this;
     };
     
-    // Return ShForm
+    // Return ShApiHook
 
-    return ShForm;
+    return ShApiHook;
+  }
+]);
+
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShApi for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShApi
+   *
+   * @description
+   * ShApi factory
+   *
+   */
+shApiModule.factory('ShApi', [
+  '$q',
+  function($q) {
+    var ShApi;
+    ShApi = function(params) {
+      var self;
+      // Variables
+      self = this;
+      self.resource = params.resource;
+      /**
+       * @ngdoc method
+       * @name index
+       *
+       * @description
+       * Get list of records based on params. `GET`
+       *
+       * @param {Object} params Parameter objects
+       *
+       * @returns {promise}
+       */
+      self.index = function(params) {
+        var deferred;
+        deferred = $q.defer();
+        // GEt the records
+        self.resource.get(params).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name new
+       *
+       * @description
+       * Get a new Record. `GET`
+       *
+       * @returns {promise}
+       */
+      self.new = function(params) {
+        var deferred;
+        deferred = $q.defer();
+        // Fetch blank record
+        self.resource.new(params).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name create
+       *
+       * @description
+       * Create/persist an record to database. `POST`
+       *
+       * @param {Object} params Parameter objects
+       * @param {Object} data Data object. Usualy it's formed `{data: entity}`
+       *
+       * @returns {promise}
+       */
+      self.create = function(params,
+  data) {
+        var deferred;
+        deferred = $q.defer();
+        // Persist an record into database
+        self.resource.save(params,
+  data).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name edit
+       *
+       * @description
+       * Get a record, equals with show. `GET`
+       *
+       * @param {String} id Record id in string or UUID
+       * @param {Object} params Parameter objects
+       *
+       * @returns {promise}
+       */
+      self.edit = function(id,
+  params) {
+        var deferred;
+        deferred = $q.defer();
+        // Fetch a record for editing
+        self.resource.edit(angular.extend({
+          id: id
+        },
+  params)).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name update
+       *
+       * @description
+       * Update a record
+       *
+       * @param {String} id Record id in string or UUID. `PUT`
+       * @param {Object} params Parameter objects
+       * @param {Object} data Data object. Usualy it's formed `{data: entity}`
+       *
+       * @returns {promise}
+       */
+      self.update = function(id,
+  params,
+  data) {
+        var deferred;
+        deferred = $q.defer();
+        // Update a record into database
+        self.resource.update(angular.extend({
+          id: id
+        },
+  params),
+  data).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      /**
+       * @ngdoc method
+       * @name delete
+       *
+       * @description
+       * Delete a record. `DELETE`
+       *
+       * @param {String} id Record id in string or UUID
+       * @param {Object} params Parameter objects
+       *
+       * @returns {promise}
+       */
+      self.delete = function(id,
+  params) {
+        var deferred;
+        deferred = $q.defer();
+        // Delete record from database
+        self.resource.delete(angular.extend({
+          id: id
+        },
+  params)).$promise.then(function(success) {
+          return deferred.resolve(success);
+        },
+  function(error) {
+          return deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+      // @index = (params) ->
+      // @new = (params) ->
+      // @create = (params, data) ->
+      // @edit = (id, params) ->
+      // @update = (id, params, data) ->
+      // @delete = (id, params) ->
+      /**
+       * @ngdoc method
+       * @name apiCall
+       *
+       * @description
+       * apiCall `GET`
+       * apiCall `POST`
+       * apiCall `PUT`
+       * apiCall `DELETE`
+       *
+       * @param {String} id Record id in string or UUID
+       * @param {Object} params Parameter objects
+       *
+       * @returns {promise}
+       */
+      self.apiCall = function(opts) {
+        var deferred;
+        deferred = $q.defer();
+        switch (opts.method) {
+          case 'GET':
+          case 'DELETE':
+            // Fetch a record for editing
+            self.resource[opts.name](angular.extend({
+              id: opts.id
+            },
+  opts.params)).$promise.then(function(success) {
+              return deferred.resolve(success);
+            },
+  function(error) {
+              return deferred.reject(error);
+            });
+            break;
+          case 'POST':
+          case 'PUT':
+            self.resource[opts.name](angular.extend({
+              id: opts.id
+            },
+  opts.params),
+  opts.data).$promise.then(function(success) {
+              return deferred.resolve(success);
+            },
+  function(error) {
+              return deferred.reject(error);
+            });
+            break;
+          default:
+            console.error('STARQLE_NG_UTIL: Unknown Method');
+            deferred.reject({});
+        }
+        return deferred.promise;
+      };
+      return this;
+    };
+    
+    // Return ShApi
+
+    return ShApi;
   }
 ]);
 
@@ -3544,461 +3827,6 @@ shPersistenceModule.factory('ShPersistence', [
     // Return ShPersistence
 
     return ShPersistence;
-  }
-]);
-
-  // =============================================================================
-  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
-
-  // This source is subject to the Starqle Permissive License.
-  // Please see the License.txt file for more information.
-  // All other rights reserved.
-
-  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
-  // PARTICULAR PURPOSE.
-
-  // @file_name src/factories/sh-table-params.coffee
-  // @author Raymond Ralibi
-  // @email ralibi@starqle.com
-  // @company PT. Starqle Indonesia
-  // @note This file contains ShApiHook for holding tableParams data inspired by ng-table
-  // =============================================================================
-  /**
-   * @ngdoc object
-   * @name ShApiHook
-   *
-   * @description
-   * ShApiHook factory
-   *
-   */
-shApiModule.factory('ShApiHook', [
-  '$q',
-  'ShApi',
-  function($q,
-  ShApi) {
-    var ShApiHook;
-    ShApiHook = function(params) {
-      var base,
-  base1,
-  base2,
-  self,
-  shApi;
-      // Variables
-      self = this;
-      self.shApiInstance = params.shApiInstance;
-      if ((base = self.shApiInstance).resource == null) {
-        base.resource = null;
-      }
-      if ((base1 = self.shApiInstance).entity == null) {
-        base1.entity = {};
-      }
-      if ((base2 = self.shApiInstance).optParams == null) {
-        base2.optParams = {};
-      }
-      self.shApiInstance.updatedIds = [];
-      self.shApiInstance.deletedIds = [];
-      self.shApiInstance.beforeApiCallEntityHooks = {};
-      self.shApiInstance.apiCallEntitySuccessHooks = {};
-      self.shApiInstance.apiCallEntityErrorHooks = {};
-      self.shApiInstance.afterApiCallEntityHooks = {};
-      shApi = new ShApi({
-        resource: self.shApiInstance.resource
-      });
-      /**
-       * @ngdoc method
-       * @name apiCall
-       *
-       * @description
-       * Call api by name
-       *
-       * @param {Object} opts Parameter objects method, name, id, entity
-       *
-       * @returns {promise}
-       */
-      self.shApiInstance.apiCallEntity = function(opts) {
-        var apiParameters,
-  base3,
-  base4,
-  base5,
-  base6,
-  data,
-  deferred,
-  hook,
-  i,
-  len,
-  name,
-  name1,
-  name2,
-  name3,
-  ref,
-  ref1;
-        deferred = $q.defer();
-        if (!((opts.method != null) && ((ref = opts.method) === 'GET' || ref === 'POST' || ref === 'PUT' || ref === 'DELETE'))) {
-          console.error('STARQLE_NG_UTIL: Unknown Method');
-          deferred.reject({});
-        } else if (opts.name == null) {
-          console.error('STARQLE_NG_UTIL: Options name is required');
-          deferred.reject({});
-        } else {
-          apiParameters = {
-            name: opts.name,
-            method: opts.method,
-            params: self.shApiInstance.optParams
-          };
-          if (opts.id) {
-            apiParameters.id = opts.id;
-          }
-          switch (opts.method) {
-            case 'GET':
-            case 'DELETE':
-              if (opts.entity != null) {
-                console.error('STARQLE_NG_UTIL: Options entity should not be provided');
-                deferred.reject({});
-              }
-              break;
-            case 'POST':
-            case 'PUT':
-              if (opts.entity == null) {
-                console.error('STARQLE_NG_UTIL: Options entity is required');
-                deferred.reject({});
-              } else {
-                // Check if the entity is a FormData (Useful for file uploaded form)
-                data = {
-                  data: opts.entity
-                };
-                if (Object.prototype.toString.call(opts.entity).slice(8,
-  -1) === 'FormData') {
-                  data = opts.entity;
-                }
-                apiParameters.data = data;
-              }
-          }
-          // Preparing hooks based-on name
-          if ((base3 = self.shApiInstance.beforeApiCallEntityHooks)[name = opts.name] == null) {
-            base3[name] = [];
-          }
-          if ((base4 = self.shApiInstance.apiCallEntitySuccessHooks)[name1 = opts.name] == null) {
-            base4[name1] = [];
-          }
-          if ((base5 = self.shApiInstance.apiCallEntityErrorHooks)[name2 = opts.name] == null) {
-            base5[name2] = [];
-          }
-          if ((base6 = self.shApiInstance.afterApiCallEntityHooks)[name3 = opts.name] == null) {
-            base6[name3] = [];
-          }
-          ref1 = self.shApiInstance.beforeApiCallEntityHooks[opts.name];
-          for (i = 0, len = ref1.length; i < len; i++) {
-            hook = ref1[i];
-            // Call shApi apiCall
-            hook();
-          }
-          shApi.apiCall(apiParameters).then(function(success) {
-            var j,
-  len1,
-  ref2;
-            ref2 = self.shApiInstance.apiCallEntitySuccessHooks[opts.name];
-            for (j = 0, len1 = ref2.length; j < len1; j++) {
-              hook = ref2[j];
-              // These following 3-lines only applicable for shApiInstance
-              // self.shApiInstance.updatedIds.push success.data.id if opts.method in ['POST', 'PUT']
-              // self.shApiInstance.deletedIds.push success.data.id if opts.method in ['DELETE']
-              // self.shApiInstance.refreshGrid() if opts.method in ['DELETE', 'POST', 'PUT']
-              hook(success);
-            }
-            return deferred.resolve(success);
-          },
-  function(error) {
-            var j,
-  len1,
-  ref2;
-            ref2 = self.shApiInstance.apiCallEntityErrorHooks[opts.name];
-            for (j = 0, len1 = ref2.length; j < len1; j++) {
-              hook = ref2[j];
-              hook(error);
-            }
-            return deferred.reject(error);
-          }).finally(function() {
-            var j,
-  len1,
-  ref2,
-  results;
-            ref2 = self.shApiInstance.afterApiCallEntityHooks[opts.name];
-            results = [];
-            for (j = 0, len1 = ref2.length; j < len1; j++) {
-              hook = ref2[j];
-              results.push(hook());
-            }
-            return results;
-          });
-        }
-        return deferred.promise;
-      };
-      return this;
-    };
-    
-    // Return ShApiHook
-
-    return ShApiHook;
-  }
-]);
-
-  // =============================================================================
-  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
-
-  // This source is subject to the Starqle Permissive License.
-  // Please see the License.txt file for more information.
-  // All other rights reserved.
-
-  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
-  // PARTICULAR PURPOSE.
-
-  // @file_name src/factories/sh-table-params.coffee
-  // @author Raymond Ralibi
-  // @email ralibi@starqle.com
-  // @company PT. Starqle Indonesia
-  // @note This file contains ShApi for holding tableParams data inspired by ng-table
-  // =============================================================================
-  /**
-   * @ngdoc object
-   * @name ShApi
-   *
-   * @description
-   * ShApi factory
-   *
-   */
-shApiModule.factory('ShApi', [
-  '$q',
-  function($q) {
-    var ShApi;
-    ShApi = function(params) {
-      var self;
-      // Variables
-      self = this;
-      self.resource = params.resource;
-      /**
-       * @ngdoc method
-       * @name index
-       *
-       * @description
-       * Get list of records based on params. `GET`
-       *
-       * @param {Object} params Parameter objects
-       *
-       * @returns {promise}
-       */
-      self.index = function(params) {
-        var deferred;
-        deferred = $q.defer();
-        // GEt the records
-        self.resource.get(params).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name new
-       *
-       * @description
-       * Get a new Record. `GET`
-       *
-       * @returns {promise}
-       */
-      self.new = function(params) {
-        var deferred;
-        deferred = $q.defer();
-        // Fetch blank record
-        self.resource.new(params).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name create
-       *
-       * @description
-       * Create/persist an record to database. `POST`
-       *
-       * @param {Object} params Parameter objects
-       * @param {Object} data Data object. Usualy it's formed `{data: entity}`
-       *
-       * @returns {promise}
-       */
-      self.create = function(params,
-  data) {
-        var deferred;
-        deferred = $q.defer();
-        // Persist an record into database
-        self.resource.save(params,
-  data).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name edit
-       *
-       * @description
-       * Get a record, equals with show. `GET`
-       *
-       * @param {String} id Record id in string or UUID
-       * @param {Object} params Parameter objects
-       *
-       * @returns {promise}
-       */
-      self.edit = function(id,
-  params) {
-        var deferred;
-        deferred = $q.defer();
-        // Fetch a record for editing
-        self.resource.edit(angular.extend({
-          id: id
-        },
-  params)).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name update
-       *
-       * @description
-       * Update a record
-       *
-       * @param {String} id Record id in string or UUID. `PUT`
-       * @param {Object} params Parameter objects
-       * @param {Object} data Data object. Usualy it's formed `{data: entity}`
-       *
-       * @returns {promise}
-       */
-      self.update = function(id,
-  params,
-  data) {
-        var deferred;
-        deferred = $q.defer();
-        // Update a record into database
-        self.resource.update(angular.extend({
-          id: id
-        },
-  params),
-  data).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      /**
-       * @ngdoc method
-       * @name delete
-       *
-       * @description
-       * Delete a record. `DELETE`
-       *
-       * @param {String} id Record id in string or UUID
-       * @param {Object} params Parameter objects
-       *
-       * @returns {promise}
-       */
-      self.delete = function(id,
-  params) {
-        var deferred;
-        deferred = $q.defer();
-        // Delete record from database
-        self.resource.delete(angular.extend({
-          id: id
-        },
-  params)).$promise.then(function(success) {
-          return deferred.resolve(success);
-        },
-  function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      };
-      // @index = (params) ->
-      // @new = (params) ->
-      // @create = (params, data) ->
-      // @edit = (id, params) ->
-      // @update = (id, params, data) ->
-      // @delete = (id, params) ->
-      /**
-       * @ngdoc method
-       * @name apiCall
-       *
-       * @description
-       * apiCall `GET`
-       * apiCall `POST`
-       * apiCall `PUT`
-       * apiCall `DELETE`
-       *
-       * @param {String} id Record id in string or UUID
-       * @param {Object} params Parameter objects
-       *
-       * @returns {promise}
-       */
-      self.apiCall = function(opts) {
-        var deferred;
-        deferred = $q.defer();
-        switch (opts.method) {
-          case 'GET':
-          case 'DELETE':
-            // Fetch a record for editing
-            self.resource[opts.name](angular.extend({
-              id: opts.id
-            },
-  opts.params)).$promise.then(function(success) {
-              return deferred.resolve(success);
-            },
-  function(error) {
-              return deferred.reject(error);
-            });
-            break;
-          case 'POST':
-          case 'PUT':
-            self.resource[opts.name](angular.extend({
-              id: opts.id
-            },
-  opts.params),
-  opts.data).$promise.then(function(success) {
-              return deferred.resolve(success);
-            },
-  function(error) {
-              return deferred.reject(error);
-            });
-            break;
-          default:
-            console.error('STARQLE_NG_UTIL: Unknown Method');
-            deferred.reject({});
-        }
-        return deferred.promise;
-      };
-      return this;
-    };
-    
-    // Return ShApi
-
-    return ShApi;
   }
 ]);
 
@@ -5808,6 +5636,179 @@ shTableModule.factory('ShTable', [
     // Return ShTable
 
     return ShTable;
+  }
+]);
+
+  // =============================================================================
+  // Copyright (c) 2015 All Right Reserved, http://starqle.com/
+
+  // This source is subject to the Starqle Permissive License.
+  // Please see the License.txt file for more information.
+  // All other rights reserved.
+
+  // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  // PARTICULAR PURPOSE.
+
+  // @file_name src/factories/sh-table-params.coffee
+  // @author Raymond Ralibi
+  // @email ralibi@starqle.com
+  // @company PT. Starqle Indonesia
+  // @note This file contains ShForm for holding tableParams data inspired by ng-table
+  // =============================================================================
+  /**
+   * @ngdoc object
+   * @name ShForm
+   *
+   * @description
+   * ShForm factory
+   *
+   */
+shFormModule.factory('ShForm', [
+  function() {
+    var ShForm;
+    ShForm = function() {
+      var self;
+      self = this;
+      self.entityForm = null;
+      /**
+       * @ngdoc method
+       * @name validationClass
+       *
+       * @description
+       * Gives elements a class that mark its fieldname state
+       *
+       * @returns {String} String as class that mark element state
+       */
+      self.validationClass = function(fieldName) {
+        var ref,
+  result;
+        result = '';
+        if (((ref = self.entityForm) != null ? ref[fieldName] : void 0) != null) {
+          if (self.entityForm[fieldName].$invalid) {
+            if (self.entityForm[fieldName].$dirty) {
+              result += 'has-error ';
+            } else {
+              result += 'has-pristine-error ';
+            }
+          } else if (self.entityForm[fieldName].$dirty && self.entityForm[fieldName].$valid) {
+            result += 'has-success ';
+          }
+        }
+        return result;
+      };
+      /**
+       * @ngdoc method
+       * @name reset
+       *
+       * @description
+       * Resset all the form state. `$dirty: false`, `$pristine: true`, `$submitted: false`, `$invalid: true`
+       *
+       * @returns {*}
+       */
+      self.reset = function() {
+        var ref,
+  ref1;
+        if ((ref = self.entityForm) != null) {
+          ref.$setPristine();
+        }
+        return (ref1 = self.entityForm) != null ? ref1.$setUntouched() : void 0;
+      };
+      /**
+       * @ngdoc method
+       * @name resetSubmitted
+       *
+       * @description
+       * Set `$submitted` to `false`, but not change the `$dirty` state.
+       * Should be used for failing submission.
+       *
+       * @returns {*}
+       */
+      self.resetSubmitted = function() {
+        var ref;
+        return (ref = self.entityForm) != null ? ref.$submitted = false : void 0;
+      };
+      /**
+       * @ngdoc method
+       * @name isDisabled
+       *
+       * @description
+       * Return this entity form state
+       *
+       * @returns {Boolean} entityForm state
+       */
+      self.isDisabled = function() {
+        var ref,
+  ref1,
+  ref2;
+        if (self.entityForm == null) {
+          return true;
+        }
+        return ((ref = self.entityForm) != null ? ref.$pristine : void 0) || ((ref1 = self.entityForm) != null ? ref1.$invalid : void 0) || ((ref2 = self.entityForm) != null ? ref2.$submitted : void 0);
+      };
+      /**
+       * @ngdoc method
+       * @name isCompleted
+       *
+       * @description
+       * Predicate to check whether the form in completed
+       *
+       * @returns {Boolean} true if `$pristine`, `$valid`, & not in `$submitted` state
+       */
+      self.isCompleted = function() {
+        var ref,
+  ref1;
+        return ((ref = self.entityForm) != null ? ref.$pristine : void 0) && ((ref1 = self.entityForm) != null ? ref1.$valid : void 0) && !self.entityForm.$submitted;
+      };
+      /**
+       * @ngdoc method
+       * @name isDirtyAndValid
+       *
+       * @description
+       * Predicate to check whether the form in `$dirty` and `$valid` state
+       *
+       * @returns {Boolean} true if `$dirty` and `$valid`
+       */
+      self.isDirtyAndValid = function() {
+        var ref,
+  ref1;
+        return ((ref = self.entityForm) != null ? ref.$dirty : void 0) && ((ref1 = self.entityForm) != null ? ref1.$valid : void 0);
+      };
+      /**
+       * @ngdoc method
+       * @name isDirtyAndInvalid
+       *
+       * @description
+       * Predicate to check whether the form in `$dirty` and `$invalid` state
+       *
+       * @returns {Boolean} true if `$dirty` and `$invalid`
+       */
+      self.isDirtyAndInvalid = function() {
+        var ref,
+  ref1;
+        return ((ref = self.entityForm) != null ? ref.$dirty : void 0) && ((ref1 = self.entityForm) != null ? ref1.$invalid : void 0);
+      };
+      /**
+       * @ngdoc method
+       * @name isResetButtonDisabled
+       *
+       * @description
+       * Predicate to check whether the reset button should disabled or not
+       *
+       * @returns {Boolean} true if `$pristine` or `$submitted`
+       */
+      self.isResetButtonDisabled = function() {
+        var ref,
+  ref1;
+        return ((ref = self.entityForm) != null ? ref.$pristine : void 0) || ((ref1 = self.entityForm) != null ? ref1.$submitted : void 0);
+      };
+      return this;
+    };
+    
+    // Return ShForm
+
+    return ShForm;
   }
 ]);
 

@@ -18,7 +18,7 @@
 # =============================================================================
 
 
-shDatepickerModule.directive("shDatepicker", [ ->
+shDatepickerModule.directive("shDatepicker", [ 'ApiConfig', (ApiConfig) ->
   #
   #
   #
