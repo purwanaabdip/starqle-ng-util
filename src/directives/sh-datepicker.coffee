@@ -18,7 +18,7 @@
 # =============================================================================
 
 
-shDatepickerModule.directive("shDatepicker", [ ->
+shDatepickerModule.directive("shDatepicker", [ 'ApiConfig', (ApiConfig) ->
   #
   #
   #
@@ -106,6 +106,7 @@ shDatepickerModule.directive("shDatepicker", [ ->
           showTodayButton: false
           useCurrent: false
           useStrict: true
+          locale: ApiConfig.languageDateFormat() or 'en'
           widgetPositioning:
             vertical: scope.widgetVerticalPosition or 'auto'
 
@@ -244,7 +245,7 @@ shDatepickerModule.directive("shDatepicker", [ ->
 
 
 
-shDatepickerModule.directive("shDatetimepicker", ['dateFilter', (dateFilter) ->
+shDatepickerModule.directive("shDatetimepicker", ['dateFilter', 'ApiConfig', (dateFilter, ApiConfig) ->
   #
   #
   #
@@ -335,6 +336,7 @@ shDatepickerModule.directive("shDatetimepicker", ['dateFilter', (dateFilter) ->
           timeZone: moment.defaultZone.name
           useCurrent: false
           useStrict: true
+          locale: ApiConfig.languageDateFormat() or 'en'
           widgetPositioning:
             vertical: scope.widgetVerticalPosition or 'auto'
 

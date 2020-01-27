@@ -607,7 +607,8 @@ angular.module('sh.collapsible', []).directive("shCollapsible", function() {
   // @note This file contains shDatepicker directive
   // =============================================================================
 shDatepickerModule.directive("shDatepicker", [
-  function() {
+  'ApiConfig',
+  function(ApiConfig) {
     return {
       
       restrict: 'A',
@@ -732,6 +733,7 @@ shDatepickerModule.directive("shDatepicker", [
               showTodayButton: false,
               useCurrent: false,
               useStrict: true,
+              locale: ApiConfig.languageDateFormat() || 'en',
               widgetPositioning: {
                 vertical: scope.widgetVerticalPosition || 'auto'
               }
@@ -888,7 +890,9 @@ shDatepickerModule.directive("shDatepicker", [
 
 shDatepickerModule.directive("shDatetimepicker", [
   'dateFilter',
-  function(dateFilter) {
+  'ApiConfig',
+  function(dateFilter,
+  ApiConfig) {
     return {
       
       restrict: 'A',
@@ -1021,6 +1025,7 @@ shDatepickerModule.directive("shDatetimepicker", [
               timeZone: moment.defaultZone.name,
               useCurrent: false,
               useStrict: true,
+              locale: ApiConfig.languageDateFormat() || 'en',
               widgetPositioning: {
                 vertical: scope.widgetVerticalPosition || 'auto'
               }
