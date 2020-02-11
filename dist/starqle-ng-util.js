@@ -617,7 +617,8 @@ shDatepickerModule.directive("shDatepicker", [
         shFromDate: '=?',
         shIcons: '=?',
         shThruDate: '=?',
-        widgetVerticalPosition: '@?'
+        widgetVerticalPosition: '@?',
+        shDisplayFormatValidation: '@?'
       },
       require: '?ngModel',
       link: function(scope,
@@ -711,7 +712,8 @@ shDatepickerModule.directive("shDatepicker", [
 
         setupDatepicker = function(modelValue) {
           var newValue,
-  ref1;
+  ref1,
+  ref2;
           newValue = modelValue;
           if (!isValidValueFormat(modelValue)) {
             newValue = lastValid;
@@ -727,7 +729,7 @@ shDatepickerModule.directive("shDatepicker", [
               ref1.destroy();
             }
             element.datetimepicker({
-              format: displayFormat,
+              format: (ref2 = scope.shDisplayFormatValidation) != null ? ref2 : displayFormat,
               showClear: true,
               showClose: true,
               showTodayButton: false,
@@ -901,7 +903,8 @@ shDatepickerModule.directive("shDatetimepicker", [
         shFromTime: '=?',
         shIcons: '=?',
         shThruTime: '=?',
-        widgetVerticalPosition: '@?'
+        widgetVerticalPosition: '@?',
+        shDisplayFormatValidation: '@?'
       },
       require: '?ngModel',
       link: function(scope,
@@ -1002,7 +1005,8 @@ shDatepickerModule.directive("shDatetimepicker", [
 
         setupDatepicker = function(modelValue) {
           var newValue,
-  ref1;
+  ref1,
+  ref2;
           newValue = modelValue;
           if (!isValidValueFormat(modelValue)) {
             newValue = lastValid;
@@ -1018,7 +1022,7 @@ shDatepickerModule.directive("shDatetimepicker", [
               ref1.destroy();
             }
             element.datetimepicker({
-              format: displayFormat,
+              format: (ref2 = scope.shDisplayFormatValidation) != null ? ref2 : displayFormat,
               showClear: true,
               showClose: true,
               showTodayButton: false,
