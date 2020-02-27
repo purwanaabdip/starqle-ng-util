@@ -23,17 +23,23 @@ angular.module('auth.token.handler',[]).factory "AuthTokenHandler", [ ->
   authTokenHandler = {}
   username = "none"
   authToken = "none"
+  ip_location = "none"
 
   # Getter / setter
   authTokenHandler.getUsername = () ->
     return username
   authTokenHandler.getAuthToken = () ->
     return authToken
+  authTokenHandler.getIpLocation = () ->
+    return authToken
   authTokenHandler.setUsername = (newUsername) ->
     username = newUsername
     return
   authTokenHandler.setAuthToken = (newAuthToken) ->
     authToken = newAuthToken
+    return
+  authTokenHandler.setIpLocation = (newIpLocation) ->
+    ip_location = newIpLocation
     return
 
   # Wrap every actions in a resource with tokenWrapper function
@@ -58,12 +64,14 @@ angular.module('auth.token.handler',[]).factory "AuthTokenHandler", [ ->
         resource['_' + action] angular.extend({}, params or {},
           username: authTokenHandler.getUsername()
           authn_token: authTokenHandler.getAuthToken()
+          ip_location: authTokenHandler.getIpLocation()
         ), data, success, error
     else
       resource[action] = (params, success, error) ->
         resource["_" + action] angular.extend({}, params or {},
           username: authTokenHandler.getUsername()
           authn_token: authTokenHandler.getAuthToken()
+          ip_location: authTokenHandler.getIpLocation()
         ), success, error
 
     return
