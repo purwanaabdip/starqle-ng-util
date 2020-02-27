@@ -31,7 +31,7 @@ angular.module('auth.token.handler',[]).factory "AuthTokenHandler", [ ->
   authTokenHandler.getAuthToken = () ->
     return authToken
   authTokenHandler.getIpLocation = () ->
-    return authToken
+    return ip_location
   authTokenHandler.setUsername = (newUsername) ->
     username = newUsername
     return
