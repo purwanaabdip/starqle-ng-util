@@ -100,7 +100,7 @@ shDatepickerModule.directive("shDatepicker", [ 'ApiConfig', (ApiConfig) ->
         element.data('DateTimePicker')?.destroy()
 
         element.datetimepicker
-          format: displayFormat
+          format: ApiConfig.dateFormat() or displayFormat
           showClear: true
           showClose: true
           showTodayButton: false
@@ -329,7 +329,7 @@ shDatepickerModule.directive("shDatetimepicker", ['dateFilter', 'ApiConfig', (da
         element.data('DateTimePicker')?.destroy()
 
         element.datetimepicker
-          format: displayFormat
+          format: ApiConfig.dateTimeFormat() or displayFormat
           showClear: true
           showClose: true
           showTodayButton: false
