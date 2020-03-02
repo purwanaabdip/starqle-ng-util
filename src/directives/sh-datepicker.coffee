@@ -29,6 +29,7 @@ shDatepickerModule.directive("shDatepicker", [ 'ApiConfig', (ApiConfig) ->
     shIcons: '=?'
     shThruDate: '=?'
     widgetVerticalPosition: '@?'
+    shDisplayFormatValidation: '@?'
   require: '?ngModel'
   link: (scope, element, attrs, ngModelCtrl) ->
 
@@ -100,7 +101,7 @@ shDatepickerModule.directive("shDatepicker", [ 'ApiConfig', (ApiConfig) ->
         element.data('DateTimePicker')?.destroy()
 
         element.datetimepicker
-          format: ApiConfig.dateFormat() or displayFormat
+          format: ApiConfig.dateFormat() or scope.shDisplayFormatValidation or displayFormat
           showClear: true
           showClose: true
           showTodayButton: false
@@ -256,6 +257,7 @@ shDatepickerModule.directive("shDatetimepicker", ['dateFilter', 'ApiConfig', (da
     shIcons: '=?'
     shThruTime: '=?'
     widgetVerticalPosition: '@?'
+    shDisplayFormatValidation: '@?'
   require: '?ngModel'
   link: (scope, element, attrs, ngModelCtrl) ->
 
@@ -329,7 +331,7 @@ shDatepickerModule.directive("shDatetimepicker", ['dateFilter', 'ApiConfig', (da
         element.data('DateTimePicker')?.destroy()
 
         element.datetimepicker
-          format: ApiConfig.dateTimeFormat() or displayFormat
+          format: ApiConfig.dateTimeFormat() or scope.shDisplayFormatValidation or displayFormat
           showClear: true
           showClose: true
           showTodayButton: false

@@ -617,7 +617,8 @@ shDatepickerModule.directive("shDatepicker", [
         shFromDate: '=?',
         shIcons: '=?',
         shThruDate: '=?',
-        widgetVerticalPosition: '@?'
+        widgetVerticalPosition: '@?',
+        shDisplayFormatValidation: '@?'
       },
       require: '?ngModel',
       link: function(scope,
@@ -727,7 +728,7 @@ shDatepickerModule.directive("shDatepicker", [
               ref1.destroy();
             }
             element.datetimepicker({
-              format: ApiConfig.dateFormat() || displayFormat,
+              format: ApiConfig.dateFormat() || scope.shDisplayFormatValidation || displayFormat,
               showClear: true,
               showClose: true,
               showTodayButton: false,
@@ -901,7 +902,8 @@ shDatepickerModule.directive("shDatetimepicker", [
         shFromTime: '=?',
         shIcons: '=?',
         shThruTime: '=?',
-        widgetVerticalPosition: '@?'
+        widgetVerticalPosition: '@?',
+        shDisplayFormatValidation: '@?'
       },
       require: '?ngModel',
       link: function(scope,
@@ -1018,7 +1020,7 @@ shDatepickerModule.directive("shDatetimepicker", [
               ref1.destroy();
             }
             element.datetimepicker({
-              format: ApiConfig.dateTimeFormat() || displayFormat,
+              format: ApiConfig.dateTimeFormat() || scope.shDisplayFormatValidation || displayFormat,
               showClear: true,
               showClose: true,
               showTodayButton: false,
