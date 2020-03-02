@@ -492,7 +492,7 @@ shDatepickerModule.directive("shDatetimepicker", ['dateFilter', 'ApiConfig', (da
 
 
 
-shDatepickerModule.directive("shDatetime", [ ->
+shDatepickerModule.directive("shDatetime", [ 'ApiConfig', (ApiConfig) ->
   restrict: 'A'
   scope:
     shDatetime: '='
@@ -505,12 +505,12 @@ shDatepickerModule.directive("shDatetime", [ ->
       if scope.shDatetime?
         if moment(scope.shDatetime, 'YYYY-MM-DD', true).isValid()
           # Date
-          shDateFormat = scope.shDateFormat ? 'DD-MM-YYYY'
+          shDateFormat = ApiConfig.dateFormat() or scope.shDateFormat or 'DD-MM-YYYY'
           moment(scope.shDatetime).format(shDateFormat)
         else
           # TODO
           # Time or Millisecond (Assumption only)
-          shDatetimeFormat = scope.shDatetimeFormat ? 'DD MMM YYYY, HH:mm (z)'
+          shDatetimeFormat = ApiConfig.dateTimeFormat() or scope.shDatetimeFormat or 'DD MMM YYYY, HH:mm (z)'
           shDatetimeTmp = scope.shDatetime
 
           unless (isNaN(shDatetimeTmp) and moment(shDatetimeTmp, moment.ISO_8601).isValid())
