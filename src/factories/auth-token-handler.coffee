@@ -64,14 +64,14 @@ angular.module('auth.token.handler',[]).factory "AuthTokenHandler", [ ->
         resource['_' + action] angular.extend({}, params or {},
           username: authTokenHandler.getUsername()
           authn_token: authTokenHandler.getAuthToken()
-          ip_location: authTokenHandler.getIpLocation()
+          HTTP_X_REAL_IP: authTokenHandler.getIpLocation()
         ), data, success, error
     else
       resource[action] = (params, success, error) ->
         resource["_" + action] angular.extend({}, params or {},
           username: authTokenHandler.getUsername()
           authn_token: authTokenHandler.getAuthToken()
-          ip_location: authTokenHandler.getIpLocation()
+          HTTP_X_REAL_IP: authTokenHandler.getIpLocation()
         ), success, error
 
     return
