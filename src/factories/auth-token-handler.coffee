@@ -45,7 +45,6 @@ angular.module('auth.token.handler',[]).factory "AuthTokenHandler", [ ->
   # Wrap every actions in a resource with tokenWrapper function
   # Returns wrappedResource
   authTokenHandler.wrapActions = (resource, actions) ->
-    console.log 'test', resource
     wrappedResource = resource
 
     i=0
