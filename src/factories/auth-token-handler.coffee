@@ -23,17 +23,23 @@ angular.module('auth.token.handler',[]).factory "AuthTokenHandler", [ ->
   authTokenHandler = {}
   username = "none"
   authToken = "none"
+  authTokenDashboard = "none"
 
   # Getter / setter
   authTokenHandler.getUsername = () ->
     return username
   authTokenHandler.getAuthToken = () ->
     return authToken
+  authTokenHandler.getAuthTokenDashoard = () ->
+    return authTokenDashboard
   authTokenHandler.setUsername = (newUsername) ->
     username = newUsername
     return
   authTokenHandler.setAuthToken = (newAuthToken) ->
     authToken = newAuthToken
+    return
+  authTokenHandler.setAuthTokenDashoard = (newAuthTokenDashboard) ->
+    authTokenDashboard = newAuthTokenDashboard
     return
 
   # Wrap every actions in a resource with tokenWrapper function

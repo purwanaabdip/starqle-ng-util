@@ -2420,12 +2420,14 @@ angular.module('sh.view.helper', []).directive('yesNo', function() {
 angular.module('auth.token.handler', []).factory("AuthTokenHandler", [
   function() {
     var authToken,
+  authTokenDashboard,
   authTokenHandler,
   tokenWrapper,
   username;
     authTokenHandler = {};
     username = "none";
     authToken = "none";
+    authTokenDashboard = "none";
     // Getter / setter
     authTokenHandler.getUsername = function() {
       return username;
@@ -2433,11 +2435,17 @@ angular.module('auth.token.handler', []).factory("AuthTokenHandler", [
     authTokenHandler.getAuthToken = function() {
       return authToken;
     };
+    authTokenHandler.getAuthTokenDashoard = function() {
+      return authTokenDashboard;
+    };
     authTokenHandler.setUsername = function(newUsername) {
       username = newUsername;
     };
     authTokenHandler.setAuthToken = function(newAuthToken) {
       authToken = newAuthToken;
+    };
+    authTokenHandler.setAuthTokenDashoard = function(newAuthTokenDashboard) {
+      authTokenDashboard = newAuthTokenDashboard;
     };
     // Wrap every actions in a resource with tokenWrapper function
     // Returns wrappedResource
